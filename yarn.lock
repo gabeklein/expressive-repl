@@ -3681,10 +3681,10 @@ raw-body@2.4.0:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
-react-app-webpack-plugin@^1.0.0-beta.4:
-  version "1.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/react-app-webpack-plugin/-/react-app-webpack-plugin-1.0.0-beta.4.tgz#ddc982351e8ee4d58f07ae344a75198d1a951b19"
-  integrity sha512-OGjlyvvk37GUxpSyClewUdTxh7ux0vYfbwQaH5prOcjrpKXnIb0YyrLIpIHXqgjGEPxmCUMllyf9LWWrjrxGKw==
+react-app-webpack-plugin@^1.0.0-beta.6:
+  version "1.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/react-app-webpack-plugin/-/react-app-webpack-plugin-1.0.0-beta.6.tgz#37e86faed6e747c15510887ac52fd3152ca269b7"
+  integrity sha512-sTiPsSaiTJ7XVTqiD3JyX/myVhmvoiv+j1HCBy1Hkxz9lkSencqPTPAHJGpU/VB8AKqrxw+UnxKyiQ+R02y88g==
   dependencies:
     "@babel/core" "^7.10.2"
     "@babel/plugin-proposal-class-properties" "^7.10.1"
