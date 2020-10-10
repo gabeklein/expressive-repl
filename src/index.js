@@ -35,7 +35,7 @@ const Editor = () => do {
   const {
     source,
     set,
-    sourceContainer
+    keyboardEvents
   } = REPL.tap();
 
   maxWidth: 1600;
@@ -72,7 +72,7 @@ const Editor = () => do {
   editor >>
     EditSource(
       value = source,
-      ref = sourceContainer,
+      ref = keyboardEvents.ref,
       onChanged = v => set.source = v
     );
 

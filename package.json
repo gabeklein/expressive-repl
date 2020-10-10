@@ -11,7 +11,7 @@
     "@babel/standalone": "^7.11.6",
     "@expressive/babel-preset-react": "1.0.0-beta.44",
     "@expressive/react": "1.0.0-beta.38",
-    "deep-state": "^1.0.0-beta.6",
+    "deep-state": "^1.0.0-beta.7",
     "prettier": "^2.1.2",
     "prismjs": "^1.21.0",
     "react": "^16.13.0",

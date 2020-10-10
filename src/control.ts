@@ -1,6 +1,7 @@
-import { ref, Singleton } from 'deep-state';
+import Controller, { Singleton, use } from 'deep-state';
 
 import { compile } from './compiler';
+import { Shortcuts } from './shortcuts';
 
 export class REPL extends Singleton { 
   source = "const Hello = () => 'Hello World'";
@@ -8,10 +9,10 @@ export class REPL extends Singleton {
   fontSize = 16;
   err = "";
 
-  sourceContainer = ref(elem => {
-    const handle = this.keyPress;
-    elem.addEventListener("keydown", handle);
-    () => elem.removeEventListener("keydown", handle);
+  keyboardEvents = use(Shortcuts, kbe => {
+    kbe.on<any>("save", this.tryToCompile);
+    kbe.on<any>("increaseFont", () => this.fontSize++);
+    kbe.on<any>("decreaseFont", () => this.fontSize--);
   });
 
   tryToCompile = () => {
@@ -33,33 +34,5 @@ export class REPL extends Singleton {
       // useImport: false
     });
   }
-
-  keyPress = (e: KeyboardEvent) => {
-    const { metaKey, code, key } = e;
-
-    if(key == "Meta" || !metaKey)
-      return;
-
-    let prevent = true;
-
-    switch(key){
-      case "s":
-        this.tryToCompile();
-      break;
-
-      case "=":
-        this.fontSize++;
-      break;
-
-      case "-":
-        this.fontSize--;
-      break;
-      
-      default:
-        prevent = false;
-    }
-
-    if(prevent)
-      e.preventDefault();
-  }
 }
+
