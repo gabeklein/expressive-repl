@@ -27,8 +27,8 @@ function sqlSyntax(code){
 }
 
 export const EditSource = () => do {
-  const { source, update, fontSize } = Compiler.tap();
-  const [ code, setCode ] = useState(source);
+  const { source, fontSize, set } = Compiler.tap();
+  const [ code, updateDisplay ] = useState(source);
 
   Editor, do {
     forward: className;
@@ -42,8 +42,8 @@ export const EditSource = () => do {
     value = code;
     highlight = sqlSyntax;
     onValueChange = (code) => {
-      setCode(code);
-      update('source', code);
+      updateDisplay(code);
+      set.source = code;
     }
   }
 }
