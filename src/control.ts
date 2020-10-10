@@ -8,12 +8,17 @@ export class REPL extends Singleton {
   output = "";
   fontSize = 16;
   err = "";
+  stale = true;
 
   keyboardEvents = use(Shortcuts, kbe => {
     kbe.on<any>("save", this.tryToCompile);
     kbe.on<any>("increaseFont", () => this.fontSize++);
     kbe.on<any>("decreaseFont", () => this.fontSize--);
   });
+
+  elementDidMount(){
+    this.tryToCompile();
+  }
 
   tryToCompile = () => {
     try {
@@ -22,7 +27,11 @@ export class REPL extends Singleton {
     } catch (e) {
       console.error(e.message)
       this.err = e.message;
-      throw e;
+    } finally {
+      this.stale = false;
+      this.once(x => x.source, 
+        () => this.stale = true
+      )
     }
   }
 

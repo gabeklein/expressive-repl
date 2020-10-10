@@ -36,7 +36,7 @@ const Editor = () => do {
     source,
     set,
     keyboardEvents
-  } = REPL.tap();
+  } = REPL.sub();
 
   maxWidth: 1600;
   height: fill;
@@ -53,7 +53,7 @@ const Editor = () => do {
     position: relative;
     shadow: 0x06, 5, 2;
     radius: 10;
-    bg: 0x07;
+    bg: 0xf7f7f7;
     border: 0x1;
   }
 
@@ -77,6 +77,43 @@ const Editor = () => do {
     );
 
   editor, do {
+    SaveOverlay;
+
     Output();
   }
+}
+
+const SaveOverlay = () => do {
+  const { stale, set, tryToCompile } = REPL.sub();
+
+  if(!stale){
+    pointerEvents: none;
+    opacity: 0;
+  }
+
+  transition: "opacity 0.1s ease-in";
+  bg: 0xf7f7f7bb;
+  radius: 10;
+  absolute: fill;
+  flexAlign: center;
+  zIndex: 20;
+  shadow: inset, 0x3;
+  color: 0x2181BD;
+
+  code: {
+    display: inline-block;
+    verticalAlign: middle;
+    background: 0x1;
+    padding: ".1em", ".4em";
+    margin: 0, "0.2em"
+    radius: 5;
+    fontSize: "1.4em";
+    color: 0x999;
+  }
+  
+  <div propmt>
+    Press or click
+    <code onClick={tryToCompile}>⌘-S</code>
+    to rebuild
+  </div>
 }
