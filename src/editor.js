@@ -8,7 +8,7 @@ import 'prismjs/components/prism-markup';
 import 'prismjs/components/prism-jsx';
 import 'prismjs/themes/prism.css';
 
-import { Compiler } from './compiler';
+import { REPL } from './control';
 
 function sqlSyntax(code){
   return highlight(code, {
@@ -27,7 +27,7 @@ function sqlSyntax(code){
 }
 
 export const EditSource = forwardRef((_, ref) => do {
-  const { source, fontSize, set } = Compiler.tap();
+  const { source, fontSize, set } = REPL.tap();
   const [ code, updateDisplay ] = useState(source);
 
   + ref;
@@ -51,7 +51,7 @@ export const EditSource = forwardRef((_, ref) => do {
 })
 
 export const Output = () => do {
-  const { output, fontSize } = Compiler.tap();
+  const { output, fontSize } = REPL.tap();
 
   Editor, do {
     forward: className;

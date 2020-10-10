@@ -1,25 +1,22 @@
 import Controller from "deep-state";
-import { Compiler } from "./compiler";
+import { REPL } from "./control";
 import { EditSource, Output } from "./editor";
 
 import "./styles.css"
 
-Controller.create();
+REPL.create();
 
 export default () => do {
-  const { Provider } = Compiler;
-  
-  Provider() >>
-  EditInfo()
+  Editor()
 }
 
-const EditInfo = () => do {
+const Editor = () => do {
   const {
     source,
     set,
     tryToCompile,
     sourceContainer
-  } = Compiler.tap();
+  } = REPL.tap();
 
   padding: 20, 30;
   bg: white;
