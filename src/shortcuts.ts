@@ -1,12 +1,12 @@
 import Controller, { ref } from 'deep-state';
 
-export class Shortcuts extends Controller {
-  define: any = {
-    "s": "save",
-    "=": "increaseFont",
-    "-": "decreaseFont"
-  }
+const COMMAND_KEYS = {
+  "s": "save",
+  "=": "increaseFont",
+  "-": "decreaseFont"
+}
 
+export class Shortcuts extends Controller {
   ref = ref(elem => {
     const handle = this.keyPress;
     elem.addEventListener("keydown", handle);
@@ -15,13 +15,9 @@ export class Shortcuts extends Controller {
 
   keyPress = (e: KeyboardEvent) => {
     const { key, metaKey } = e;
+    const name = COMMAND_KEYS[key];
 
-    if(key == "Meta" || !metaKey)
-      return;
-
-    const name = this.define[key];
-
-    if(name){
+    if(name && metaKey){
       this.update(name);
       e.preventDefault();
     }
