@@ -2,7 +2,9 @@ const ReactWebAppPlugin = require("react-app-webpack-plugin");
 const DeveloperPlugin = require("developer-webpack-plugin");
 
 module.exports = {
-  entry: "src/index.js",
+  entry: {
+    index: "src/index.js"
+  },
   output: {
     path: __dirname + "/public",
     publicPath: "/"
