@@ -14,7 +14,6 @@ const Editor = () => do {
   const {
     source,
     set,
-    tryToCompile,
     sourceContainer
   } = REPL.tap();
 
@@ -24,10 +23,6 @@ const Editor = () => do {
   border: 0x1;
   margin: 10;
   radius: 20;
-
-  !button `try to compile!`, do {
-    onClick = tryToCompile;
-  }
 
   container, do {
     gridColumns: 1.0, 1.0;
