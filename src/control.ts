@@ -5,7 +5,7 @@ import { compile } from './compiler';
 export class REPL extends Singleton { 
   source = "const Hello = () => 'Hello World'";
   output = "";
-  fontSize = 12;
+  fontSize = 16;
   err = "";
 
   sourceContainer = ref(elem => {
