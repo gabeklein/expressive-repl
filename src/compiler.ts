@@ -14,18 +14,22 @@ export class Compiler extends Controller {
 
   tryToCompile = () => {
     try {
-      this.output = compile(this.source, {
-        output: "jsx",
-        printStyle: "pretty",
-        // styleMode: "compile",
-        // useImport: false
-      });
+      this.output = this.compile();
       this.err = "";
     } catch (e) {
       console.error(e.message)
       this.err = e.message;
       throw e;
     }
+  }
+
+  compile(){
+    return compile(this.source, {
+      output: "jsx",
+      printStyle: "pretty",
+      // styleMode: "compile",
+      // useImport: false
+    });
   }
 }
 
