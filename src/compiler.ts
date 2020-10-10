@@ -8,7 +8,7 @@ const ExpressivePresetReact = require("@expressive/babel-preset-react");
 
 export class Compiler extends Controller { 
   fontSize = 12;
-  source = "";
+  source = "const Hello = () => 'Hello World'";
   output = "";
   err = "";
 
@@ -55,14 +55,17 @@ const compactStylesInclude = (x: string) =>
   x.replace(/Styles\.include\(\n\s+`\n([^`]+)[^;]+;/g, "Styles.include(`\n$1`);")
 
 function compile(source: string, opts = {}){
-  let { code } = transform(source, {
+  let output = transform(source, {
+    // ast: true,  
     filename: '/REPL.js',
     presets: [
       [ExpressivePresetReact, opts]
     ]
   });
 
-  code = Prettier.format(code, { 
+  let code = Prettier.format(output.code, {
+    // fake parser! returns AST we have
+    // parser: () => output.ast,
     parser: "babel",
     plugins: [ parserBabel ],
     singleQuote: false, 
