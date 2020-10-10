@@ -14,6 +14,26 @@ export class REPL extends Singleton {
     () => elem.removeEventListener("keydown", handle);
   });
 
+  tryToCompile = () => {
+    try {
+      this.output = this.compile();
+      this.err = "";
+    } catch (e) {
+      console.error(e.message)
+      this.err = e.message;
+      throw e;
+    }
+  }
+
+  compile(){
+    return compile(this.source, {
+      output: "jsx",
+      printStyle: "pretty",
+      // styleMode: "compile",
+      // useImport: false
+    });
+  }
+
   keyPress = (e: KeyboardEvent) => {
     const { metaKey, code, key } = e;
 
@@ -41,25 +61,5 @@ export class REPL extends Singleton {
 
     if(prevent)
       e.preventDefault();
-  }
-
-  tryToCompile = () => {
-    try {
-      this.output = this.compile();
-      this.err = "";
-    } catch (e) {
-      console.error(e.message)
-      this.err = e.message;
-      throw e;
-    }
-  }
-
-  compile(){
-    return compile(this.source, {
-      output: "jsx",
-      printStyle: "pretty",
-      // styleMode: "compile",
-      // useImport: false
-    });
   }
 }
