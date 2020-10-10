@@ -1,7 +1,10 @@
+import Controller from "deep-state";
 import { Compiler } from "./compiler";
 import { EditSource, Output } from "./editor";
 
 import "./styles.css"
+
+Controller.create();
 
 export default () => do {
   const { Provider } = Compiler;
@@ -11,7 +14,12 @@ export default () => do {
 }
 
 const EditInfo = () => do {
-  const { source, set, tryToCompile } = Compiler.tap();
+  const {
+    source,
+    set,
+    tryToCompile,
+    sourceContainer
+  } = Compiler.tap();
 
   padding: 20, 30;
   bg: white;
@@ -32,11 +40,11 @@ const EditInfo = () => do {
     font: 16;
     border: 0x1;
 
-    EditSource, do {
-      value = source
+    EditSource(
+      value = source,
+      ref = sourceContainer,
       onChanged = v => set.source = v
-    }
-
-    Output()
+    );
+    Output();
   }
 }

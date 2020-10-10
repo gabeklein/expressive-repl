@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 import Editor from 'react-simple-code-editor';
 import { highlight, languages } from 'prismjs/components/prism-core';
 
@@ -26,9 +26,11 @@ function sqlSyntax(code){
   });
 }
 
-export const EditSource = () => do {
+export const EditSource = forwardRef((_, ref) => do {
   const { source, fontSize, set } = Compiler.tap();
   const [ code, updateDisplay ] = useState(source);
+
+  + ref;
 
   Editor, do {
     forward: className;
@@ -46,7 +48,7 @@ export const EditSource = () => do {
       set.source = code;
     }
   }
-}
+})
 
 export const Output = () => do {
   const { output, fontSize } = Compiler.tap();

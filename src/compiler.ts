@@ -2,15 +2,50 @@ import { transform } from "@babel/standalone"
 import parserBabel from "prettier/parser-babel";
 import Prettier from "prettier/standalone"
 
-import Controller from "deep-state";
+import { Singleton, ref } from "deep-state";
 
 const ExpressivePresetReact = require("@expressive/babel-preset-react");
 
-export class Compiler extends Controller { 
-  fontSize = 12;
+export class Compiler extends Singleton { 
   source = "const Hello = () => 'Hello World'";
   output = "";
+  fontSize = 12;
   err = "";
+
+  sourceContainer = ref(elem => {
+    const handle = this.keyPress;
+    elem.addEventListener("keydown", handle);
+    () => elem.removeEventListener("keydown", handle);
+  });
+
+  keyPress = (e: KeyboardEvent) => {
+    const { metaKey, code, key } = e;
+
+    if(key == "Meta" || !metaKey)
+      return;
+
+    let prevent = true;
+
+    switch(key){
+      case "s":
+        this.tryToCompile();
+      break;
+
+      case "=":
+        this.fontSize++;
+      break;
+
+      case "-":
+        this.fontSize--;
+      break;
+      
+      default:
+        prevent = false;
+    }
+
+    if(prevent)
+      e.preventDefault();
+  }
 
   tryToCompile = () => {
     try {
