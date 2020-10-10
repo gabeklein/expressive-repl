@@ -4,7 +4,8 @@ import { EditSource, Output } from "./editor";
 
 import "./styles.css"
 
-REPL.create();
+if(!REPL.current)
+  REPL.create();
 
 export default () => do {
   Editor()
