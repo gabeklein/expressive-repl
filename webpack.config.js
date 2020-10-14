@@ -20,6 +20,6 @@ module.exports = {
           "@expressive/react"
         ]
       }
-    }),
+    })
   ]
 };
