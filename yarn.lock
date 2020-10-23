@@ -342,29 +342,29 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@expressive/babel-plugin-core@^1.0.0-beta.46":
-  version "1.0.0-beta.46"
-  resolved "https://registry.yarnpkg.com/@expressive/babel-plugin-core/-/babel-plugin-core-1.0.0-beta.46.tgz#23d9d63b4072bcd5a1303c85ee0b02cae7d8b495"
-  integrity sha512-/huf/pIWzQ9p2wTIQR81lNb5vunum684j84/vTcYO61vYZRY9GXDXZZpxiwVyscXnaHqNr8rvHfIjKl3xmcaBg==
+"@expressive/babel-plugin-core@^1.0.0-beta.47":
+  version "1.0.0-beta.47"
+  resolved "https://registry.yarnpkg.com/@expressive/babel-plugin-core/-/babel-plugin-core-1.0.0-beta.47.tgz#91442a03c4f01a28cc88619dd14b2caab2955cb0"
+  integrity sha512-XCBTRGuM6hxI314RTBnhMH5c2pd91Qe45KbAE8KqPoYBpR/RD9HtewchZgrsy1mpMsu/hnrSiPR8lJsOjLipBQ==
   dependencies:
     "@babel/template" "7.8.6"
     "@babel/types" "7.9.5"
 
-"@expressive/babel-plugin-react@^1.0.0-beta.46":
-  version "1.0.0-beta.46"
-  resolved "https://registry.yarnpkg.com/@expressive/babel-plugin-react/-/babel-plugin-react-1.0.0-beta.46.tgz#acb5183215118f54c1085951b5d109a4c58ab2db"
-  integrity sha512-pS5vIFIJ2lkiPE6PekDg8W1zdinGkYWkihAtKCsiJuLu+kKyZbQQ43hTVPnjo6zP4ApHWYwtDhbbglIYFHuR3A==
+"@expressive/babel-plugin-react@^1.0.0-beta.47":
+  version "1.0.0-beta.47"
+  resolved "https://registry.yarnpkg.com/@expressive/babel-plugin-react/-/babel-plugin-react-1.0.0-beta.47.tgz#4959c777793792d4c5f2fb4d4eec69850cabbc58"
+  integrity sha512-M+e29fJviWpZ7mD5wVacprq3uqtQkpnjBJmGDBsnGAH5bRxf+xMXMHJztvHnrNfzSehf8RMjDHvwsaLSBUe5LQ==
   dependencies:
     "@babel/template" "7.8.6"
     "@babel/types" "7.9.5"
-    "@expressive/babel-plugin-core" "^1.0.0-beta.46"
+    "@expressive/babel-plugin-core" "^1.0.0-beta.47"
 
-"@expressive/babel-preset-react@1.0.0-beta.46":
-  version "1.0.0-beta.46"
-  resolved "https://registry.yarnpkg.com/@expressive/babel-preset-react/-/babel-preset-react-1.0.0-beta.46.tgz#127bb5796efc64834b7a2ea86a8ea88166d0e4de"
-  integrity sha512-enaAQGsFYmioSsP6JC3kOD49kxUL6zgtiJdlU3J7jUMgOAcHLaySxUFhKsODjbbvtLLcpeuw7fFqHGGSTBr+Mw==
+"@expressive/babel-preset-react@^1.0.0-beta.47":
+  version "1.0.0-beta.47"
+  resolved "https://registry.yarnpkg.com/@expressive/babel-preset-react/-/babel-preset-react-1.0.0-beta.47.tgz#319f364349e63929816ec16aa9fc57d1f2d82709"
+  integrity sha512-mmKCjaQF5dzax8AEh0OB8noX1wiselC/qtNABaarCec4ML1xq2JfQg9kGWRif+BryPbNyquEOrakiPIbAViDYA==
   dependencies:
-    "@expressive/babel-plugin-react" "^1.0.0-beta.46"
+    "@expressive/babel-plugin-react" "^1.0.0-beta.47"
     "@expressive/modify-style" "^1.0.0-beta.45"
 
 "@expressive/modify-style@^1.0.0-beta.45":
