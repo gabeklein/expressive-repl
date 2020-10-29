@@ -286,6 +286,13 @@
     "@babel/helper-plugin-utils" "^7.10.4"
     "@babel/plugin-transform-typescript" "^7.10.4"
 
+"@babel/runtime@^7.11.0":
+  version "7.12.1"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.12.1.tgz#b4116a6b6711d010b2dad3b7b6e43bf1b9954740"
+  integrity sha512-J5AIf3vPj3UwXaAzb5j1xM4WAQDX3EMgemF8rjCP3SoW09LfRKAXQKt6CoVYl230P6iWdRcBbnLDDdnqWxZSCA==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/standalone@^7.11.6":
   version "7.11.6"
   resolved "https://registry.yarnpkg.com/@babel/standalone/-/standalone-7.11.6.tgz#2ea3c9463c8b1d04ee2dacc5ac4b81674cec2967"
@@ -342,29 +349,29 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@expressive/babel-plugin-core@^1.0.0-beta.47":
-  version "1.0.0-beta.47"
-  resolved "https://registry.yarnpkg.com/@expressive/babel-plugin-core/-/babel-plugin-core-1.0.0-beta.47.tgz#91442a03c4f01a28cc88619dd14b2caab2955cb0"
-  integrity sha512-XCBTRGuM6hxI314RTBnhMH5c2pd91Qe45KbAE8KqPoYBpR/RD9HtewchZgrsy1mpMsu/hnrSiPR8lJsOjLipBQ==
+"@expressive/babel-plugin-core@^1.0.0-beta.48":
+  version "1.0.0-beta.48"
+  resolved "https://registry.yarnpkg.com/@expressive/babel-plugin-core/-/babel-plugin-core-1.0.0-beta.48.tgz#fa6be13a84f458833b26c32a70ef11321db6d374"
+  integrity sha512-pttTQ/b1jy1Vf3CSRQEooayFxnjpnYlYbQ1dRiHFS/kGk3qvR0wIOKs1DfJnkkJAlfXIxI2BECsPBuyMVSzKEw==
   dependencies:
     "@babel/template" "7.8.6"
     "@babel/types" "7.9.5"
 
-"@expressive/babel-plugin-react@^1.0.0-beta.47":
-  version "1.0.0-beta.47"
-  resolved "https://registry.yarnpkg.com/@expressive/babel-plugin-react/-/babel-plugin-react-1.0.0-beta.47.tgz#4959c777793792d4c5f2fb4d4eec69850cabbc58"
-  integrity sha512-M+e29fJviWpZ7mD5wVacprq3uqtQkpnjBJmGDBsnGAH5bRxf+xMXMHJztvHnrNfzSehf8RMjDHvwsaLSBUe5LQ==
+"@expressive/babel-plugin-react@^1.0.0-beta.48":
+  version "1.0.0-beta.48"
+  resolved "https://registry.yarnpkg.com/@expressive/babel-plugin-react/-/babel-plugin-react-1.0.0-beta.48.tgz#277a0638265b4fb46d6995770fe669428ee48f83"
+  integrity sha512-VoOGgkI7crIoIGSSGWyXvnEqQInHS5WpOLvYnn7TmZPpoBY/VNMRZilgr4DybQAVNiPPRLKlQtF9NHeTTKmaPA==
   dependencies:
     "@babel/template" "7.8.6"
     "@babel/types" "7.9.5"
-    "@expressive/babel-plugin-core" "^1.0.0-beta.47"
+    "@expressive/babel-plugin-core" "^1.0.0-beta.48"
 
-"@expressive/babel-preset-react@^1.0.0-beta.47":
-  version "1.0.0-beta.47"
-  resolved "https://registry.yarnpkg.com/@expressive/babel-preset-react/-/babel-preset-react-1.0.0-beta.47.tgz#319f364349e63929816ec16aa9fc57d1f2d82709"
-  integrity sha512-mmKCjaQF5dzax8AEh0OB8noX1wiselC/qtNABaarCec4ML1xq2JfQg9kGWRif+BryPbNyquEOrakiPIbAViDYA==
+"@expressive/babel-preset-react@^1.0.0-beta.48":
+  version "1.0.0-beta.48"
+  resolved "https://registry.yarnpkg.com/@expressive/babel-preset-react/-/babel-preset-react-1.0.0-beta.48.tgz#ec95976dca776fcb568e456082f81dd0be6eb684"
+  integrity sha512-rEUAS1erzGX4FCVQPH3G6qAufgVIvvaGxoaSXXXdC58EcQqZMOoEwUlPQtL0yEh/QDw3ZcSOT0jgjsQQWyPPHg==
   dependencies:
-    "@expressive/babel-plugin-react" "^1.0.0-beta.47"
+    "@expressive/babel-plugin-react" "^1.0.0-beta.48"
     "@expressive/modify-style" "^1.0.0-beta.45"
 
 "@expressive/modify-style@^1.0.0-beta.45":
@@ -388,6 +395,14 @@
     object-assign "^4.1.1"
     prop-types "^15.6.2"
     scheduler "^0.19.0"
+
+"@monaco-editor/react@^3.6.3":
+  version "3.6.3"
+  resolved "https://registry.yarnpkg.com/@monaco-editor/react/-/react-3.6.3.tgz#62b9af6c437d4035c901c2ce27122d4c3147f10d"
+  integrity sha512-HjDIhoGuLKWeGxvyaQ9eyIBUXrnEdqGxm74u84qnmtfurLSkUACC0+GL0hD3V0PrL2ebkH16u6ZPjQweSIinWw==
+  dependencies:
+    "@babel/runtime" "^7.11.0"
+    state-local "^1.0.1"
 
 "@types/glob@^7.1.1":
   version "7.1.3"
@@ -3827,6 +3842,11 @@ readdirp@~3.4.0:
   dependencies:
     picomatch "^2.2.1"
 
+regenerator-runtime@^0.13.4:
+  version "0.13.7"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.7.tgz#cac2dacc8a1ea675feaabaeb8ae833898ae46f55"
+  integrity sha512-a54FxoJDIr27pgf7IgeQGxmqUNYrcV338lf/6gH456HZ/PhX+5BcwHXG9ajESmwe6WRO0tAzRUrRmNONWgkrew==
+
 regex-not@^1.0.0, regex-not@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/regex-not/-/regex-not-1.0.2.tgz#1f4ece27e00b0b65e0247a6810e6a85d83a5752c"
@@ -4278,6 +4298,11 @@ ssri@^6.0.1:
   integrity sha512-3Wge10hNcT1Kur4PDFwEieXSCMCJs/7WvSACcrMYrNp+b8kDL1/0wJch5Ni2WrtwEa2IO8OsVfeKIciKCDx/QA==
   dependencies:
     figgy-pudding "^3.5.1"
+
+state-local@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/state-local/-/state-local-1.0.1.tgz#0d3c0a2bb610d3b81699b30e98fafa00bcf4ac9c"
+  integrity sha512-CkiwT61ZhZd0/z183fcceu7+RSws/Sq5BT3RNQ2xK/Se9A/jn/4Z/eIe1bawoI9wNYC9wrcG2Drz+6GnjtKynA==
 
 static-extend@^0.1.1:
   version "0.1.2"
