@@ -1,11 +1,11 @@
-import { transform } from "@babel/standalone";
+import * as babel from "@babel/standalone";
 import parserBabel from "prettier/parser-babel";
 import Prettier from "prettier/standalone";
 
 const ExpressivePresetReact = require("@expressive/babel-preset-react");
 
 export function compile(source: string, opts = {}){
-  let output = transform(source, {
+  let output = babel.transform(source, {
     // ast: true,  
     filename: '/REPL.js',
     presets: [
