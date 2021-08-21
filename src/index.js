@@ -7,11 +7,16 @@ import "./styles.css"
 const App = () => do {
   const { inputWindow, outputWindow, stale } = Editor.use();
   
-  window: {
-    height: "100vh";
-    gridColumns: "50%", "50%";
-    gridRows: "100%"
-    fontFamily: "Lato"
+  height: "100vh";
+  gridColumns: "50%", "50%";
+  gridRows: "100%";
+  fontFamily: "Lato";
+
+  portal: {
+    position: relative;
+    margin: 10;
+    overflow: hidden;
+    radius: 5;
   }
 
   column: {
@@ -19,25 +24,15 @@ const App = () => do {
     position: relative;
   }
 
-  <window>
+  <this>
     <column>
-      <Portal ref={inputWindow} />
+      <portal ref={inputWindow} />
     </column>
     <column>
-      <Portal ref={outputWindow} />
+      <portal ref={outputWindow} />
       <SaveOverlay active={stale} />
     </column>
-  </window>
-}
-
-const Portal = () => do {
-  forward: ref;
-  position: relative;
-  margin: 10;
-  overflow: hidden;
-  radius: 5;
-
-  <this />
+  </this>
 }
 
 export default App;
