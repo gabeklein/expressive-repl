@@ -1,5 +1,6 @@
 import { editor, KeyCode, KeyMod, languages } from 'monaco-editor';
 import Controller, { ref } from "react-use-controller";
+import { compile } from './compiler';
 
 const DEFAULTS: editor.IStandaloneEditorConstructionOptions = {
   language: "javascript",
@@ -93,10 +94,7 @@ export class Editor extends Controller {
   gotInputWindow(e: HTMLElement){
     const CMD_S = KeyMod.CtrlCmd | KeyCode.KEY_S;
 
-    const instance = editor.create(e, {
-      ...DEFAULTS,
-      language: "javascript"
-    });
+    const instance = editor.create(e, DEFAULTS);
 
     this.editorSource = instance;
 
@@ -106,9 +104,15 @@ export class Editor extends Controller {
 
     instance.addCommand(CMD_S, () => {
       const source = instance.getValue();
+      const result = compile(source, {
+        output: "jsx",
+        printStyle: "pretty",
+        // styleMode: "compile",
+        // useImport: false
+      });
       
       this.stale = false;
-      this.editorOutput.setValue(source);
+      this.editorOutput.setValue(result);
     });
   }
 }
