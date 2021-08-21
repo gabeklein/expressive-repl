@@ -25,7 +25,7 @@ export function compile(source: string, opts = {}){
     printWidth: 60
   });
 
-  for(const mod of [
+  const codeFormat = [
     statementLineSpacing,
     jsxReturnSpacing,
     spaceOutBlocks,
@@ -33,8 +33,10 @@ export function compile(source: string, opts = {}){
     removeDoubleLines,
     tabCharactersMustDie,
     compactStylesInclude
-  ])
-    code = mod(code);
+  ];
+
+  for(const regex of codeFormat)
+    code = regex(code);
   
   return code;
 }
