@@ -1,6 +1,6 @@
 import { Singleton, use } from '@expressive/mvc';
 
-import { compile } from '../compiler';
+import { compile } from '../transform';
 import { Shortcuts } from './shortcuts';
 
 export class REPL extends Singleton { 

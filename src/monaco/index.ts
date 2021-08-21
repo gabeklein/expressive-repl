@@ -2,7 +2,7 @@ import './language';
 
 import Model, { ref } from '@expressive/mvc';
 
-import { compile } from '../compiler';
+import { compile } from '../transform';
 import { createEditor, Editor, KeyCode, KeyMod } from './editor';
 
 const CONTROL_S = KeyMod.CtrlCmd | KeyCode.KEY_S;
