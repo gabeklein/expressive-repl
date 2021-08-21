@@ -351,6 +351,11 @@
   dependencies:
     "@babel/types" "7.10.3"
 
+"@expressive/mvc@^1.0.0-beta.8":
+  version "1.0.0-beta.8"
+  resolved "https://registry.yarnpkg.com/@expressive/mvc/-/mvc-1.0.0-beta.8.tgz#f8947e4b9ffdb5953f1740b85fd1b9569d54a3da"
+  integrity sha512-ySr8VJnUSW5ZHVqXqzMLF7dSFfGxpObkoabYyijjPWObhxuJ28OyD1WhYC1H5Bwq1+KfZJP0zmwYnzLbSYSd9g==
+
 "@hot-loader/react-dom@^16.13.0":
   version "16.14.0"
   resolved "https://registry.yarnpkg.com/@hot-loader/react-dom/-/react-dom-16.14.0.tgz#3cfc64e40bb78fa623e59b582b8f09dcdaad648a"
@@ -3893,11 +3898,6 @@ react-simple-code-editor@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/react-simple-code-editor/-/react-simple-code-editor-0.11.0.tgz#bb57c7c29b570f2ab229872599eac184f5bc673c"
   integrity sha512-xGfX7wAzspl113ocfKQAR8lWPhavGWHL3xSzNLeseDRHysT+jzRBi/ExdUqevSMos+7ZtdfeuBOXtgk9HTwsrw==
-
-react-use-controller@^1.0.0-beta.49:
-  version "1.0.0-beta.49"
-  resolved "https://registry.yarnpkg.com/react-use-controller/-/react-use-controller-1.0.0-beta.49.tgz#e24ce7b04e1160782cd899865f34b6893d3ee577"
-  integrity sha512-A3ndcCDwcbzDoSlu6PghBir9gq5BsZBkHDL5T0BzNsM6BLqWEG2PpG0G200pNTtVjzGoInJYRxNH8//BqOfnpg==
 
 react@^16.13.0, react@^16.14.0:
   version "16.14.0"

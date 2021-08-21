@@ -1,13 +1,11 @@
-const { Editor } = require("./editor");
-
-import { SaveOverlay } from "./components/SaveOverlay";
+import Editor from './monaco';
+import SaveOverlay from "./components/SaveOverlay";
 
 import { forwardRef, useState } from "react";
 import "./styles.css"
 
 const App = () => do {
   const { inputWindow, outputWindow, stale } = Editor.use();
-  const [ active, setActive ] = useState(false);
   
   window: {
     height: "100vh";

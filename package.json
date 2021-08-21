@@ -12,6 +12,7 @@
     "@babel/standalone": "^7.13.13",
     "@expressive/babel-preset-react": "^1.0.0-beta.67",
     "@expressive/css": "^1.0.0-beta.68",
+    "@expressive/mvc": "^1.0.0-beta.8",
     "file-loader": "^6.2.0",
     "monaco-editor": "^0.24.0",
     "monaco-editor-webpack-plugin": "^3.1.0",
@@ -19,8 +20,7 @@
     "prismjs": "^1.21.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "react-simple-code-editor": "^0.11.0",
-    "react-use-controller": "^1.0.0-beta.49"
+    "react-simple-code-editor": "^0.11.0"
   },
   "devDependencies": {
     "developer-webpack-plugin": "^1.0.0-beta.4",

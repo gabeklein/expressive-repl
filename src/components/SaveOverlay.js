@@ -1,4 +1,4 @@
-export const SaveOverlay = ({ active, retry }) => do {
+const SaveOverlay = ({ active, retry }) => do {
   transition: "opacity 0.1s ease-in";
   bg: 0xf7f7f7bb;
   radius: 10;
@@ -32,3 +32,5 @@ export const SaveOverlay = ({ active, retry }) => do {
     </div>
   </this>
 }
+
+export default SaveOverlay;
