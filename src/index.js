@@ -1,4 +1,5 @@
-import Editor from './monaco';
+import Editor from './codemirror';
+
 import SaveOverlay from "./components/SaveOverlay";
 
 import { forwardRef, useState } from "react";
