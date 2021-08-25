@@ -49,25 +49,6 @@ export function createEditor(
 
   return new EditorView({
     parent: element,
-    state: EditorState.create({
-      extensions: [
-        jsx,
-        editor,
-        extensions
-      ]
-    })
-  });
-}
-
-export function createView(element: HTMLElement){
-
-  return new EditorView({
-    parent: element,
-    state: EditorState.create({
-      extensions: [
-        jsx,
-        readOnly
-      ]
-    })
+    state: EditorState.create({ extensions })
   });
 }

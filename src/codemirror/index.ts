@@ -1,10 +1,10 @@
 import './styles.css';
 
-import { EditorView, keymap, ViewUpdate } from '@codemirror/view';
+import { EditorView } from '@codemirror/view';
 import Model, { on, ref } from '@expressive/mvc';
 
 import { compile } from '../transform';
-import { createEditor, createView, keyBind, onUpdate } from './config';
+import { createEditor, editor, jsx, keyBind, onUpdate, readOnly } from './config';
 
 export default class CodeMirror extends Model {
   inputEditor: EditorView;
@@ -37,6 +37,8 @@ export default class CodeMirror extends Model {
 
   inputWindow = ref(e => {
     const view = createEditor(e, [
+      jsx,
+      editor,
       onUpdate(() => {
         this.stale = true;
       }),
@@ -62,7 +64,9 @@ export default class CodeMirror extends Model {
   });
 
   outputWindow = ref(e => {
-    const view = this.outputEditor = createView(e);
+    const view = this.outputEditor =
+      createEditor(e, [ jsx, readOnly]);
+
     return () => view.destroy();
   });
 
