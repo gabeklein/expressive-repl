@@ -21,6 +21,10 @@ export const jsx = [
     drawSelection()
 ]
 
+export const readOnly = [
+  EditorView.editable.of(false)
+]
+
 export const editor = [
   history(),
   indentOnInput(),
@@ -41,8 +45,6 @@ export function onUpdate(callback: () => void){
       callback();
   })
 }
-
-export const readOnly = EditorView.editable.of(false);
 
 export function createEditor(
   element: HTMLElement, extensions: Extension[] = []){

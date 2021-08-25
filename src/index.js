@@ -6,7 +6,7 @@ import { forwardRef, useState } from "react";
 import "./styles.css"
 
 const App = () => do {
-  const { inputWindow, outputWindow, stale, compile } = Editor.use();
+  const { input, output, stale, compile } = Editor.use();
   
   height: "100vh";
   gridColumns: "50%", "50%";
@@ -28,10 +28,10 @@ const App = () => do {
 
   <this>
     <column>
-      <portal ref={inputWindow} />
+      <portal ref={input.element} />
     </column>
     <column>
-      <portal ref={outputWindow} />
+      <portal ref={output.element} />
       <SaveOverlay active={stale} onClick={compile} />
     </column>
   </this>
