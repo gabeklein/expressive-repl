@@ -1,4 +1,3 @@
-// const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 const ReactWebAppPlugin = require("react-app-webpack-plugin");
 const DeveloperPlugin = require("developer-webpack-plugin");
 
@@ -21,14 +20,6 @@ module.exports = {
     ]
   },
   plugins: [
-    // new MonacoWebpackPlugin({
-    //   // languages: ["javascript", "html"],
-    //   features: [
-    //     "indentation",
-    //     "fontZoom",
-    //     "folding"
-    //   ]
-    // }),
     new DeveloperPlugin({
       assets: "./static"
     }),
