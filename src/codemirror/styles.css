@@ -9,4 +9,5 @@
 
 .cm-editor {
   height: 100%;
+  outline: none !important;
 }

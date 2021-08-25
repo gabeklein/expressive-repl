@@ -18,6 +18,7 @@ const App = () => do {
     position: relative;
     overflow: hidden;
     border: 0xddd;
+    padding: 20;
   }
 
   column: {
