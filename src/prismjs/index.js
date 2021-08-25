@@ -1,8 +1,7 @@
-import Controller from "deep-state";
-import { REPL } from "./control";
+import REPL from "./control";
 import { EditSource, Output } from "./editor";
 
-import "./styles.css"
+import "../styles.css"
 
 if(!REPL.current)
   REPL.create();
@@ -12,31 +11,33 @@ export default () => do {
   fontFamily: Lato;
   gridRows: min, 1.0, min;
 
-  "Expressive React REPL", do {
+  title: {
     font: 20;
     flexAlign: center;
     margin: 30, 0, 10;
-  };
-
-  container, do {
-    Editor()
   }
 
-  footer, do {
+  footer: {
     textAlign: center;
     marginB: 20;
     font: 15;
-    
-    "MIT - Gabe Klein"
   }
+
+  <this>
+    <title>Expressive React REPL</title>
+    <container>
+      <Editor />
+    </container>
+    <footer>MIT - Gabe Klein</footer>
+  </this>
 }
 
 const Editor = () => do {
   const {
     source,
     set,
-    keyboardEvents
-  } = REPL.sub();
+    // keyboardEvents
+  } = REPL.tap();
 
   maxWidth: 1600;
   height: fill;
@@ -57,7 +58,7 @@ const Editor = () => do {
     border: 0x1;
   }
 
-  header, do {
+  header: {
     gridColumn: 1-3;
     position: relative;
     
@@ -67,24 +68,26 @@ const Editor = () => do {
       bg: 0x06;
       radius: 4;
     }
-  }
+  };
 
-  editor >>
-    EditSource(
-      value = source,
-      ref = keyboardEvents.ref,
-      onChanged = v => set.source = v
-    );
-
-  editor, do {
-    SaveOverlay;
-
-    Output();
-  }
+  <this>
+    <header />
+    <editor>
+      <EditSource
+        value={source}
+        // ref={keyboardEvents.ref}
+        onChanged={v => set.source = v}
+      />
+    </editor>
+    <editor>
+      <SaveOverlay />
+      <Output />
+    </editor>
+  </this>
 }
 
 const SaveOverlay = () => do {
-  const { stale, set, tryToCompile } = REPL.sub();
+  const { stale, set, tryToCompile } = REPL.tap();
 
   if(!stale){
     pointerEvents: none;

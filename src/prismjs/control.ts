@@ -1,20 +1,21 @@
-import { Singleton, use } from '@expressive/mvc';
+import { Singleton } from '@expressive/mvc';
 
 import { compile } from '../transform';
-import { Shortcuts } from './shortcuts';
 
-export class REPL extends Singleton { 
+// import { Shortcuts } from './shortcuts';
+
+class REPL extends Singleton { 
   source = "const Hello = () => 'Hello World'";
   output = "";
   fontSize = 16;
   err = "";
   stale = true;
 
-  keyboardEvents = use(Shortcuts, kbe => {
-    kbe.on<any>("save", this.tryToCompile);
-    kbe.on<any>("increaseFont", () => this.fontSize++);
-    kbe.on<any>("decreaseFont", () => this.fontSize--);
-  });
+  // keyboardEvents = use(Shortcuts, kbe => {
+  //   kbe.on<any>("save", this.tryToCompile);
+  //   kbe.on<any>("increaseFont", () => this.fontSize++);
+  //   kbe.on<any>("decreaseFont", () => this.fontSize--);
+  // });
 
   elementDidMount(){
     this.tryToCompile();
@@ -38,10 +39,9 @@ export class REPL extends Singleton {
   compile(){
     return compile(this.source, {
       output: "jsx",
-      printStyle: "pretty",
-      // styleMode: "compile",
-      // useImport: false
+      printStyle: "pretty"
     });
   }
 }
 
+export default REPL;

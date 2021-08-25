@@ -8,12 +8,11 @@ import 'prismjs/components/prism-markup';
 import 'prismjs/components/prism-jsx';
 import 'prismjs/themes/prism.css';
 
-import { REPL } from './control';
+import REPL from './control';
 
 function sqlSyntax(code){
   return highlight(code, {
     ...languages.jsx,
-
     'hex': {
       pattern: /shadow/,
       greedy: false,
