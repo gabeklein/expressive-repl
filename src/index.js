@@ -6,18 +6,18 @@ import { forwardRef, useState } from "react";
 import "./styles.css"
 
 const App = () => do {
-  const { inputWindow, outputWindow, stale } = Editor.use();
+  const { inputWindow, outputWindow, stale, compile } = Editor.use();
   
   height: "100vh";
   gridColumns: "50%", "50%";
   gridRows: "100%";
   fontFamily: "Lato";
+  padding: 0, 5;
 
   portal: {
     position: relative;
-    margin: 10;
     overflow: hidden;
-    radius: 5;
+    border: 0xddd;
   }
 
   column: {
@@ -31,7 +31,7 @@ const App = () => do {
     </column>
     <column>
       <portal ref={outputWindow} />
-      <SaveOverlay active={stale} />
+      <SaveOverlay active={stale} onClick={compile} />
     </column>
   </this>
 }

@@ -1,0 +1,12 @@
+.cm-activeLineGutter, .cm-activeLine {
+  background-color: "transparent" !important;
+}
+
+.cm-scroller {
+  font-family: "Fira Mono" !important;
+  /* font-size: 16px; */
+}
+
+.cm-editor {
+  height: 100%;
+}

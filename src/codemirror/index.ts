@@ -1,55 +1,89 @@
-import { basicSetup } from "@codemirror/basic-setup";
-import { javascript } from "@codemirror/lang-javascript";
-import { EditorState } from "@codemirror/state";
-import { EditorView } from "@codemirror/view";
-import Model, { ref } from '@expressive/mvc';
+import './styles.css';
 
-// import { compile } from '../transform';
+import { EditorView, keymap, ViewUpdate } from '@codemirror/view';
+import Model, { on, ref } from '@expressive/mvc';
+
+import { compile } from '../transform';
+import { createEditor, createView, keyBind } from './config';
 
 export default class CodeMirror extends Model {
-  inputEditor: EditorState;
-  outputEditor: EditorState;
+  inputEditor: EditorView;
+  outputEditor: EditorView;
 
-  inputWindow = ref(this.setupInputWindow);
-  outputWindow = ref(this.setupOutputWindow);
+  stale = true;
+  compilerOptions = {
+    output: "jsx",
+    printStyle: "pretty"
+  };
 
-  stale = false;
+  didCreate(){
+    (window as any).REPL = this;
+  }
 
-  setupOutputWindow(parent: HTMLElement){
-    const view = createView(parent);
+  compile = () => {
+    const source = this.inputEditor.state.doc.toString();
+    let output: string;
+    
+    try {
+      output = compile(source, this.compilerOptions);
+    }
+    catch(err){
+      debugger;
+    }
+
+    this.outputText = output;
+    this.stale = false;
+  }
+
+  inputWindow = ref(e => {
+    const onUpdate = (update: ViewUpdate) => {
+      if(update.docChanged)
+        this.stale = true;
+    }
+
+    const detectSave = keyBind({
+      key: "Meta-s",
+      run: () => {
+        this.compile();
+        return true;
+      }
+    })
+
+    const view = createEditor(e, [
+      EditorView.updateListener.of(onUpdate),
+      detectSave
+    ]);
+
+    this.inputEditor = view;
+
+    view.dispatch({
+      changes: {
+        from: 0,
+        insert: require("./example")
+      }
+    })
 
     return () => view.destroy();
-  }
-
-  setupInputWindow(parent: HTMLElement){
-    const view = createView(parent);
-    
-    // instance.onDidChangeModelContent(() => this.stale = true);
-    // instance.addCommand(CONTROL_S, this.recompile);
-
-    return () => view.destroy();
-  }
-
-  recompile = () => {
-    // const source = this.inputEditor.getValue();
-    // const result = compile(source, {
-    //   output: "jsx",
-    //   printStyle: "pretty"
-    // });
-    
-    // this.outputEditor.setValue(result);
-    // this.stale = false;
-  }
-}
-
-function createView(parent: HTMLElement){
-  const state = EditorState.create({
-    doc: "",
-    extensions: [
-      basicSetup,
-      javascript()
-    ]
   });
 
-  return new EditorView({ state, parent });
+  outputWindow = ref(e => {
+    const view = this.outputEditor = createView(e);
+    return () => view.destroy();
+  });
+
+  sourceText = on("", next => {
+    this.outputText = compile(next, this.compilerOptions);
+    this.stale = false;
+  });
+
+  outputText = on("", next => {
+    const view = this.outputEditor;
+    view.dispatch({
+      changes: {
+        from: 0,
+        to: view.state.doc.length,
+        insert: next
+      }
+    })
+  });
 }

@@ -1,5 +1,5 @@
-import * as babel from '@babel/standalone';
-import * as Expressive from '@expressive/babel-preset-react';
+const babel = require('@babel/standalone');
+const Expressive = require('@expressive/babel-preset-react');
 
 import parserBabel from 'prettier/parser-babel';
 import Prettier from 'prettier/standalone';

@@ -1,4 +1,4 @@
-const SaveOverlay = ({ active, retry }) => do {
+const SaveOverlay = ({ active, onClick }) => do {
   transition: "opacity 0.1s ease-in";
   bg: 0xf7f7f7bb;
   radius: 10;
@@ -27,7 +27,7 @@ const SaveOverlay = ({ active, retry }) => do {
   <this>
     <div propmt>
       Press or click
-      <code onClick={retry}>⌘-S</code>
+      <code onClick={onClick}>⌘-S</code>
       to rebuild
     </div>
   </this>
