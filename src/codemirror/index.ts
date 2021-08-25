@@ -4,7 +4,7 @@ import { EditorView, keymap, ViewUpdate } from '@codemirror/view';
 import Model, { on, ref } from '@expressive/mvc';
 
 import { compile } from '../transform';
-import { createEditor, createView, keyBind } from './config';
+import { createEditor, createView, keyBind, onUpdate } from './config';
 
 export default class CodeMirror extends Model {
   inputEditor: EditorView;
@@ -36,22 +36,17 @@ export default class CodeMirror extends Model {
   }
 
   inputWindow = ref(e => {
-    const onUpdate = (update: ViewUpdate) => {
-      if(update.docChanged)
-        this.stale = true;
-    }
-
-    const detectSave = keyBind({
-      key: "Meta-s",
-      run: () => {
-        this.compile();
-        return true;
-      }
-    })
-
     const view = createEditor(e, [
-      EditorView.updateListener.of(onUpdate),
-      detectSave
+      onUpdate(() => {
+        this.stale = true;
+      }),
+      keyBind({
+        key: "Meta-s",
+        run: () => {
+          this.compile();
+          return true;
+        }
+      })
     ]);
 
     this.inputEditor = view;

@@ -15,48 +15,58 @@ export function keyBind(...args: KeyBindings[]){
   return keymap.of([].concat(...args));
 }
 
-function configure(){
-  return [
+export const jsx = [
     defaultHighlightStyle.fallback,
     javascript({ jsx: true }),
-    history(),
-    indentOnInput(),
-    drawSelection(),
-    closeBrackets(),
-    keyBind(
-      closeBracketsKeymap,
-      defaultKeymap,
-      searchKeymap,
-      historyKeymap,
-      commentKeymap,
-      indentWithTab
-    )
-  ]
+    drawSelection()
+]
+
+export const editor = [
+  history(),
+  indentOnInput(),
+  closeBrackets(),
+  keyBind(
+    closeBracketsKeymap,
+    defaultKeymap,
+    searchKeymap,
+    historyKeymap,
+    commentKeymap,
+    indentWithTab
+  )
+]
+
+export function onUpdate(callback: () => void){
+  return EditorView.updateListener.of((update) => {
+    if(update.docChanged)
+      callback();
+  })
 }
 
+export const readOnly = EditorView.editable.of(false);
+
 export function createEditor(
-  element: HTMLElement, extensions?: Extension[]){
+  element: HTMLElement, extensions: Extension[] = []){
 
   return new EditorView({
     parent: element,
     state: EditorState.create({
       extensions: [
-        configure(),
-        ...extensions
+        jsx,
+        editor,
+        extensions
       ]
     })
   });
 }
 
 export function createView(element: HTMLElement){
+
   return new EditorView({
     parent: element,
     state: EditorState.create({
       extensions: [
-        defaultHighlightStyle.fallback,
-        javascript({ jsx: true }),
-        drawSelection(),
-        EditorView.editable.of(false)
+        jsx,
+        readOnly
       ]
     })
   });
