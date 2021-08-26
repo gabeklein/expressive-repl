@@ -1,8 +1,8 @@
 import './styles.css';
 
-import Model, { parent, use } from '@expressive/mvc';
+import Model, { on, parent, use } from '@expressive/mvc';
 
-import { compile } from '../transform';
+import { compile, runtime } from '../transform';
 import { editor, jsx, keyBind, onUpdate, readOnly } from './config';
 import Editor from './editor';
 
@@ -29,8 +29,16 @@ class InputEditor extends Editor {
 }
 
 export default class CodeMirror extends Model {
+  code = use(OutputView);
   input = use(InputEditor);
   output = use(OutputView);
+
+  output_jsx = on("", code => {
+    this.output.setText(code);
+  });
+  output_js = on("", code => {
+    this.code.setText(code);
+  });
 
   stale = true;
   options = {
@@ -47,15 +55,18 @@ export default class CodeMirror extends Model {
   compile = () => {
     const from = this.input.getText();
     let output: string;
+    let code: string;
     
     try {
       output = compile(from, this.options);
+      code = runtime(from);
     }
     catch(err){
       debugger;
     }
 
-    this.output.setText(output);
+    this.output_jsx = output;
+    this.output_js = code;
     this.stale = false;
   }
 }

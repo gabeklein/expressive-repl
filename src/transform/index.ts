@@ -6,6 +6,8 @@ import Prettier from 'prettier/standalone';
 
 import cleanup from './cleanup';
 
+export { compile as runtime, evalModule } from "./runtime";
+
 export function compile(source: string, opts: any){
   let { code } = Babel.transform(source, {
     // ast: true,  
