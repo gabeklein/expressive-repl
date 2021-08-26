@@ -1,9 +1,9 @@
+import './styles.css';
+
+import { forwardRef, useState } from 'react';
+
 import Editor from './codemirror';
-
-import SaveOverlay from "./components/SaveOverlay";
-
-import { forwardRef, useState } from "react";
-import "./styles.css"
+import SaveOverlay from './components/SaveOverlay';
 
 const App = () => do {
   const { input, output, stale, compile } = Editor.use();
