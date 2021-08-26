@@ -12,6 +12,11 @@ const SaveOverlay = ({ active, onClick }) => do {
     pointerEvents: none;
     opacity: 0;
   }
+
+  prompt: {
+    cursor: pointer;
+    WebkitUserSelect: none;
+  }
   
   code: {
     display: inline-block;
@@ -25,11 +30,11 @@ const SaveOverlay = ({ active, onClick }) => do {
   }
   
   <this>
-    <div propmt>
+    <prompt>
       Press or click
       <code onClick={onClick}>⌘-S</code>
       to rebuild
-    </div>
+    </prompt>
   </this>
 }
 

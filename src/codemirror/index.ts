@@ -44,7 +44,7 @@ export default class CodeMirror extends Model {
     this.input.setText(example);
   }
 
-  compile(){
+  compile = () => {
     const from = this.input.getText();
     let output: string;
     
