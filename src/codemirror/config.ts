@@ -11,9 +11,8 @@ import { drawSelection, EditorView, KeyBinding, keymap } from '@codemirror/view'
 
 type KeyBindings = KeyBinding | readonly KeyBinding[];
 
-export function keyBind(...args: KeyBindings[]){
-  return keymap.of([].concat(...args));
-}
+export const keyBind = (...args: KeyBindings[]) =>
+  keymap.of([].concat(...args));
 
 export const jsx = [
     defaultHighlightStyle.fallback,
@@ -39,12 +38,11 @@ export const editor = [
   )
 ]
 
-export function onUpdate(callback: () => void){
-  return EditorView.updateListener.of((update) => {
+export const onUpdate = (callback: () => void) =>
+  EditorView.updateListener.of((update) => {
     if(update.docChanged)
       callback();
   })
-}
 
 export function createEditor(
   element: HTMLElement, extensions: Extension[] = []){

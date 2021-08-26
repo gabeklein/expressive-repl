@@ -4,19 +4,11 @@ import Model, { ref } from '@expressive/mvc';
 
 export default class Editor extends Model {
   view: EditorView;
-
   plugin?: Extension;
 
   element = ref(parent => {
-    const state =
-      EditorState.create({
-        extensions: this.plugin
-      });
-
-    const view = this.view =
-      new EditorView({
-        parent, state
-      });
+    const state = EditorState.create({ extensions: this.plugin });
+    const view = this.view = new EditorView({ parent, state });
 
     return () => {
       view.destroy();

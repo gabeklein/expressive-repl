@@ -1,17 +1,17 @@
-const babel = require('@babel/standalone');
-const Expressive = require('@expressive/babel-preset-react');
+import * as Babel from '@babel/standalone';
+import Expressive from '@expressive/babel-preset-react';
 
 import parserBabel from 'prettier/parser-babel';
 import Prettier from 'prettier/standalone';
 
 import cleanup from './cleanup';
 
-export function compile(source: string, opts = {}){
-  let { code } = babel.transform(source, {
+export function compile(source: string, opts: any){
+  let { code } = Babel.transform(source, {
     // ast: true,  
     filename: '/REPL.js',
     presets: [
-      [Expressive, opts]
+      [Expressive, opts || {}]
     ]
   });
 
