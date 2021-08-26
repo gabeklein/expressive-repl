@@ -4,21 +4,11 @@ import { forwardRef, useMemo, useState } from 'react';
 
 import Editor from './codemirror';
 import SaveOverlay from './components/SaveOverlay';
-import { evalModule } from './transform';
 
-const App = () => do {
-  const {
-    input,
-    output,
-    code,
-    stale,
-    compile,
-    output_js
-  } = Editor.use();
-  
+App: {
   height: "100vh";
-  gridRows: "50%", "50%";
-  gridColumns: "100%";
+  display: flex;
+  flexDirection: column;
   fontFamily: "Lato";
   padding: 0, 5;
 
@@ -27,45 +17,46 @@ const App = () => do {
     overflow: hidden;
     border: 0xddd;
     padding: 20;
-  }
-
-  column: {
-    gridColumns: "1fr";
-    position: relative;
+    flex: 1;
   }
 
   OutputRenderer: {
     border: 0xddd;
+    flex: 1;
+  }
+
+  column: {
+    display: flex;
+    flexDirection: column;
+    flex: 1;
   }
 
   row: {
-    gridColumns: "50%", "50%";
-    gridRows: "100%";
+    display: flex;
+    flexDirection: row;
+    flex: 1;
   }
 
-  <this>
-    <row>
-      <portal ref={input.element} />
-      <column>
-        <portal ref={output.element} />
-        <SaveOverlay active={stale} onClick={compile} />
-      </column>
-    </row>
-    <row>
-      <portal ref={code.element} />
-      <OutputRenderer code={output_js} />
-    </row>
-  </this>
+  window: {
+    flex: 1;
+    flexAlign: center;
+  }
 }
 
-const OutputRenderer = ({ code }) => do {
-  const Default = useMemo(() => evalModule(code).default, [code])
+const App = () => do {
+  const { input, output, stale, compile, Preview } = Editor.use();
 
-  forward: className;
-  flexAlign: center;
-
-  if(Default)
-    <Default />
+  <row>
+    <portal ref={input.element} />
+    <column>
+      <portal ref={output.element}>
+        <SaveOverlay active={stale} onClick={compile} />
+      </portal>
+      <window>
+        <Preview />
+      </window>
+    </column>
+  </row>
 }
 
 export default App;

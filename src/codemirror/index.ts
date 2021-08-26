@@ -2,7 +2,7 @@ import './styles.css';
 
 import Model, { on, parent, use } from '@expressive/mvc';
 
-import { compile, runtime } from '../transform';
+import { compile, evalModule, runtime } from '../transform';
 import { editor, jsx, keyBind, onUpdate, readOnly } from './config';
 import Editor from './editor';
 
@@ -12,6 +12,7 @@ class OutputView extends Editor {
 
 class InputEditor extends Editor {
   parent = parent(CodeMirror, true);
+
   plugin = [
     jsx,
     editor,
@@ -29,22 +30,24 @@ class InputEditor extends Editor {
 }
 
 export default class CodeMirror extends Model {
-  code = use(OutputView);
   input = use(InputEditor);
   output = use(OutputView);
 
   output_jsx = on("", code => {
     this.output.setText(code);
   });
-  output_js = on("", code => {
-    this.code.setText(code);
-  });
+  output_js = "";
 
   stale = true;
   options = {
     output: "jsx",
     printStyle: "pretty"
   };
+
+  get Preview(){
+    const module: any = evalModule(this.output_js);
+    return module.default || (() => false);
+  }
 
   didMount(){
     const example = require("./example");
