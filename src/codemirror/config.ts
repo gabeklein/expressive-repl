@@ -14,6 +14,13 @@ type KeyBindings = KeyBinding | readonly KeyBinding[];
 export const keyBind = (...args: KeyBindings[]) =>
   keymap.of([].concat(...args));
 
+export function onKey<T extends string>(
+  key: T, action: (key: T) => void){
+
+  const run = () => { action(key); return true };
+  return keyBind({ key, run });
+}
+
 export const jsx = [
     defaultHighlightStyle.fallback,
     javascript({ jsx: true }),

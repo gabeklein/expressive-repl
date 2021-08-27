@@ -3,7 +3,7 @@ import './styles.css';
 import Model, { on, parent, use } from '@expressive/mvc';
 
 import { compile, evalModule, runtime } from '../transform';
-import { editor, jsx, keyBind, onUpdate, readOnly } from './config';
+import { editor, jsx, onKey, onUpdate, readOnly } from './config';
 import Editor from './editor';
 
 class OutputView extends Editor {
@@ -19,12 +19,8 @@ class InputEditor extends Editor {
     onUpdate(() => {
       this.parent.stale = true;
     }),
-    keyBind({
-      key: "Meta-s",
-      run: () => {
-        this.parent.compile();
-        return true;
-      }
+    onKey("Meta-s", () => {
+      this.parent.compile();
     })
   ]
 }
@@ -33,10 +29,10 @@ export default class CodeMirror extends Model {
   input = use(InputEditor);
   output = use(OutputView);
 
+  output_js = "";
   output_jsx = on("", code => {
     this.output.setText(code);
   });
-  output_js = "";
 
   stale = true;
   options = {
