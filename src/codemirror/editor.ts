@@ -1,6 +1,6 @@
 import { EditorState, Extension } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
-import Model, { on, ref } from '@expressive/mvc';
+import Model, { ref } from '@expressive/mvc';
 
 export default class Editor extends Model {
   view: EditorView;

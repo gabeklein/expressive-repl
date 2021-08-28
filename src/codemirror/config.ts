@@ -1,18 +1,21 @@
+import { autocompletion } from '@codemirror/autocomplete';
 import { closeBrackets, closeBracketsKeymap } from '@codemirror/closebrackets';
 import { defaultKeymap, indentWithTab } from '@codemirror/commands';
 import { commentKeymap } from '@codemirror/comment';
+import { highlightActiveLineGutter, lineNumbers } from '@codemirror/gutter';
 import { defaultHighlightStyle } from '@codemirror/highlight';
 import { history, historyKeymap } from '@codemirror/history';
 import { javascript } from '@codemirror/lang-javascript';
 import { indentOnInput } from '@codemirror/language';
 import { searchKeymap } from '@codemirror/search';
 import { EditorState, Extension } from '@codemirror/state';
-import { drawSelection, EditorView, KeyBinding, keymap } from '@codemirror/view';
+import { drawSelection, EditorView, highlightActiveLine, KeyBinding, keymap } from '@codemirror/view';
 
 type KeyBindings = KeyBinding | readonly KeyBinding[];
 
-export const keyBind = (...args: KeyBindings[]) =>
-  keymap.of([].concat(...args));
+export function keyBind(...args: KeyBindings[]){
+  return keymap.of([].concat(...args));
+}
 
 export function onKey<T extends string>(
   key: T, action: (key: T) => void){
@@ -31,6 +34,16 @@ export const readOnly = [
   EditorView.editable.of(false)
 ]
 
+export const autocomplete = [
+  autocompletion()
+]
+
+export const lines = [
+  lineNumbers(),
+  highlightActiveLine(),
+  highlightActiveLineGutter()
+]
+
 export const editor = [
   history(),
   indentOnInput(),
@@ -45,11 +58,12 @@ export const editor = [
   )
 ]
 
-export const onUpdate = (callback: () => void) =>
-  EditorView.updateListener.of((update) => {
+export function onUpdate(callback: () => void){
+  return EditorView.updateListener.of((update) => {
     if(update.docChanged)
       callback();
   })
+}
 
 export function createEditor(
   element: HTMLElement, extensions: Extension[] = []){
