@@ -11,26 +11,10 @@ import { searchKeymap } from '@codemirror/search';
 import { EditorState, Extension } from '@codemirror/state';
 import { drawSelection, EditorView, highlightActiveLine, KeyBinding, keymap } from '@codemirror/view';
 
-type KeyBindings = KeyBinding | readonly KeyBinding[];
-
-export function keyBind(...args: KeyBindings[]){
-  return keymap.of([].concat(...args));
-}
-
-export function onKey<T extends string>(
-  key: T, action: (key: T) => void){
-
-  const run = () => {
-    action(key);
-    return true
-  };
-  return keyBind({ key, run });
-}
-
 export const jsx = [
-    classHighlightStyle,
-    javascript({ jsx: true }),
-    drawSelection()
+  classHighlightStyle,
+  javascript({ jsx: true }),
+  drawSelection()
 ]
 
 export const readOnly = [
@@ -60,6 +44,24 @@ export const editor = [
     indentWithTab
   )
 ]
+
+type KeyBindings = KeyBinding | readonly KeyBinding[];
+
+export function keyBind(...args: KeyBindings[]){
+  return keymap.of([].concat(...args));
+}
+
+export function onKey<T extends string>(
+  key: T, action: (key: T) => void){
+
+  return keyBind({
+    key,
+    run(){
+      action(key);
+      return true
+    }
+  });
+}
 
 export function onUpdate(callback: () => void){
   return EditorView.updateListener.of((update) => {
