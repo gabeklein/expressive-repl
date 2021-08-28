@@ -19,6 +19,9 @@ const tabCharactersMustDie = (x: string) =>
 const compactStylesInclude = (x: string) =>
   x.replace(/Styles\.include\(\n\s+`\n([^`]+)[^;]+;/g, "Styles.include(`\n$1`);")
 
+const ensureSpaceBeforeCSS = (x: string) =>
+  x.replace(/(\n[\S\t ]+\n)(CSS\.put)/, "$1\n$2")
+
 const transforms = [
   statementLineSpacing,
   jsxReturnSpacing,
@@ -26,7 +29,8 @@ const transforms = [
   spaceAfterImports,
   removeDoubleLines,
   tabCharactersMustDie,
-  compactStylesInclude
+  compactStylesInclude,
+  ensureSpaceBeforeCSS
 ];
 
 function reformat(code: string){
