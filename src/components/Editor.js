@@ -1,8 +1,8 @@
-import { Provider } from '@expressive/mvc';
+import { Component } from 'react';
 
-import SaveOverlay from './SaveOverlay';
-import { useEvalComponent } from '../transform';
 import REPL from '../codemirror';
+import { useEvalComponent } from '../transform';
+import SaveOverlay from './SaveOverlay';
 
 portal: {
   position: relative;
@@ -34,19 +34,41 @@ export const LiveResult = () => do {
   const { output_js } = REPL.tap();
   const Preview = useEvalComponent(output_js);
 
-  flex: 1;
-  flexAlign: center;
-  border: dashed, 2, 0xccc;
-  margin: 8;
-  radius: 8;
+  <ExampleBoundary component={Preview} key={output_js} />
+}
 
-  err: {
-    color: 0xaaa;
-    fontSize: 0.7, em;
+class ExampleBoundary extends Component {
+  state = { hasError: false };
+
+  static getDerivedStateFromError(error){
+    return { hasError: error };
   }
 
-  if(Preview)
-    <Preview />
-  else
-    <err>Forget to export something?</err>
+  componentDidCatch(error){
+    console.error(error);
+  }
+
+  render(){
+    const Preview = this.props.component;
+
+    return do {
+      flex: 1;
+      flexAlign: center;
+      border: dashed, 2, 0xccc;
+      margin: 8;
+      radius: 8;
+      
+      err: {
+        color: 0xd47878;
+        fontSize: 0.7, em;
+      }
+
+      if(this.state.hasError)
+        <err>Something went wrong while rendering.</err>;
+      else if(Preview)
+        <Preview />
+      else
+        <err>Forget to export something?</err>
+    }
+  }
 }
