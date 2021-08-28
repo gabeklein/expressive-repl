@@ -2,16 +2,25 @@ import { EditorState, Extension } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
 import Model, { ref } from '@expressive/mvc';
 
+export function createView(
+  element: HTMLElement,
+  plugins: Extension){
+
+  const state = EditorState.create({
+    extensions: plugins
+  });
+
+  return new EditorView({
+    parent: element, state
+  });
+}
+
 export default class Editor extends Model {
   view: EditorView;
   plugin?: Extension;
 
   element = ref(parent => {
-    const state = EditorState.create({
-      extensions: this.plugin
-    });
-
-    this.view = new EditorView({ parent, state });
+    this.view = createView(parent, this.plugin);
 
     return () => {
       this.view.destroy();
