@@ -46,15 +46,18 @@ export default class CodeMirror extends Model {
   }
 
   didMount(){
-    const example = require("./example");
+    const example = localStorage.getItem("REPL:file");
     (window as any).REPL = this;
     this.input.setText(example);
+    this.compile();
   }
 
   compile = () => {
     const from = this.input.getText();
     let output: string;
     let code: string;
+
+    localStorage.setItem("REPL:file", from);
     
     try {
       output = compile(from, this.options);
