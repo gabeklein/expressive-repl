@@ -3,7 +3,7 @@ import { closeBrackets, closeBracketsKeymap } from '@codemirror/closebrackets';
 import { defaultKeymap, indentWithTab } from '@codemirror/commands';
 import { commentKeymap } from '@codemirror/comment';
 import { highlightActiveLineGutter, lineNumbers } from '@codemirror/gutter';
-import { defaultHighlightStyle } from '@codemirror/highlight';
+import { classHighlightStyle } from '@codemirror/highlight';
 import { history, historyKeymap } from '@codemirror/history';
 import { javascript } from '@codemirror/lang-javascript';
 import { indentOnInput } from '@codemirror/language';
@@ -20,12 +20,15 @@ export function keyBind(...args: KeyBindings[]){
 export function onKey<T extends string>(
   key: T, action: (key: T) => void){
 
-  const run = () => { action(key); return true };
+  const run = () => {
+    action(key);
+    return true
+  };
   return keyBind({ key, run });
 }
 
 export const jsx = [
-    defaultHighlightStyle.fallback,
+    classHighlightStyle,
     javascript({ jsx: true }),
     drawSelection()
 ]

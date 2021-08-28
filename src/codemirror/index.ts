@@ -1,4 +1,4 @@
-import './styles.css';
+import './editor.css';
 
 import Model, { on, parent, use } from '@expressive/mvc';
 
