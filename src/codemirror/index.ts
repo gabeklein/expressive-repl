@@ -2,7 +2,7 @@ import './editor.css';
 
 import Model, { on, parent, use } from '@expressive/mvc';
 
-import { compile, evalModule, runtime } from '../transform';
+import { compile, runtime } from '../transform';
 import { editor, jsx, onKey, onUpdate, readOnly } from './config';
 import Editor from './editor';
 
@@ -39,11 +39,6 @@ export default class CodeMirror extends Model {
     output: "jsx",
     printStyle: "pretty"
   };
-
-  get Preview(){
-    const module: any = evalModule(this.output_js);
-    return module.default || (() => false);
-  }
 
   didMount(){
     const example = localStorage.getItem("REPL:file");

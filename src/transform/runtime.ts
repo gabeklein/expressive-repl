@@ -1,5 +1,6 @@
 import * as Babel from '@babel/standalone';
 import Expressive from '@expressive/babel-preset-react';
+import { useMemo } from 'react';
 
 const Sandbox = {
   "react": require("react"),
@@ -27,4 +28,14 @@ export function evalModule(code: string){
   evaluate(require, module.exports, module);
 
   return module.exports;
+}
+
+export function useEvalComponent(src: string){
+  return useMemo(() => {
+    const module: any = evalModule(src);
+    const anything = Object.values(module)[0];
+
+    if(typeof anything == "function")
+      return anything;
+  }, [src]);
 }

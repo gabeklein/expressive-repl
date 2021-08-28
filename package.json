@@ -30,6 +30,7 @@
   "devDependencies": {
     "@babel/core": "^7.13.13",
     "@babel/preset-react": "^7.13.13",
+    "@types/react": "^17.0.19",
     "developer-webpack-plugin": "^1.0.0-beta.4",
     "file-loader": "^6.2.0",
     "react-app-webpack-plugin": "^1.0.0-beta.16",

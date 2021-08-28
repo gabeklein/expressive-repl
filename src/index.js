@@ -1,62 +1,44 @@
 import './styles.css';
 
+import { Provider } from '@expressive/mvc';
 import { forwardRef, useMemo, useState } from 'react';
 
-import Editor from './codemirror';
-import SaveOverlay from './components/SaveOverlay';
+import REPL from './codemirror';
+import { EditInput, LiveResult, MockOutput } from './components/Editor'
 
 App: {
   height: "100vh";
   display: flex;
   flexDirection: column;
+  boxSizing: border-box;
   fontFamily: "Lato";
-  padding: 0, 5;
+  padding: 5, 10;
+}
 
-  portal: {
-    position: relative;
-    overflow: hidden;
-    border: 0xddd;
-    padding: 20;
-    flex: 1;
-  }
+column: {
+  display: flex;
+  flexDirection: column;
+  flex: 1;
+}
 
-  OutputRenderer: {
-    border: 0xddd;
-    flex: 1;
-  }
-
-  column: {
-    display: flex;
-    flexDirection: column;
-    flex: 1;
-  }
-
-  row: {
-    display: flex;
-    flexDirection: row;
-    flex: 1;
-  }
-
-  window: {
-    flex: 1;
-    flexAlign: center;
-  }
+row: {
+  display: flex;
+  flexDirection: row;
+  flex: 1;
 }
 
 const App = () => do {
-  const { input, output, stale, compile, Preview } = Editor.use();
+  const controller = REPL.use();
 
-  <row>
-    <portal ref={input.element} />
-    <column>
-      <portal ref={output.element}>
-        <SaveOverlay active={stale} onClick={compile} />
-      </portal>
-      <window>
-        <Preview />
-      </window>
-    </column>
-  </row>
+  <Provider of={controller}>
+    <row>
+      <EditInput />
+      <column>
+        <MockOutput />
+        <LiveResult />
+      </column>
+    </row>
+  </Provider>
 }
 
 export default App;
