@@ -5,6 +5,10 @@ import { NodeProp } from "@lezer/common";
 function isBetweenBrackets(state: EditorState, pos: number): { from: number, to: number } | null {
   const selection = state.sliceDoc(pos - 1, pos + 1);
   
+  // Indent when cursor is between JSX tags.
+  if(selection == "><")
+    return { from: pos, to: pos }
+  
   if(/\(\)|\[\]|\{\}/.test(selection))
     return { from: pos, to: pos }
 
@@ -31,11 +35,7 @@ function isBetweenBrackets(state: EditorState, pos: number): { from: number, to:
   return null
 }
 
-/// Replace the selection with a newline and indent the newly created
-/// line(s). If the current line consists only of whitespace, this
-/// will also delete that whitespace. When the cursor is between
-/// matching brackets, an additional newline will be inserted after
-/// the cursor.
+/** Monkeypatched to include JSX tags as indent target. */
 export const insertNewlineAndIndent: StateCommand = ({ state, dispatch }): boolean => {
   let changes = state.changeByRange(({ from, to }) => {
     let explode = from == to && isBetweenBrackets(state, from);
