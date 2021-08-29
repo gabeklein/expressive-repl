@@ -33,12 +33,13 @@ export default class Editor extends Model {
   }
 
   setText(to: string){
-    this.view.dispatch({
-      changes: {
-        from: 0,
-        to: this.view.state.doc.length,
-        insert: to
-      }
-    })
+    if(this.view)
+      this.view.dispatch({
+        changes: {
+          from: 0,
+          to: this.view.state.doc.length,
+          insert: to
+        }
+      })
   }
 }

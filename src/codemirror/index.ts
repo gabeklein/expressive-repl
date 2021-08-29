@@ -30,9 +30,13 @@ class InputEditor extends Editor {
   ]
 }
 
+type Layout = "compact" | "fill" | "code" | "view"
+
 export default class CodeMirror extends Model {
   input = use(InputEditor);
   output = use(OutputView);
+
+  layout: Layout = "fill";
 
   output_js = "";
   output_jsx = on("", code => {
@@ -45,9 +49,13 @@ export default class CodeMirror extends Model {
     printStyle: "pretty"
   };
 
+  constructor(){
+    super();
+    (window as any).REPL = this;
+  }
+
   didMount(){
     const example = localStorage.getItem("REPL:file");
-    (window as any).REPL = this;
     this.input.setText(example);
     this.compile();
   }
