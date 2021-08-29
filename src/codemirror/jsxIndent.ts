@@ -1,72 +1,40 @@
-import { getIndentation, IndentContext, indentString, syntaxTree } from "@codemirror/language"
-import { EditorSelection, EditorState, StateCommand, Text } from "@codemirror/state"
-import { NodeProp } from "@lezer/common";
-
-function isBetweenBrackets(state: EditorState, pos: number): { from: number, to: number } | null {
-  const selection = state.sliceDoc(pos - 1, pos + 1);
-  
-  // Indent when cursor is between JSX tags.
-  if(selection == "><")
-    return { from: pos, to: pos }
-  
-  if(/\(\)|\[\]|\{\}/.test(selection))
-    return { from: pos, to: pos }
-
-  const context = syntaxTree(state).resolveInner(pos);
-  
-  const before = context.childBefore(pos);
-  const after = context.childAfter(pos)
-
-  if(before && after && before.to <= pos && after.from >= pos){
-    const closedBy = before.type.prop(NodeProp.closedBy);
-
-    if(closedBy && closedBy.indexOf(after.name) > -1){
-      const begin = before.to;
-      const end = after.from;
-
-      const lineBefore = state.doc.lineAt(begin);
-      const lineAfter = state.doc.lineAt(end);
-
-      if(lineBefore.from == lineAfter.from)
-        return { from: begin, to: end }
-    }
-  }
-
-  return null
-}
+import { getIndentation, IndentContext, indentString } from '@codemirror/language';
+import { EditorSelection, StateCommand, Text } from '@codemirror/state';
 
 /** Monkeypatched to include JSX tags as indent target. */
-export const insertNewlineAndIndent: StateCommand = ({ state, dispatch }): boolean => {
+export const insertNewlineAndIndentJSX: StateCommand = ({ state, dispatch }): boolean => {
+  const notBetweenTags = state.selection.ranges.find(range => 
+    state.sliceDoc(range.from - 1, range.to + 1) !== "><"  
+  );
+
+  if(notBetweenTags)
+    return false;
+
   let changes = state.changeByRange(({ from, to }) => {
-    let explode = from == to && isBetweenBrackets(state, from);
     let cx = new IndentContext(state, {
       simulateBreak: from,
-      simulateDoubleBreak: !!explode
+      simulateDoubleBreak: true
     });
 
-    let indent = getIndentation(cx, from);
+    let offset = getIndentation(cx, from);
 
-    if(indent == null)
-      indent = /^\s*/.exec(state.doc.lineAt(from).text)![0].length;
+    if(offset == null){
+      const line = state.doc.lineAt(from).text;
+      offset = /^\s*/.exec(line)![0].length;
+    }
 
     let line = state.doc.lineAt(from);
 
     while(to < line.to && /\s/.test(line.text[to - line.from]))
       to++;
 
-    if(explode)
-      ({ from, to } = explode)
-    else if(from > line.from && from < line.from + 100 && !/\S/.test(line.text.slice(0, from)))
-      from = line.from
-
-    let insert = ["", indentString(state, indent)];
-
-    if(explode)
-      insert.push(indentString(state, cx.lineIndent(line.from, -1)));
+    const indent = indentString(state, offset);
+    const closing = indentString(state, cx.lineIndent(line.from, -1));
+    const insert = Text.of(["", indent, closing]);
 
     return {
-      changes: { from, to, insert: Text.of(insert) },
-      range: EditorSelection.cursor(from + 1 + insert[1].length)
+      changes: { from, to, insert },
+      range: EditorSelection.cursor(from + 1 + indent.length)
     }
   });
 
