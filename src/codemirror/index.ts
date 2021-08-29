@@ -3,8 +3,9 @@ import './editor.css';
 import Model, { on, parent, use } from '@expressive/mvc';
 
 import { compile, runtime } from '../transform';
-import { editor, jsx, lines, onKey, onUpdate, readOnly } from './config';
+import { editor, jsx, keyBind, lines, onKey, onUpdate, readOnly } from './config';
 import Editor from './editor';
+import { insertNewlineAndIndent } from './jsxIndent';
 
 class OutputView extends Editor {
   plugin = [
@@ -18,6 +19,9 @@ class InputEditor extends Editor {
   parent = parent(CodeMirror, true);
 
   plugin = [
+    keyBind([
+      { key: "Enter", run: insertNewlineAndIndent }
+    ]),
     lines,
     jsx,
     editor,
