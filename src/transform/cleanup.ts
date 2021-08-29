@@ -22,6 +22,9 @@ const compactStylesInclude = (x: string) =>
 const ensureSpaceBeforeCSS = (x: string) =>
   x.replace(/(\n[\S\t ]+\n)(CSS\.put)/, "$1\n$2")
 
+const removeTrailingline = (x: string) =>
+  x.replace(/\n$/, "")
+
 const transforms = [
   statementLineSpacing,
   jsxReturnSpacing,
@@ -30,7 +33,8 @@ const transforms = [
   removeDoubleLines,
   tabCharactersMustDie,
   compactStylesInclude,
-  ensureSpaceBeforeCSS
+  ensureSpaceBeforeCSS,
+  removeTrailingline
 ];
 
 function reformat(code: string){
