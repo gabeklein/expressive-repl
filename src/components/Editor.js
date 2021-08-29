@@ -8,10 +8,10 @@ portal: {
   overflow: hidden;
   margin: 8;
   radius: 8;
-  background: 0xF7F7F7;
+  background: 0xF5F5F5;
   border: 0xddd;
   font: 14;
-  padding: 20;
+  padding: 20, 20, 20, 12;
   flex: 1;
 }
 
@@ -24,7 +24,7 @@ export const EditInput = () => do {
 export const MockOutput = () => do {
   const { output, stale, compile } = REPL.tap();
 
-  <portal ref={output.element} className={stale && "stale"} />
+  <portal ref={output.element} className={stale && "cm-stale"} />
 }
 
 export const LiveResult = () => do {
