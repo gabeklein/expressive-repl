@@ -33,6 +33,7 @@ export const editor = [
   history(),
   indentOnInput(),
   closeBrackets(),
+  EditorView.inputHandler.of(closeTag),
   keyBind(
     closeBracketsKeymap,
     defaultKeymap,
@@ -66,6 +67,33 @@ export function onUpdate(callback: () => void){
     if(update.docChanged)
       callback();
   })
+}
+
+export function closeTag(
+  view: EditorView,
+  from: number,
+  to: number,
+  inserted: string){
+
+  const { doc } = view.state;
+  
+  if(inserted !== ">")
+    return false;
+  
+  const { text } = doc.lineAt(from);
+  const tagName = /<([a-zA-Z-]+)$/.exec(text);
+
+  if(!tagName)
+    return false;
+
+  const insert = `></${tagName[1]}>`;
+
+  view.dispatch({
+    changes: { from, to, insert },
+    selection: { anchor: from + 1 }
+  })
+
+  return true;
 }
 
 export function createEditor(
