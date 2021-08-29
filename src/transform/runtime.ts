@@ -25,14 +25,23 @@ export function evalModule(code: string){
   const evaluate = new Function("require", "exports", "module", code);
   const require = (name: string) => Sandbox[name];
 
-  evaluate(require, module.exports, module);
+  try {
+    evaluate(require, module.exports, module);
+  }
+  catch(err){
+    return err as Error;
+  }
 
-  return module.exports;
+  return module.exports as {};
 }
 
 export function useEvalComponent(src: string){
   return useMemo(() => {
-    const module: any = evalModule(src);
+    let module = evalModule(src);
+
+    if(module instanceof Error)
+      return module;
+
     const anything = Object.values(module)[0];
 
     if(typeof anything == "function")

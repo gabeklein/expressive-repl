@@ -65,10 +65,12 @@ class ExampleBoundary extends Component {
 
       if(this.state.hasError)
         <err>Something went wrong while rendering.</err>;
-      else if(Preview)
-        <Preview />
-      else
+      else if(Preview instanceof Error)
+        <err>Error while evaluating module.</err>
+      else if(!Preview)
         <err>Forget to export something?</err>
+      else
+        <Preview />
     }
   }
 }
