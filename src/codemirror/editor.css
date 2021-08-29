@@ -9,6 +9,11 @@
 .cm-editor {
   height: 100%;
   outline: none !important;
+  overflow: hidden;
+}
+
+.stale .cm-content {
+  filter: saturate(40%) brightness(130%);
 }
 
 .cm-gutters {

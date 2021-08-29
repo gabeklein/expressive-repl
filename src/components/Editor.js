@@ -2,7 +2,6 @@ import { Component } from 'react';
 
 import REPL from '../codemirror';
 import { useEvalComponent } from '../transform';
-import SaveOverlay from './SaveOverlay';
 
 portal: {
   position: relative;
@@ -25,9 +24,7 @@ export const EditInput = () => do {
 export const MockOutput = () => do {
   const { output, stale, compile } = REPL.tap();
 
-  <portal ref={output.element}>
-    <SaveOverlay active={stale} onClick={compile} />
-  </portal>
+  <portal ref={output.element} className={stale && "stale"} />
 }
 
 export const LiveResult = () => do {
