@@ -46,8 +46,7 @@ export default class CodeMirror extends Model {
     printStyle: "pretty"
   };
 
-  constructor(){
-    super();
+  didCreate(){
     (window as any).REPL = this;
   }
 

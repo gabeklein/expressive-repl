@@ -7,8 +7,8 @@ import { history, historyKeymap } from '@codemirror/history';
 import { javascript } from '@codemirror/lang-javascript';
 import { indentOnInput } from '@codemirror/language';
 import { searchKeymap } from '@codemirror/search';
-import { EditorState, Extension } from '@codemirror/state';
 import { drawSelection, EditorView, KeyBinding, keymap } from '@codemirror/view';
+
 import { insertClosingTag, insertNewlineAndIndentJSX } from './jsx';
 
 /** JSX view plugins */
@@ -74,13 +74,4 @@ export function onUpdate(callback: () => void){
     if(update.docChanged)
       callback();
   })
-}
-
-export function createEditor(
-  element: HTMLElement, extensions: Extension[] = []){
-
-  return new EditorView({
-    parent: element,
-    state: EditorState.create({ extensions })
-  });
 }

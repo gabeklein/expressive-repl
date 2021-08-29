@@ -3,16 +3,11 @@ import { EditorView } from '@codemirror/view';
 import Model, { ref } from '@expressive/mvc';
 
 export function createView(
-  element: HTMLElement,
-  plugins: Extension){
+  parent: HTMLElement, extensions: Extension){
 
-  const state = EditorState.create({
-    extensions: plugins
-  });
+  const state = EditorState.create({ extensions });
 
-  return new EditorView({
-    parent: element, state
-  });
+  return new EditorView({ parent, state });
 }
 
 export default class Editor extends Model {
