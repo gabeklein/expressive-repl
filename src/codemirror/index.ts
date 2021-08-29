@@ -3,28 +3,20 @@ import './editor.css';
 import Model, { on, parent, use } from '@expressive/mvc';
 
 import { compile, runtime } from '../transform';
-import { editor, jsx, keyBind, lines, onKey, onUpdate, readOnly } from './config';
+import { editor, jsx, jsxEditor, lines, onKey, onUpdate, readOnly } from './config';
 import Editor from './editor';
-import { insertNewlineAndIndentJSX } from './jsxIndent';
 
 class OutputView extends Editor {
-  plugin = [
-    lines,
-    jsx,
-    readOnly
-  ];
+  plugin = [ lines, jsx, readOnly ];
 }
 
 class InputEditor extends Editor {
   parent = parent(CodeMirror, true);
 
   plugin = [
-    keyBind({
-      key: "Enter",
-      run: insertNewlineAndIndentJSX
-    }),
     lines,
     jsx,
+    jsxEditor,
     editor,
     onUpdate(() => {
       this.parent.stale = true;
