@@ -3,17 +3,22 @@ import './editor.css';
 import Model, { on, parent, use } from '@expressive/mvc';
 
 import { compile, runtime } from '../transform';
-import { editor, jsx, onKey, onUpdate, readOnly } from './config';
+import { editor, jsx, lines, onKey, onUpdate, readOnly } from './config';
 import Editor from './editor';
 
 class OutputView extends Editor {
-  plugin = [ jsx, readOnly ];
+  plugin = [
+    lines,
+    jsx,
+    readOnly
+  ];
 }
 
 class InputEditor extends Editor {
   parent = parent(CodeMirror, true);
 
   plugin = [
+    lines,
     jsx,
     editor,
     onUpdate(() => {

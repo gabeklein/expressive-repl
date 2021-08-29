@@ -2,14 +2,14 @@ import { autocompletion } from '@codemirror/autocomplete';
 import { closeBrackets, closeBracketsKeymap } from '@codemirror/closebrackets';
 import { defaultKeymap, indentWithTab } from '@codemirror/commands';
 import { commentKeymap } from '@codemirror/comment';
-import { highlightActiveLineGutter, lineNumbers } from '@codemirror/gutter';
+import { lineNumbers } from '@codemirror/gutter';
 import { classHighlightStyle } from '@codemirror/highlight';
 import { history, historyKeymap } from '@codemirror/history';
 import { javascript } from '@codemirror/lang-javascript';
 import { indentOnInput } from '@codemirror/language';
 import { searchKeymap } from '@codemirror/search';
 import { EditorState, Extension } from '@codemirror/state';
-import { drawSelection, EditorView, highlightActiveLine, KeyBinding, keymap } from '@codemirror/view';
+import { drawSelection, EditorView, KeyBinding, keymap } from '@codemirror/view';
 
 export const jsx = [
   classHighlightStyle,
@@ -26,9 +26,7 @@ export const autocomplete = [
 ]
 
 export const lines = [
-  lineNumbers(),
-  highlightActiveLine(),
-  highlightActiveLineGutter()
+  lineNumbers()
 ]
 
 export const editor = [
