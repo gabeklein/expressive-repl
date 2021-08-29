@@ -11,20 +11,24 @@ import { EditorState, Extension } from '@codemirror/state';
 import { drawSelection, EditorView, KeyBinding, keymap } from '@codemirror/view';
 import { insertClosingTag, insertNewlineAndIndentJSX } from './jsx';
 
+/** JSX view plugins */
 export const jsx = [
   classHighlightStyle,
   javascript({ jsx: true }),
   drawSelection()
 ]
 
+/** Set editor to read-only */
 export const readOnly = [
   EditorView.editable.of(false)
 ]
 
+/** Display lines-numbers */
 export const lines = [
   lineNumbers()
 ]
 
+/** Custom JSX editor shortcuts */
 export const jsxEditor = [
   EditorView.inputHandler.of(insertClosingTag),
   keyBind({
@@ -33,6 +37,7 @@ export const jsxEditor = [
   }),
 ]
 
+/** Default editor extensions */
 export const editor = [
   history(),
   indentOnInput(),
@@ -49,29 +54,27 @@ export const editor = [
 
 type KeyBindings = KeyBinding | readonly KeyBinding[];
 
+/** Register keymap helper */
 export function keyBind(...args: KeyBindings[]){
   return keymap.of([].concat(...args));
 }
 
+/** Callback on specified keyboard event. */
 export function onKey<T extends string>(
-  key: T, action: (key: T) => void){
+  key: T, action: (key: T) => boolean | void){
 
   return keyBind({
-    key,
-    run(){
-      action(key);
-      return true
-    }
+    key, run: () => action(key) !== false
   });
 }
 
+/** Callback on document update. */
 export function onUpdate(callback: () => void){
   return EditorView.updateListener.of((update) => {
     if(update.docChanged)
       callback();
   })
 }
-
 
 export function createEditor(
   element: HTMLElement, extensions: Extension[] = []){
