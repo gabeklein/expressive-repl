@@ -6,7 +6,7 @@ export const Handle = ({ direction }) => do {
   forward: ref, className;
   position: relative;
 
-  $hover: {
+  css: hover: {
     handle: {
       bg: 0x9cc3ff;
     }
@@ -14,7 +14,7 @@ export const Handle = ({ direction }) => do {
 
   handle: {
     radius: round;
-    transition: "background 0.1s ease-out"
+    transition: "background 0.1s ease-out";
   }
 
   if(direction == "row"){
@@ -30,9 +30,7 @@ export const Handle = ({ direction }) => do {
     }
   }
 
-  <this>
-    <handle />
-  </this>
+  <handle />
 }
 
 export const Layout = (props) => do {
