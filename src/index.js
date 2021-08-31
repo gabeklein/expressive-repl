@@ -14,7 +14,6 @@ const App = () => do {
   display: flex;
   flexDirection: row;
   boxSizing: border-box;
-  fontFamily: "Lato";
   padding: 5, 10;
 
   <Provider of={controller}>
