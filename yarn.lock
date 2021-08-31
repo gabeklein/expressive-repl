@@ -492,19 +492,19 @@
     style-mod "^4.0.0"
     w3c-keyname "^2.2.4"
 
-"@expressive/babel-plugin-jsx@^1.0.0-beta.69":
-  version "1.0.0-beta.69"
-  resolved "https://registry.yarnpkg.com/@expressive/babel-plugin-jsx/-/babel-plugin-jsx-1.0.0-beta.69.tgz#a997cf018b067a95701e9650319ea02960daeb69"
-  integrity sha512-8eLHodqhVeLhCXMd+/5lLNpyxfJHVfk/ZWoXgySa5o/uJ5J8UApqkdD8ti8PNIo5Va2oi82jRoxskyFjSwx2gA==
+"@expressive/babel-plugin-jsx@^1.0.0-beta.71":
+  version "1.0.0-beta.71"
+  resolved "https://registry.yarnpkg.com/@expressive/babel-plugin-jsx/-/babel-plugin-jsx-1.0.0-beta.71.tgz#e29c1d0b4c34bd0193dd90d05232e2dc54da7107"
+  integrity sha512-d5kZYFDeuA8A8lKzxqCl9Vh+koFW8pfsjQ3qU8IJifHR87uZYjEiidW3cg6VXRGWnCwwaXAVWRj1xhnBPY0osQ==
   dependencies:
     "@babel/types" "7.10.3"
 
-"@expressive/babel-preset-react@^1.0.0-beta.69":
-  version "1.0.0-beta.69"
-  resolved "https://registry.yarnpkg.com/@expressive/babel-preset-react/-/babel-preset-react-1.0.0-beta.69.tgz#c1a03eae01d6e4f0abe28bb3eb07a48d380c2d61"
-  integrity sha512-Fxxcl1YfWCW2ONnjrLiZiBCyta8Hcbapx0ui3B/NH4zGODFXRCY27KbcCEPj8Ymu2C1zTJTH/NMTB0gvhf1/wA==
+"@expressive/babel-preset-react@^1.0.0-beta.71":
+  version "1.0.0-beta.71"
+  resolved "https://registry.yarnpkg.com/@expressive/babel-preset-react/-/babel-preset-react-1.0.0-beta.71.tgz#88c6732e5a95bc9204dd7baa64478d33856393fa"
+  integrity sha512-jh2axym5jdiPjWlz+vQn6jundEYY7tf3jOC162BsKEyMJgP5z6YbE8u6ep2fY1tLy/rlqCfBfqkNwlDlrWIl5w==
   dependencies:
-    "@expressive/babel-plugin-jsx" "^1.0.0-beta.69"
+    "@expressive/babel-plugin-jsx" "^1.0.0-beta.71"
     "@expressive/macro-pseudo" "^1.0.0-beta.69"
     "@expressive/macro-style" "^1.0.0-beta.67"
 
@@ -527,10 +527,10 @@
   dependencies:
     "@babel/types" "7.10.3"
 
-"@expressive/mvc@^1.0.0-beta.8":
-  version "1.0.0-beta.8"
-  resolved "https://registry.yarnpkg.com/@expressive/mvc/-/mvc-1.0.0-beta.8.tgz#f8947e4b9ffdb5953f1740b85fd1b9569d54a3da"
-  integrity sha512-ySr8VJnUSW5ZHVqXqzMLF7dSFfGxpObkoabYyijjPWObhxuJ28OyD1WhYC1H5Bwq1+KfZJP0zmwYnzLbSYSd9g==
+"@expressive/mvc@^1.0.0-beta.9":
+  version "1.0.0-beta.9"
+  resolved "https://registry.yarnpkg.com/@expressive/mvc/-/mvc-1.0.0-beta.9.tgz#caf6d85ac52420b648474a491cfd3dd94b043b94"
+  integrity sha512-fnqspf1SyvWpTgeuDHW1u0h6BV8jqzjgIGQMGPYIcPANrm8w1cW+tLBndZSapm8/GUn9+NDOL4To661fJ4Ul3w==
 
 "@hot-loader/react-dom@^16.13.0":
   version "16.14.0"
