@@ -33,7 +33,7 @@ export default class CodeMirror extends Model {
   input = use(InputEditor);
   output = use(OutputView);
 
-  layout: Layout = "fill";
+  layout: Layout = "compact";
 
   output_js = "";
   output_jsx = on("", code => {

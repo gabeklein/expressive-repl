@@ -6,7 +6,7 @@ import { useEvalComponent } from '../transform';
 portal: {
   position: relative;
   overflow: hidden;
-  margin: 8;
+  margin: 3;
   radius: 8;
   background: 0xF5F5F5;
   border: 0xddd;
@@ -52,7 +52,7 @@ class ExampleBoundary extends Component {
       flex: 1;
       flexAlign: center;
       border: dashed, 2, 0xccc;
-      margin: 8;
+      margin: 3;
       radius: 8;
       
       err: {
@@ -65,7 +65,7 @@ class ExampleBoundary extends Component {
       else if(Preview instanceof Error)
         <err>Error while evaluating module.</err>
       else if(!Preview)
-        <err>Forget to export something?</err>
+        <err>Waiting for exports...</err>
       else
         <Preview />
     }

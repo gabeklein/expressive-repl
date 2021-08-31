@@ -3,20 +3,19 @@ import './styles.css';
 import { Provider } from '@expressive/mvc';
 import { forwardRef, useMemo, useState } from 'react';
 
-import REPL from './codemirror';
-import { Col, Row } from './components';
+import Control from './codemirror';
 import { EditInput, LiveResult, MockOutput } from './components/Editor';
+import { Column, Row } from './resizable';
 
 const App = () => do {
-  const { get: controller, layout } = REPL.use();
+  const { get, layout } = Control.use();
 
   height: "100vh";
-  display: flex;
-  flexDirection: row;
+  display: grid;
   boxSizing: border-box;
-  padding: 5, 10;
+  padding: 10;
 
-  <Provider of={controller}>
+  <Provider of={get}>
     <Row>
       <EditInput />
       <Interface layout={layout} />
@@ -26,10 +25,10 @@ const App = () => do {
 
 const Interface = ({ layout }) => do {
   if(layout == "compact")
-    <Col>
-      <LiveResult />
+    <Column>
       <MockOutput />
-    </Col>
+      <LiveResult />
+    </Column>
   else if(layout == "fill")
     <this>
       <MockOutput />
