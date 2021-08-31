@@ -2,32 +2,32 @@ import { Provider } from '@expressive/mvc';
 import { forwardRef, useMemo, useState } from 'react';
 
 import Control from './codemirror';
-import { Column, Row } from './resizable';
+import { Col, Row, Layout } from './resizable';
 import { EditInput, LiveResult, MockOutput } from './components/Editor';
 
 export default () => do {
   const { get, layout } = Control.use();
 
-  Row: {
+  Layout: {
     height: "100vh";
     boxSizing: border-box;
     padding: 10;
   }
 
   <Provider of={get}>
-    <Row>
+    <Layout as="row">
       <EditInput />
       <Interface layout={layout} />
-    </Row>
+    </Layout>
   </Provider>
 }
 
 const Interface = ({ layout }) => do {
   if(layout == "compact")
-    <Column>
+    <Col>
       <MockOutput />
       <LiveResult />
-    </Column>
+    </Col>
   else if(layout == "fill")
     <this>
       <MockOutput />

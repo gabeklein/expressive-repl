@@ -35,11 +35,9 @@ export const Handle = ({ direction }) => do {
   </this>
 }
 
-export const Row = (props) => do {
+export const Layout = (props) => do {
   const { output, container } = Window.using({
-    separator: Handle,
-    ...props,
-    direction: "row"
+    separator: Handle, ...props, direction: props.as
   });
 
   forward: className;
@@ -50,17 +48,10 @@ export const Row = (props) => do {
   </this>
 }
 
+export const Row = (props) => do {
+  <Layout {...props} as="row" />
+}
+
 export const Column = (props) => do {
-  const { output, container } = Window.using({
-    separator: Handle,
-    ...props,
-    direction: "column"
-  });
-
-  forward: className;
-  display: grid;
-
-  <this ref={container}>
-    {output}
-  </this>
+  <Layout {...props} as="column" />
 }
