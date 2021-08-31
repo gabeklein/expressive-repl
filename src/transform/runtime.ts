@@ -13,6 +13,7 @@ export function compile(source: string){
     filename: '/REPL.js',
     presets: [
       [Expressive, { output: "js", hot: true }],
+      "react",
       "env"
     ]
   });
