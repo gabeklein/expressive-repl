@@ -42,6 +42,7 @@ export const Row = (props) => do {
     direction: "row"
   });
 
+  forward: className;
   display: grid;
 
   <this ref={container}>
@@ -56,6 +57,7 @@ export const Column = (props) => do {
     direction: "column"
   });
 
+  forward: className;
   display: grid;
 
   <this ref={container}>

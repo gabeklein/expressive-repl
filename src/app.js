@@ -8,6 +8,12 @@ import { EditInput, LiveResult, MockOutput } from './components/Editor';
 export default () => do {
   const { get, layout } = Control.use();
 
+  Row: {
+    height: "100vh";
+    boxSizing: border-box;
+    padding: 10;
+  }
+
   <Provider of={get}>
     <Row>
       <EditInput />
