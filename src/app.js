@@ -1,41 +1,18 @@
-import { Col, Row } from '@expressive/layout';
 import { Provider } from '@expressive/mvc';
-import { forwardRef, useMemo, useState } from 'react';
 
-import Control from './codemirror';
-import { EditInput, LiveResult, MockOutput } from './components/Editor';
+import { Interface, REPL } from './codemirror';
 
 export const App = () => do {
-  const { get, layout } = Control.use();
+  const { get, layout } = REPL.use();
 
-  Row: {
+  Interface: {
     height: "100vh";
     boxSizing: border-box;
     padding: 10;
   }
 
-  results: {
-    if(layout == "compact")
-      <Col>
-        <MockOutput />
-        <LiveResult />
-      </Col>
-    else if(layout == "fill")
-      <this>
-        <MockOutput />
-        <LiveResult />
-      </this>
-    else if(layout == "view")
-      <LiveResult />
-    else if(layout == "code")
-      <EditInput />
-  }
-
   <Provider of={get}>
-    <Row>
-      <EditInput />
-      <results />
-    </Row>
+    <Interface layout={layout} />
   </Provider>
 }
 

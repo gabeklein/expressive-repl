@@ -1,7 +1,9 @@
 import { Component } from 'react';
 
-import REPL from '../codemirror';
 import { useEvalComponent } from '../transform';
+import { REPL } from "./control";
+
+export { REPL };
 
 portal: {
   position: relative;

@@ -1,5 +1,3 @@
-import './editor.css';
-
 import Model, { on, parent, use } from '@expressive/mvc';
 
 import { compile, runtime } from '../transform';
@@ -11,7 +9,7 @@ class OutputView extends Editor {
 }
 
 class InputEditor extends Editor {
-  parent = parent(CodeMirror, true);
+  parent = parent(REPL, true);
 
   plugin = [
     lines,
@@ -29,7 +27,7 @@ class InputEditor extends Editor {
 
 type Layout = "compact" | "fill" | "code" | "view"
 
-export default class CodeMirror extends Model {
+export class REPL extends Model {
   input = use(InputEditor);
   output = use(OutputView);
 
