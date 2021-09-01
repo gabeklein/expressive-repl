@@ -513,6 +513,13 @@
   resolved "https://registry.yarnpkg.com/@expressive/css/-/css-1.0.0-beta.68.tgz#7dcfeafcdab082041319565ce52fc11c317bda93"
   integrity sha512-UwoIqq+6MHfghgX7cOZuUNhtcvCqx4zB66Hb0bcS64R2zSNtI3n1SO8Bu/jPKZnQ5O8QLH5KMlpDyqiWd/Pzsg==
 
+"@expressive/layout@^1.0.0-beta.2":
+  version "1.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@expressive/layout/-/layout-1.0.0-beta.2.tgz#429330853670a51a89618d369ff97fb59e8f6df2"
+  integrity sha512-OAmVANxwOWKn9Q339lWS5Q6jY3RpHeq/eCoYwIHMJ9IpqtzJAcnUR/iYnGl7M3PtHFDMFeGdEnA5Kh91TjMqbQ==
+  dependencies:
+    "@expressive/mvc" "^1.0.0-beta.9"
+
 "@expressive/macro-pseudo@^1.0.0-beta.69":
   version "1.0.0-beta.69"
   resolved "https://registry.yarnpkg.com/@expressive/macro-pseudo/-/macro-pseudo-1.0.0-beta.69.tgz#d745c9f490f47d60f08f3142b651753248438246"

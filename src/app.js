@@ -1,8 +1,8 @@
+import { Col, Row } from '@expressive/layout';
 import { Provider } from '@expressive/mvc';
 import { forwardRef, useMemo, useState } from 'react';
 
 import Control from './codemirror';
-import { Col, Row } from './resizable';
 import { EditInput, LiveResult, MockOutput } from './components/Editor';
 
 export const App = () => do {

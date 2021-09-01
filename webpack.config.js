@@ -11,6 +11,14 @@ module.exports = {
     publicPath: "/"
   },
   devServer: {},
+  resolve: {
+    alias: {
+      "react": require.resolve("react"),
+      "react-dom": require.resolve("react-dom"),
+      "@expressive/mvc": require.resolve("@expressive/mvc"),
+      "@expressive/css": require.resolve("@expressive/css"),
+    }
+  },
   module: {
     rules: [
       {
