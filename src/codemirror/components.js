@@ -56,6 +56,7 @@ class ExampleBoundary extends Component {
       border: dashed, 2, 0xccc;
       margin: 3;
       radius: 8;
+      position: relative;
       
       err: {
         color: 0xd47878;
