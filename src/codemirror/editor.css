@@ -3,6 +3,10 @@
   background-color: "transparent" !important;
 }
 
+.cm-content {
+  padding: 20px 0 !important;
+}
+
 .cm-scroller {
   font-family: "Fira Mono" !important;
 }
@@ -33,7 +37,7 @@
 .cm-gutters {
   padding-right: 5px;
   margin-right: 8px;
-  border-right: 1px solid #e5e5e5 !important;
+  border-right: 1px solid #eaeaea !important;
 }
 
 .cm-line {

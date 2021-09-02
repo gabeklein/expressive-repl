@@ -6,27 +6,29 @@ import { REPL } from "./control";
 export { REPL };
 
 portal: {
-  position: relative;
   overflow: hidden;
   margin: 3;
   radius: 8;
   background: 0xF5F5F5;
   border: 0xddd;
   font: 14;
-  padding: 20, 20, 20, 12;
-  flex: 1;
+  padding: 0, 0, 0, 5;
 }
 
 export const EditInput = () => do {
   const { input } = REPL.tap();
-  
-  <portal ref={input.element} />
+
+  use: portal;
+
+  <this ref={input.element} />
 }
 
 export const MockOutput = () => do {
   const { output, stale, compile } = REPL.tap();
 
-  <portal ref={output.element} className={stale && "cm-stale"} />
+  use: portal;
+
+  <this ref={output.element} className={stale && "cm-stale"} />
 }
 
 export const LiveResult = () => do {
