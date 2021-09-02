@@ -1,4 +1,5 @@
-.cm-activeLineGutter, .cm-activeLine {
+.cm-activeLineGutter,
+.cm-activeLine {
   background-color: "transparent" !important;
 }
 
@@ -12,15 +13,20 @@
   overflow: hidden;
 }
 
-.cm-editor, .cm-editor * {
-  transition: color 0.15s ease-in-out, background 0.15s ease-in-out, filter 0.15s ease-in-out;
+.cm-editor,
+.cm-editor * {
+  transition:
+    color 0.15s ease-in-out,
+    background 0.15s ease-in-out,
+    filter 0.15s ease-in-out;
 }
 
 .cm-stale .cm-content {
   filter: saturate(40%) brightness(130%);
 }
 
-.cm-stale, .cm-stale .cm-gutters {
+.cm-stale,
+.cm-stale .cm-gutters {
   background: #fcfcfc !important;
 }
 
@@ -46,7 +52,8 @@
   color: #0184BC;
 }
 
-.cmt-variableName, .cmt-propertyName {
+.cmt-variableName,
+.cmt-propertyName {
   color: #DD4A68;
 }
 
@@ -66,7 +73,9 @@
   color: #999;
 }
 
-.cmt-regex, .cmt-boolean, .cmt-number {
+.cmt-regex,
+.cmt-boolean,
+.cmt-number {
   color: #905;
 }
 
@@ -74,9 +83,11 @@
   color: #9a6e3a;
 }
 
-.cmt-important, .cmt-bold {
+.cmt-important,
+.cmt-bold {
   font-weight: bold;
 }
+
 .cmt-italic {
   font-style: italic;
 }
