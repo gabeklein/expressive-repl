@@ -11,21 +11,17 @@ import { drawSelection, EditorView, KeyBinding, keymap } from '@codemirror/view'
 
 import { insertClosingTag, insertNewlineAndIndentJSX } from './jsx';
 
-/** JSX view plugins */
+/** Base plugins for displaying JSX */
 export const jsx = [
   classHighlightStyle,
   javascript({ jsx: true }),
+  lineNumbers(),
   drawSelection()
 ]
 
 /** Set editor to read-only */
 export const readOnly = [
   EditorView.editable.of(false)
-]
-
-/** Display lines-numbers */
-export const lines = [
-  lineNumbers()
 ]
 
 /** Custom JSX editor shortcuts */
