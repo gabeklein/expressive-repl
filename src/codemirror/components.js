@@ -1,9 +1,7 @@
 import { Component } from 'react';
+import { evaluate } from '../transform';
 
-import { useEvalComponent } from '../transform';
 import { REPL } from "./control";
-
-export { REPL };
 
 portal: {
   overflow: hidden;
@@ -33,24 +31,50 @@ export const MockOutput = () => do {
 
 export const LiveResult = () => do {
   const { output_js } = REPL.tap();
-  const Preview = useEvalComponent(output_js);
 
-  <ExampleBoundary component={Preview} key={output_js} />
+  <ExampleBoundary code={output_js} />
 }
 
 class ExampleBoundary extends Component {
-  state = { hasError: false };
+  state = {};
 
   static getDerivedStateFromError(error){
-    return { hasError: error };
+    console.error(error);
+
+    return {
+      error: "Something went wrong while rendering."
+    };
   }
 
-  componentDidCatch(error){
-    console.error(error);
+  static getDerivedStateFromProps(props, state){
+    let { code } = props;
+    let component;
+    let message;
+
+    if(!code || state.code == code)
+      return null;
+
+    try {
+      const module = evaluate(code);
+      component = Object.values(module)[0];
+  
+      if(typeof component !== "function")
+        component = undefined;
+    }
+    catch(error){
+      console.error(error);
+      message = "Error while evaluating module.";
+    }
+
+    return {
+      code,
+      component,
+      error: message
+    }
   }
 
   render(){
-    const Preview = this.props.component;
+    const { error, component: Preview } = this.state;
 
     return do {
       flex: 1;
@@ -60,17 +84,15 @@ class ExampleBoundary extends Component {
       radius: 8;
       position: relative;
       
-      err: {
+      issue: {
         color: 0xd47878;
         fontSize: 0.7, em;
       }
 
-      if(this.state.hasError)
-        <err>Something went wrong while rendering.</err>;
-      else if(Preview instanceof Error)
-        <err>Error while evaluating module.</err>
+      if(error)
+        <issue>{error}</issue>;
       else if(!Preview)
-        <err>Waiting for exports...</err>
+        <issue>Waiting for exports...</issue>
       else
         <Preview />
     }

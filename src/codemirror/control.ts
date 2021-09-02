@@ -1,6 +1,6 @@
 import Model, { on, parent, use } from '@expressive/mvc';
 
-import { compile, runtime } from '../transform';
+import { build, transform } from '../transform';
 import { editor, jsx, jsxEditor, onKey, onUpdate, readOnly } from './config';
 import Editor from './editor';
 
@@ -61,8 +61,8 @@ export class REPL extends Model {
     localStorage.setItem("REPL:file", from);
     
     try {
-      output = compile(from, this.options);
-      code = runtime(from);
+      output = transform(from, this.options);
+      code = build(from);
     }
     catch(err){
       debugger;

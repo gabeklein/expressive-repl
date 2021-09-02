@@ -9,7 +9,7 @@ import { indentOnInput } from '@codemirror/language';
 import { searchKeymap } from '@codemirror/search';
 import { drawSelection, EditorView, KeyBinding, keymap } from '@codemirror/view';
 
-import { insertClosingTag, insertNewlineAndIndentJSX } from './jsx';
+import { insertClosingTag, insertNewlineAndIndentJSX } from './plugins';
 
 /** Base plugins for displaying JSX */
 export const jsx = [

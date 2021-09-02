@@ -1,14 +1,33 @@
 import * as Babel from '@babel/standalone';
 import Expressive from '@expressive/babel-preset-react';
-
 import parserBabel from 'prettier/parser-babel';
 import Prettier from 'prettier/standalone';
 
 import cleanup from './cleanup';
 
-export { compile as runtime, evalModule, useEvalComponent } from "./runtime";
+/** Imports shared with sandbox. */
+const Sandbox = {
+  "react": require("react"),
+  "@expressive/css": require("@expressive/css"),
+  "@expressive/mvc": require("@expressive/mvc")
+}
 
-export function compile(source: string, opts: any){
+/** Generate eval-ready code from source. */
+export function build(source: string){
+  let output = Babel.transform(source, {
+    filename: '/REPL.js',
+    presets: [
+      [Expressive, { output: "js", hot: true }],
+      "react",
+      "env"
+    ]
+  });
+
+  return output.code;
+}
+
+/** Generate preview JSX code from source. */
+export function transform(source: string, opts: any){
   let { code } = Babel.transform(source, {
     // ast: true,  
     filename: '/REPL.js',
@@ -32,4 +51,15 @@ export function compile(source: string, opts: any){
   code = cleanup(code);
 
   return code;
+}
+
+/** Evaluate string as a commonJS module. */
+export function evaluate(code: string){
+  const module = { exports: {} };
+  const require = (name: string) => Sandbox[name];
+
+  new Function("require", "exports", "module", code)
+    (require, module.exports, module);
+
+  return module.exports as {};
 }
