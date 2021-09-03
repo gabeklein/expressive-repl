@@ -1,0 +1,60 @@
+.cm-editor {
+  background: #F5F5F5;
+  border: #ddd solid 1px;
+}
+
+.cm-stale,
+.cm-stale .cm-gutters {
+  background: #fcfcfc !important;
+}
+
+.cm-gutters {
+  border-right: 1px solid #eaeaea !important;
+}
+
+.cm-line {
+  color: #444;
+}
+
+.cmt-typeName {
+  color: #c78800;
+}
+
+.cmt-keyword {
+  color: #A626A4;
+}
+
+.cmt-labelName {
+  color: #0184BC;
+}
+
+.cmt-variableName,
+.cmt-propertyName {
+  color: #DD4A68;
+}
+
+.cmt-string {
+  color: #50A14F;
+}
+
+.cmt-string2 {
+  color: #1aa437;
+}
+
+.cmt-comment {
+  color: slategray;
+}
+
+.cmt-punctuation {
+  color: #999;
+}
+
+.cmt-regex,
+.cmt-boolean,
+.cmt-number {
+  color: #905;
+}
+
+.cmt-operator {
+  color: #9a6e3a;
+}

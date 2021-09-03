@@ -1,32 +1,30 @@
+import './editor-light.css';
+import './editor.css';
+
 import { Component } from 'react';
+
 import { evaluate } from '../transform';
+import { REPL } from './control';
 
-import { REPL } from "./control";
+const Editor = ({ font, stale }) => do {
+  className = stale && "cm-stale";
 
-portal: {
+  forward: ref, className;
+  fontSize: `${font}px`;
   overflow: hidden;
   margin: 3;
-  radius: 8;
-  background: 0xF5F5F5;
-  border: 0xddd;
-  font: 14;
-  padding: 0, 0, 0, 5;
 }
 
 export const EditInput = () => do {
   const { input } = REPL.tap();
 
-  use: portal;
-
-  <this ref={input.element} />
+  <Editor ref={input.element} />
 }
 
 export const MockOutput = () => do {
   const { output, stale, compile } = REPL.tap();
 
-  use: portal;
-
-  <this ref={output.element} className={stale && "cm-stale"} />
+  <Editor ref={output.element} stale={stale} />
 }
 
 export const LiveResult = () => do {
