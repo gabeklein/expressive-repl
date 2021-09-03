@@ -492,20 +492,20 @@
     style-mod "^4.0.0"
     w3c-keyname "^2.2.4"
 
-"@expressive/babel-plugin-jsx@^1.0.0-beta.71":
-  version "1.0.0-beta.71"
-  resolved "https://registry.yarnpkg.com/@expressive/babel-plugin-jsx/-/babel-plugin-jsx-1.0.0-beta.71.tgz#e29c1d0b4c34bd0193dd90d05232e2dc54da7107"
-  integrity sha512-d5kZYFDeuA8A8lKzxqCl9Vh+koFW8pfsjQ3qU8IJifHR87uZYjEiidW3cg6VXRGWnCwwaXAVWRj1xhnBPY0osQ==
+"@expressive/babel-plugin-jsx@^1.0.0-beta.73":
+  version "1.0.0-beta.73"
+  resolved "https://registry.yarnpkg.com/@expressive/babel-plugin-jsx/-/babel-plugin-jsx-1.0.0-beta.73.tgz#f8487b085c1253d5765f0ea68f3dd7a90c010076"
+  integrity sha512-+FjYz1ugOVGdYI0Gltu98Hz9gtDmxYK4DPhhpjh45GJIkBeqK5Z7kkBOdFtP3SaYFA3t69xpzoUVA264REqQsw==
   dependencies:
     "@babel/types" "7.10.3"
 
-"@expressive/babel-preset-react@^1.0.0-beta.71":
-  version "1.0.0-beta.71"
-  resolved "https://registry.yarnpkg.com/@expressive/babel-preset-react/-/babel-preset-react-1.0.0-beta.71.tgz#88c6732e5a95bc9204dd7baa64478d33856393fa"
-  integrity sha512-jh2axym5jdiPjWlz+vQn6jundEYY7tf3jOC162BsKEyMJgP5z6YbE8u6ep2fY1tLy/rlqCfBfqkNwlDlrWIl5w==
+"@expressive/babel-preset-react@^1.0.0-beta.73":
+  version "1.0.0-beta.73"
+  resolved "https://registry.yarnpkg.com/@expressive/babel-preset-react/-/babel-preset-react-1.0.0-beta.73.tgz#40a2a906a84440b8a8fa0e1c9619b792a206fe01"
+  integrity sha512-hlZf5dtIpSWfEXRpl0xBVJvUtms8vP7WgFyorfOzWnCXJ5nVfxKRbFkoJXUBCTSOurAwioU5qaBs+l0y1zyzLg==
   dependencies:
-    "@expressive/babel-plugin-jsx" "^1.0.0-beta.71"
-    "@expressive/macro-pseudo" "^1.0.0-beta.69"
+    "@expressive/babel-plugin-jsx" "^1.0.0-beta.73"
+    "@expressive/macro-pseudo" "^1.0.0-beta.73"
     "@expressive/macro-style" "^1.0.0-beta.67"
 
 "@expressive/css@^1.0.0-beta.68":
@@ -520,10 +520,10 @@
   dependencies:
     "@expressive/mvc" "^1.0.0-beta.9"
 
-"@expressive/macro-pseudo@^1.0.0-beta.69":
-  version "1.0.0-beta.69"
-  resolved "https://registry.yarnpkg.com/@expressive/macro-pseudo/-/macro-pseudo-1.0.0-beta.69.tgz#d745c9f490f47d60f08f3142b651753248438246"
-  integrity sha512-Q/AZAqj3qqtcHkVfBU+s5xOuS/JKEMSgH/tFBnFPQDuht0M+oVY7mAbGL2hBHBDq/d1NoafvABm0pdNPH/j0Sw==
+"@expressive/macro-pseudo@^1.0.0-beta.73":
+  version "1.0.0-beta.73"
+  resolved "https://registry.yarnpkg.com/@expressive/macro-pseudo/-/macro-pseudo-1.0.0-beta.73.tgz#48574f96d1ef69a5900e4ea579cff48ae350744c"
+  integrity sha512-RMC9L4nqi6LjMIsoUGAForbotWc7w2as/wxZAVqIJJLzoxEjJWIT/9+4Q7R76MjXMTljM+TmDT9BN6WY4V6NYw==
   dependencies:
     "@babel/types" "7.10.3"
 
