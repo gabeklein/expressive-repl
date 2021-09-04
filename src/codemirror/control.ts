@@ -15,12 +15,10 @@ class InputEditor extends Editor {
     jsx,
     jsxEditor,
     editor,
-    onUpdate(() => {
-      this.parent.stale = true;
-    }),
-    onKey("Meta-s", () => {
-      this.parent.compile();
-    })
+    onUpdate(() => this.parent.stale = true),
+    onKey("Meta-s", () => this.parent.compile()),
+    onKey("Meta-=", () => { this.parent.fontSize++ }),
+    onKey("Meta--", () => { this.parent.fontSize-- })
   ]
 }
 
@@ -31,6 +29,11 @@ export class REPL extends Model {
   output = use(OutputView);
 
   layout: Layout = "compact";
+
+  fontSize = on(15, () => {
+    this.input.view.requestMeasure();
+    this.output.view.requestMeasure();
+  });
 
   output_js = "";
   output_jsx = on("", code => {

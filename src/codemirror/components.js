@@ -16,15 +16,15 @@ const Editor = ({ font, stale }) => do {
 }
 
 export const EditInput = () => do {
-  const { input } = REPL.tap();
+  const { input, fontSize } = REPL.tap();
 
-  <Editor ref={input.element} />
+  <Editor ref={input.element} font={fontSize} />
 }
 
 export const MockOutput = () => do {
-  const { output, stale, compile } = REPL.tap();
+  const { output, stale, fontSize } = REPL.tap();
 
-  <Editor ref={output.element} stale={stale} />
+  <Editor ref={output.element} stale={stale} font={fontSize} />
 }
 
 export const LiveResult = () => do {
