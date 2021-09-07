@@ -12,10 +12,6 @@ export default class Editor extends Model {
   view: EditorView;
   plugin?: Extension;
 
-  get doc(){
-    return this.view.state.doc;
-  }
-
   init(parent: HTMLElement){
     const extensions = this.plugin;
     const state = EditorState.create({ extensions });
@@ -34,14 +30,14 @@ export default class Editor extends Model {
   }
 
   getText(){
-    return this.doc.toString();
+    return this.view.state.doc.toString();
   }
 
   setText(to: string){
     this.view.dispatch({
       changes: {
         from: 0,
-        to: this.doc.length,
+        to: this.view.state.doc.length,
         insert: to
       }
     })
@@ -49,9 +45,9 @@ export default class Editor extends Model {
 }
 
 export class InputEditor extends Editor {
-  plugin = [ jsx, jsxEditor, editor, this.hotkeys ];
+  plugin = [ jsx, jsxEditor, editor, this.hotkeys() ];
 
-  private get hotkeys(){
+  private hotkeys(){
     return [
       onUpdate(() => { this.parent.stale = true }),
       onKey("Meta-=", () => { this.parent.fontSize++ }),
