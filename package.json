@@ -23,7 +23,7 @@
     "@expressive/babel-preset-react": "^1.0.0-beta.73",
     "@expressive/css": "^1.0.0-beta.68",
     "@expressive/layout": "^1.0.0-beta.2",
-    "@expressive/mvc": "^1.0.0-beta.9",
+    "@expressive/mvc": "^1.0.0-beta.11",
     "prettier": "^2.1.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0"

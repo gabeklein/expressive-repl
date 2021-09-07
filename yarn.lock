@@ -534,6 +534,11 @@
   dependencies:
     "@babel/types" "7.10.3"
 
+"@expressive/mvc@^1.0.0-beta.11":
+  version "1.0.0-beta.11"
+  resolved "https://registry.yarnpkg.com/@expressive/mvc/-/mvc-1.0.0-beta.11.tgz#89e064ac264538199372d6c06b43daffc9ccac46"
+  integrity sha512-tdzdb6t9XKeFNYuZBkkZ2k0AudSxlkTKx1noXDBnTqUz86fjhot4OkpdjWyYxDwENpI4SH9HpgibEeg2pRa8zg==
+
 "@expressive/mvc@^1.0.0-beta.9":
   version "1.0.0-beta.9"
   resolved "https://registry.yarnpkg.com/@expressive/mvc/-/mvc-1.0.0-beta.9.tgz#caf6d85ac52420b648474a491cfd3dd94b043b94"
