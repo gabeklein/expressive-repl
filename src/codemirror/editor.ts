@@ -49,17 +49,29 @@ export class InputEditor extends Editor {
 
   private hotkeys(){
     return [
-      onUpdate(() => { this.parent.stale = true }),
-      onKey("Meta-=", () => { this.parent.fontSize++ }),
-      onKey("Meta--", () => { this.parent.fontSize-- }),
-      onKey("Meta-s", () => { this.parent.input_jsx = this.getText() })
+      onUpdate(() => this.stale()),
+      onKey("Meta-=", () => this.fontSize(+1)),
+      onKey("Meta--", () => this.fontSize(-1)),
+      onKey("Meta-s", () => this.save())
     ]
+  }
+
+  fontSize(by: number){
+    this.parent.fontSize += by;
+  }
+
+  stale(){
+    this.parent.document.stale = true;
+  }
+
+  save(){
+    this.parent.document.source = this.getText();
   }
 
   init(container: HTMLElement){
     const release = super.init(container);
     const release2 =
-      this.parent.once("input_jsx", (text) => {
+      this.parent.document.once("source", (text) => {
         this.setText(text);
       })
     
@@ -76,7 +88,7 @@ export class OutputView extends Editor {
   init(container: HTMLElement){
     const release = super.init(container);
     const release2 =
-      this.parent.on("output_jsx", (text) => {
+      this.parent.document.on("output_jsx", (text) => {
         this.setText(text);
       })
       

@@ -1,29 +1,35 @@
-import Model, { on } from '@expressive/mvc';
+import Model, { on, parent, use } from '@expressive/mvc';
 
 import { build, transform } from '../transform';
 
-type Layout = "compact" | "fill" | "code" | "view"
+type Layout = "compact" | "fill" | "code" | "view";
 
 export class REPL extends Model {
+  document = use(Document);
   layout: Layout = "compact";
   fontSize = 15;
-  stale = false;
+
   options = {
     output: "jsx",
     printStyle: "pretty"
-  };
-
-  input_jsx = on("", this.compile);
-  output_jsx = "";
-  output_js = "";
+  }
 
   didCreate(){
     (window as any).REPL = this;
   }
 
   didMount(){
-    this.input_jsx = localStorage.getItem("REPL:file");
+    this.document.source = localStorage.getItem("REPL:file");
   }
+}
+
+class Document extends Model {
+  parent = parent(REPL);
+  source = on("", this.compile);
+  output_jsx = "";
+  output_js = "";
+
+  stale = false;
 
   compile(from: string){
     let output: string;
@@ -31,7 +37,7 @@ export class REPL extends Model {
     
     try {
       code = build(from);
-      output = transform(from, this.options);
+      output = transform(from, this.parent.options);
       localStorage.setItem("REPL:file", from);
     }
     catch(err){

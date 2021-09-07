@@ -30,9 +30,9 @@ export const MockOutput = () => do {
 }
 
 export const LiveResult = () => do {
-  const { output_js } = REPL.tap();
+  const { document } = REPL.tap();
 
-  <ExampleBoundary code={output_js} />
+  <ExampleBoundary code={document.output_js} />
 }
 
 class ExampleBoundary extends Component {
