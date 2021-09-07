@@ -12,30 +12,36 @@ export default class Editor extends Model {
   view: EditorView;
   plugin?: Extension;
 
+  get doc(){
+    return this.view.state.doc;
+  }
+
   init(parent: HTMLElement){
     const extensions = this.plugin;
     const state = EditorState.create({ extensions });
-    const view = this.view = new EditorView({ parent, state });
+    const view = new EditorView({ parent, state });
 
-    const releaseFont = 
-      this.parent.on("fontSize", () => view.requestMeasure());
+    const refresh = () => view.requestMeasure();
+    const release = this.parent.on("fontSize", refresh);
+
+    this.view = view;
 
     return () => {
-      releaseFont();
+      release();
       view.destroy();
       this.view = undefined;
     }
   }
 
   getText(){
-    return this.view.state.doc.toString();
+    return this.doc.toString();
   }
 
   setText(to: string){
     this.view.dispatch({
       changes: {
         from: 0,
-        to: this.view.state.doc.length,
+        to: this.doc.length,
         insert: to
       }
     })
@@ -43,34 +49,27 @@ export default class Editor extends Model {
 }
 
 export class InputEditor extends Editor {
-  plugin = [
-    jsx,
-    jsxEditor,
-    editor,
-    onUpdate(() => this.parent.stale = true),
-    onKey("Meta-=", () => this.fontSize(+1)),
-    onKey("Meta--", () => this.fontSize(-1)),
-    onKey("Meta-s", () => this.save())
-  ]
+  plugin = [ jsx, jsxEditor, editor, this.hotkeys ];
 
-  save(){
-    this.parent.input_jsx = this.getText();
-  }
-
-  fontSize(by: number){
-    this.parent.fontSize += by;
+  private get hotkeys(){
+    return [
+      onUpdate(() => { this.parent.stale = true }),
+      onKey("Meta-=", () => { this.parent.fontSize++ }),
+      onKey("Meta--", () => { this.parent.fontSize-- }),
+      onKey("Meta-s", () => { this.parent.input_jsx = this.getText() })
+    ]
   }
 
   init(container: HTMLElement){
     const release = super.init(container);
-    const releaseUpdate =
+    const release2 =
       this.parent.once("input_jsx", (text) => {
         this.setText(text);
       })
     
     return () => {
       release();
-      releaseUpdate();
+      release2();
     }
   }
 }
@@ -80,14 +79,14 @@ export class OutputView extends Editor {
 
   init(container: HTMLElement){
     const release = super.init(container);
-    const releaseUpdate =
+    const release2 =
       this.parent.on("output_jsx", (text) => {
         this.setText(text);
       })
       
     return () => {
       release();
-      releaseUpdate();
+      release2();
     }
   }
 }
