@@ -5,6 +5,7 @@ import { Component } from 'react';
 
 import { evaluate } from '../transform';
 import { REPL } from './control';
+import { InputEditor, OutputView } from './editor';
 
 const Editor = ({ font, stale }) => do {
   className = stale && "cm-stale";
@@ -16,15 +17,16 @@ const Editor = ({ font, stale }) => do {
 }
 
 export const EditInput = () => do {
-  const { input, fontSize } = REPL.tap();
+  const { element, parent } = InputEditor.use();
 
-  <Editor ref={input.element} font={fontSize} />
+  <Editor ref={element} font={parent.fontSize} />
 }
 
 export const MockOutput = () => do {
-  const { output, stale, fontSize } = REPL.tap();
+  const { element, parent } = OutputView.use();
+  const { stale, fontSize } = parent;
 
-  <Editor ref={output.element} stale={stale} font={fontSize} />
+  <Editor ref={element} stale={stale} font={fontSize} />
 }
 
 export const LiveResult = () => do {
