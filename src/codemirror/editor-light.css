@@ -3,7 +3,7 @@
   border: #ddd solid 1px;
 }
 
-.cm-stale,
+.cm-stale .cm-editor,
 .cm-stale .cm-gutters {
   background: #fcfcfc !important;
 }
