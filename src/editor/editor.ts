@@ -2,8 +2,7 @@ import { Extension } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
 import { Model, ref, tap } from '@expressive/mvc';
 
-import { createView, editor, jsx, jsxEditor, readOnly } from '../codemirror';
-import { onKey, onUpdate } from '../codemirror/helpers';
+import { createView, editor, jsx, jsxEditor, onKey, onUpdate, readOnly } from '../codemirror';
 import { REPL } from './control';
 
 export default class Editor extends Model {
