@@ -14,7 +14,7 @@ const Sandbox = {
 
 /** Generate eval-ready code from source. */
 export function build(source: string){
-  let output = Babel.transform(source, {
+  let { code } = Babel.transform(source, {
     filename: '/REPL.js',
     presets: [
       [Expressive, { output: "js", hot: true }],
@@ -23,31 +23,19 @@ export function build(source: string){
     ]
   });
 
-  return output.code;
+  return code;
 }
 
 /** Generate preview JSX code from source. */
-export function transform(source: string, opts: any){
+export function transform(source: string, opts = {}){
   let { code } = Babel.transform(source, {
-    // ast: true,  
     filename: '/REPL.js',
     presets: [
-      [Expressive, opts || {}]
+      [Expressive, opts]
     ]
   });
 
-  code = Prettier.format(code, {
-    // fake parser! returns AST we have
-    // parser: () => output.ast,
-    parser: "babel",
-    plugins: [ parserBabel ],
-    singleQuote: false, 
-    trailingComma: "none", 
-    jsxBracketSameLine: true,
-    tabWidth: 2,
-    printWidth: 60
-  });
-
+  code = prettify(code);
   code = cleanup(code);
 
   return code;
@@ -62,4 +50,18 @@ export function evaluate(code: string){
     (require, module.exports, module);
 
   return module.exports as {};
+}
+
+function prettify(source: string){
+  return Prettier.format(source, {
+    // fake parser! returns AST we have
+    // parser: () => output.ast,
+    parser: "babel",
+    plugins: [ parserBabel ],
+    singleQuote: false, 
+    trailingComma: "none", 
+    jsxBracketSameLine: true,
+    tabWidth: 2,
+    printWidth: 60
+  });
 }
