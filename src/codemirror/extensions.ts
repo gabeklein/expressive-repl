@@ -1,11 +1,22 @@
 import { getIndentation, IndentContext, indentString } from '@codemirror/language';
 import { EditorSelection, EditorState, Text, Transaction } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
+import { keyBind } from './helpers';
 
 /**
  * Input handler will auto-close a JSX tag when '>' is typed.
  */
-export function insertClosingTag(
+export const autoCloseTab = () =>
+  EditorView.inputHandler.of(insertClosingTag);
+
+/**
+ * Key command will line-split and indent, if cursor is between '>' and '<'.
+ */
+export const autoElementSplit = () => keyBind({
+  key: "Enter", run: insertNewlineAndIndentJSX
+})
+
+function insertClosingTag(
   view: EditorView, from: number, to: number, inserted: string){
 
   const { doc } = view.state;
@@ -37,7 +48,7 @@ type CommandTarget = {
 /**
  * Key command will line-split and indent, if cursor is between '>' and '<'.
  */
-export function insertNewlineAndIndentJSX(target: CommandTarget){
+function insertNewlineAndIndentJSX(target: CommandTarget){
   const { state } = target;
 
   const notBetweenTags = state.selection.ranges.find(range => 

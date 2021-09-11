@@ -1,11 +1,8 @@
-import './editor-light.css';
-import './editor.css';
-
 import { Component } from 'react';
 
 import { evaluate } from '../transform';
 import { REPL } from './control';
-import { InputEditor, OutputView } from './editor';
+import { InputEditor, OutputView } from '../editor/editor';
 
 const Editor = ({ font, stale }) => do {
   className = stale && "cm-stale";
@@ -30,7 +27,8 @@ export const MockOutput = () => do {
 }
 
 export const LiveResult = () => do {
-  const { document: { error }, Render } = REPL.tap();
+  const { document, Render } = REPL.tap();
+  const error = document.error;
   const message = error.current;
 
   flex: 1;

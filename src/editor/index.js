@@ -1,5 +1,6 @@
-import { EditInput, LiveResult, MockOutput } from './components';
 import { Col, Row } from '@expressive/layout';
+
+import { EditInput, LiveResult, MockOutput } from './components';
 
 export { REPL } from "./control";
 

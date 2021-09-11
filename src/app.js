@@ -1,6 +1,6 @@
 import { Provider } from '@expressive/mvc';
 
-import { Interface, REPL } from './codemirror';
+import { Interface, REPL } from './editor';
 
 export const App = () => do {
   const { get, layout } = REPL.use();

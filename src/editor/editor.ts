@@ -1,8 +1,9 @@
-import { EditorState, Extension } from '@codemirror/state';
+import { Extension } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
 import { Model, ref, tap } from '@expressive/mvc';
 
-import { editor, jsx, jsxEditor, onKey, onUpdate, readOnly } from './config';
+import { createView, editor, jsx, jsxEditor, readOnly } from '../codemirror';
+import { onKey, onUpdate } from '../codemirror/helpers';
 import { REPL } from './control';
 
 export default class Editor extends Model {
@@ -13,9 +14,9 @@ export default class Editor extends Model {
   plugin?: Extension;
 
   init(parent: HTMLElement){
-    const extensions = this.plugin;
-    const state = EditorState.create({ extensions });
-    const view = new EditorView({ parent, state });
+    const view = createView(parent, {
+      extensions: this.plugin
+    })
 
     const refresh = () => view.requestMeasure();
     const release = this.parent.on("fontSize", refresh);
