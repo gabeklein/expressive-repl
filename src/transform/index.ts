@@ -5,27 +5,6 @@ import Prettier from 'prettier/standalone';
 
 import cleanup from './cleanup';
 
-/** Imports shared with sandbox. */
-const Sandbox = {
-  "react": require("react"),
-  "@expressive/css": require("@expressive/css"),
-  "@expressive/mvc": require("@expressive/mvc")
-}
-
-/** Generate eval-ready code from source. */
-export function build(source: string){
-  let { code } = Babel.transform(source, {
-    filename: '/REPL.js',
-    presets: [
-      [Expressive, { output: "js", hot: true }],
-      "react",
-      "env"
-    ]
-  });
-
-  return code;
-}
-
 /** Generate preview JSX code from source. */
 export function transform(source: string, opts = {}){
   let { code } = Babel.transform(source, {
@@ -41,15 +20,18 @@ export function transform(source: string, opts = {}){
   return code;
 }
 
-/** Evaluate string as a commonJS module. */
-export function evaluate(code: string){
-  const module = { exports: {} };
-  const require = (name: string) => Sandbox[name];
+/** Generate eval-ready code from source. */
+export function build(source: string){
+  let { code } = Babel.transform(source, {
+    filename: '/REPL.js',
+    presets: [
+      [Expressive, { output: "js", hot: true }],
+      "react",
+      "env"
+    ]
+  });
 
-  new Function("require", "exports", "module", code)
-    (require, module.exports, module);
-
-  return module.exports as {};
+  return code;
 }
 
 function prettify(source: string){

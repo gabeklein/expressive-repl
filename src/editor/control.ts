@@ -1,14 +1,20 @@
-import Model, { on, parent, ref, use } from '@expressive/mvc';
-import React from 'react';
+import Model, { from, on, parent, ref, use } from '@expressive/mvc';
 
-import { build, evaluate, transform } from '../transform';
+import { build, transform } from '../transform';
+import { extractComponent } from './evaluate';
 
-type Layout = "compact" | "fill" | "code" | "view";
+enum Layout {
+  Compact = "compact",
+  Columns = "fill",
+  CodeOnly = "code",
+  PreviewOnly = "view"
+}
 
 export class REPL extends Model {
   document = use(Document);
+  Render = from(this.generatePreview);
 
-  layout: Layout = "compact";
+  layout = Layout.Compact;
   fontSize = 15;
 
   options = {
@@ -24,20 +30,12 @@ export class REPL extends Model {
     this.document.source = localStorage.getItem("REPL:file");
   }
 
-  get Render(){
+  generatePreview(){
     const { output_js, error } = this.document;
 
-    if(!output_js)
-      return;
-
     try {
-      const module = evaluate(output_js);
-      let FC = Object.values(module)[0];
-
-      if(typeof FC !== "function")
-        FC = undefined;
-
-      return FC as React.FC<{}>;
+      if(output_js)
+        return extractComponent(output_js);
     }
     catch(err){
       console.error(err);
