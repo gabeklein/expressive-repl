@@ -30,71 +30,46 @@ export const MockOutput = () => do {
 }
 
 export const LiveResult = () => do {
-  const { document } = REPL.tap();
+  const { document: { error }, Render } = REPL.tap();
+  const message = error.current;
 
-  <ExampleBoundary code={document.output_js} />
+  flex: 1;
+  flexAlign: center;
+  border: dashed, 2, 0xccc;
+  margin: 3;
+  radius: 8;
+  position: relative;
+  
+  issue: {
+    color: 0xd47878;
+    fontSize: 0.7, em;
+  }
+
+  if(message)
+    <issue>{message}</issue>
+  else if(!Render)
+    <issue>Waiting for exports...</issue>
+  else
+    <Boundary onError={error}>
+      <Render />
+    </Boundary>
 }
 
-class ExampleBoundary extends Component {
+class Boundary extends Component {
   state = {};
 
   static getDerivedStateFromError(error){
     console.error(error);
-
     return {
       error: "Something went wrong while rendering."
     };
   }
 
-  static getDerivedStateFromProps(props, state){
-    let { code } = props;
-    let component;
-    let message;
-
-    if(!code || state.code == code)
-      return null;
-
-    try {
-      const module = evaluate(code);
-      component = Object.values(module)[0];
-  
-      if(typeof component !== "function")
-        component = undefined;
-    }
-    catch(error){
-      console.error(error);
-      message = "Error while evaluating module.";
-    }
-
-    return {
-      code,
-      component,
-      error: message
-    }
+  componentDidCatch(err){
+    this.props.onError(err);
   }
 
   render(){
-    const { error, component: Preview } = this.state;
-
-    return do {
-      flex: 1;
-      flexAlign: center;
-      border: dashed, 2, 0xccc;
-      margin: 3;
-      radius: 8;
-      position: relative;
-      
-      issue: {
-        color: 0xd47878;
-        fontSize: 0.7, em;
-      }
-
-      if(error)
-        <issue>{error}</issue>;
-      else if(!Preview)
-        <issue>Waiting for exports...</issue>
-      else
-        <Preview />
-    }
+    return this.state.error || this.props.children;
   }
 }

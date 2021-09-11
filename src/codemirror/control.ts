@@ -1,11 +1,13 @@
-import Model, { on, parent, use } from '@expressive/mvc';
+import Model, { on, parent, ref, use } from '@expressive/mvc';
+import React from 'react';
 
-import { build, transform } from '../transform';
+import { build, evaluate, transform } from '../transform';
 
 type Layout = "compact" | "fill" | "code" | "view";
 
 export class REPL extends Model {
   document = use(Document);
+
   layout: Layout = "compact";
   fontSize = 15;
 
@@ -21,6 +23,27 @@ export class REPL extends Model {
   didMount(){
     this.document.source = localStorage.getItem("REPL:file");
   }
+
+  get Render(){
+    const { output_js, error } = this.document;
+
+    if(!output_js)
+      return;
+
+    try {
+      const module = evaluate(output_js);
+      let FC = Object.values(module)[0];
+
+      if(typeof FC !== "function")
+        FC = undefined;
+
+      return FC as React.FC<{}>;
+    }
+    catch(err){
+      console.error(err);
+      error("Error while evaluating module.");
+    }
+  }
 }
 
 class Document extends Model {
@@ -29,23 +52,19 @@ class Document extends Model {
   output_jsx = "";
   output_js = "";
 
+  error = ref<string>();
   stale = false;
 
   compile(from: string){
-    let output: string;
-    let code: string;
-    
     try {
-      code = build(from);
-      output = transform(from, this.parent.options);
+      this.output_js = build(from);
+      this.output_jsx = transform(from, this.parent.options);
+      this.stale = false;
       localStorage.setItem("REPL:file", from);
     }
     catch(err){
-      debugger;
+      console.error(err)
+      this.error("Error while compiling module.");
     }
-
-    this.output_jsx = output;
-    this.output_js = code;
-    this.stale = false;
   }
 }
