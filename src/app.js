@@ -5,15 +5,39 @@ import { Interface, REPL } from './codemirror';
 export const App = () => do {
   const { get, layout } = REPL.use();
 
-  Interface: {
+  window: {
     height: "100vh";
     boxSizing: border-box;
     padding: 10;
+    gridRows: min, "minmax(0, 1fr)", min;
+    overflow: hidden;
   }
 
   <Provider of={get}>
-    <Interface layout={layout} />
+    <window>
+      <Header />
+      <Interface layout={layout} />
+      <Footer />
+    </window>
   </Provider>
+}
+
+const Footer = () => do {
+  height: 60;
+  flexAlign: center;
+  font: 14;
+  color: 0x333;
+
+  <this>
+    Gabe Klein - MIT - 2021
+  </this>
+}
+
+const Header = () => do {
+  height: 80;
+  
+  <this>
+  </this>
 }
 
 export default App;
