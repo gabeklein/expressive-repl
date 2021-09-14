@@ -1,5 +1,12 @@
 import './styles.css';
 
+import React from "react";
+import ReactDOM from "react-dom";
+
 import App from "./app";
 
-export default App;
+window.addEventListener("load", () => {
+  const container = document.getElementById("react-root");
+  const element = React.createElement(App);
+  ReactDOM.render(element, container);
+});
