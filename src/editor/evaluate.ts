@@ -9,11 +9,11 @@ const Sandbox = {
 
 /** Evaluate string as a commonJS module. */
 export function evaluate(source: string){
+  const run = new Function("require", "exports", "module", source);
   const module = { exports: {} };
   const require = (name: string) => Sandbox[name];
 
-  new Function("require", "exports", "module", source)
-    (require, module.exports, module);
+  run(require, module.exports, module);
 
   return module.exports as {};
 }
