@@ -45,19 +45,24 @@ export default class Editor extends Model {
 }
 
 export class InputEditor extends Editor {
-  plugin = [ jsx, jsxEditor, editor, this.hotkeys() ];
+  plugin = [
+    jsx, jsxEditor, editor,
+    this.hotkeys(),
+    this.fontSize()
+  ];
 
   private hotkeys(){
     return [
       onUpdate(() => this.stale()),
-      onKey("Meta-=", () => this.fontSize(+1)),
-      onKey("Meta--", () => this.fontSize(-1)),
       onKey("Meta-s", () => this.save())
     ]
   }
 
-  fontSize(by: number){
-    this.parent.fontSize += by;
+  private fontSize(){
+    return [
+      onKey("Meta-=", () => { this.parent.fontSize++ }),
+      onKey("Meta--", () => { this.parent.fontSize-- })
+    ]
   }
 
   stale(){
