@@ -74,15 +74,11 @@ export class InputEditor extends Editor {
   }
 
   init(container: HTMLElement){
-    const release = super.init(container);
-    const release2 =
-      this.parent.document.once("source", (text) => {
-        this.setText(text);
-      })
-    
-    return () => {
-      release();
-      release2();
+    try {
+      return super.init(container);
+    }
+    finally {
+      this.setText(this.parent.document.source);
     }
   }
 }
@@ -92,10 +88,9 @@ export class OutputView extends Editor {
 
   init(container: HTMLElement){
     const release = super.init(container);
-    const release2 =
-      this.parent.document.on("output_jsx", (text) => {
-        this.setText(text);
-      })
+    const release2 = this.parent.effect(state => {
+      this.setText(state.document.output_jsx);
+    })
       
     return () => {
       release();
