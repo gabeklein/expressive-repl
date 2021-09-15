@@ -30,11 +30,13 @@ module.exports = {
   },
   output: {
     path: __dirname + "/public",
-    publicPath: "/"
+    publicPath: "/",
+    devtoolModuleFilenameTemplate: 'file:///[absolute-resource-path]'
   },
   externals: {
     "@babel/standalone": "Babel"
   },
+  devtool: "source-map",
   devServer: {
     // host: "0.0.0.0",
     // port: 8080,
