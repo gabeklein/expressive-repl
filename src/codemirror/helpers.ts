@@ -12,7 +12,10 @@ export function onKey<T extends string>(
   key: T, action: (key: T) => boolean | void){
 
   return keyBind({
-    key, run: () => action(key) !== false
+    key,
+    run(){
+      return action(key) !== false;
+    }
   });
 }
 

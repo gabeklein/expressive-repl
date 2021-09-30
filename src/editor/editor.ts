@@ -17,8 +17,8 @@ export default class Editor extends Model {
       extensions: this.plugin
     })
 
-    const refresh = () => view.requestMeasure();
-    const release = this.parent.on("fontSize", refresh);
+    const rerender = () => view.requestMeasure();
+    const release = this.parent.on("fontSize", rerender);
 
     this.view = view;
 
