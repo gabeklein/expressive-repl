@@ -9,15 +9,15 @@ export const App = () => do {
     height: "100vh";
     boxSizing: border-box;
     padding: 10;
-    gridRows: min, "minmax(0, 1fr)", min;
+    gridRows: "minmax(0, 1fr)";
     overflow: hidden;
   }
 
   <Provider of={get}>
     <window>
-      <Header />
+      {/* <Header /> */}
       <Interface layout={layout} />
-      <Footer />
+      {/* <Footer /> */}
     </window>
   </Provider>
 }
