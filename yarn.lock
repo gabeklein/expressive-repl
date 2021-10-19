@@ -513,12 +513,12 @@
   resolved "https://registry.yarnpkg.com/@expressive/css/-/css-1.0.0-beta.68.tgz#7dcfeafcdab082041319565ce52fc11c317bda93"
   integrity sha512-UwoIqq+6MHfghgX7cOZuUNhtcvCqx4zB66Hb0bcS64R2zSNtI3n1SO8Bu/jPKZnQ5O8QLH5KMlpDyqiWd/Pzsg==
 
-"@expressive/layout@^1.0.0-beta.2":
-  version "1.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@expressive/layout/-/layout-1.0.0-beta.2.tgz#429330853670a51a89618d369ff97fb59e8f6df2"
-  integrity sha512-OAmVANxwOWKn9Q339lWS5Q6jY3RpHeq/eCoYwIHMJ9IpqtzJAcnUR/iYnGl7M3PtHFDMFeGdEnA5Kh91TjMqbQ==
+"@expressive/layout@^1.0.0-beta.5":
+  version "1.0.0-beta.5"
+  resolved "https://registry.yarnpkg.com/@expressive/layout/-/layout-1.0.0-beta.5.tgz#9d8b84e326a8316032a52ee09fffe1ba8461c1b8"
+  integrity sha512-1zbHJZMe9AlrfJHRtvsDIz9QR98xSgeuQ4ouVhve65jNjxO6pDnQkuaI5vQOSqRHa+TJ8Z7nFut94zEavQeocg==
   dependencies:
-    "@expressive/mvc" "^1.0.0-beta.9"
+    "@expressive/mvc" "^1.0.0-beta.14"
 
 "@expressive/macro-pseudo@^1.0.0-beta.73":
   version "1.0.0-beta.73"
@@ -534,15 +534,10 @@
   dependencies:
     "@babel/types" "7.10.3"
 
-"@expressive/mvc@^1.0.0-beta.11":
-  version "1.0.0-beta.11"
-  resolved "https://registry.yarnpkg.com/@expressive/mvc/-/mvc-1.0.0-beta.11.tgz#89e064ac264538199372d6c06b43daffc9ccac46"
-  integrity sha512-tdzdb6t9XKeFNYuZBkkZ2k0AudSxlkTKx1noXDBnTqUz86fjhot4OkpdjWyYxDwENpI4SH9HpgibEeg2pRa8zg==
-
-"@expressive/mvc@^1.0.0-beta.9":
-  version "1.0.0-beta.9"
-  resolved "https://registry.yarnpkg.com/@expressive/mvc/-/mvc-1.0.0-beta.9.tgz#caf6d85ac52420b648474a491cfd3dd94b043b94"
-  integrity sha512-fnqspf1SyvWpTgeuDHW1u0h6BV8jqzjgIGQMGPYIcPANrm8w1cW+tLBndZSapm8/GUn9+NDOL4To661fJ4Ul3w==
+"@expressive/mvc@^1.0.0-beta.14":
+  version "1.0.0-beta.14"
+  resolved "https://registry.yarnpkg.com/@expressive/mvc/-/mvc-1.0.0-beta.14.tgz#5ae03f5ee306924c4e85e8a6de516589af9c4759"
+  integrity sha512-oq5HT4v8JjB5vgZREmRmSzg1/vQqyvTrHyrt1e6tSoeQV3erBzazPX39en5xZMuEnEho/V4Js6whm5428uJCUw==
 
 "@hot-loader/react-dom@^16.13.0":
   version "16.14.0"
