@@ -16,6 +16,8 @@ import { drawSelection, EditorView } from '@codemirror/view';
 import { keyBind } from './helpers';
 import { autoCloseTab, autoElementSplit } from './extensions';
 
+export * from './helpers';
+
 export function createView(
   container: HTMLElement,
   config?: EditorStateConfig){

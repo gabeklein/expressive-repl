@@ -1,4 +1,4 @@
-import Model, { from, on, parent, ref, use } from '@expressive/mvc';
+import Model, { from, parent, ref, use } from '@expressive/mvc';
 
 import { build, transform } from '../transform';
 import { extractComponent } from './evaluate';
@@ -11,7 +11,10 @@ enum Layout {
 }
 
 export class REPL extends Model {
-  document = use(Document);
+  document = use(Document, doc => {
+    doc.source = localStorage.getItem("REPL:file");
+  });
+
   Render = from(this.generatePreview);
 
   layout = Layout.Compact;
@@ -24,10 +27,6 @@ export class REPL extends Model {
 
   didCreate(){
     (window as any).REPL = this;
-  }
-
-  didMount(){
-    this.document.source = localStorage.getItem("REPL:file");
   }
 
   generatePreview(){
@@ -46,23 +45,37 @@ export class REPL extends Model {
 
 class Document extends Model {
   parent = parent(REPL);
-  source = on("", this.compile);
-  output_jsx = "";
-  output_js = "";
+  source = "";
+
+  output_jsx = from(this.transform);
+  output_js = from(this.build);
 
   error = ref<string>();
   stale = false;
 
-  compile(from: string){
+  transform(){
+    const { source, parent } = this;
+
     try {
-      this.output_js = build(from);
-      this.output_jsx = transform(from, this.parent.options);
-      this.stale = false;
-      localStorage.setItem("REPL:file", from);
+      return transform(source, parent.options);
     }
-    catch(err){
-      console.error(err)
+    catch(error){
       this.error("Error while compiling module.");
+      console.error(error)
+    }
+    finally {
+      this.stale = false;
+      localStorage.setItem("REPL:file", source);
+    }
+  }
+
+  build(){
+    try {
+      return build(this.source);
+    }
+    catch(error){
+      this.error("Error while building preview.");
+      console.error(error)
     }
   }
 }

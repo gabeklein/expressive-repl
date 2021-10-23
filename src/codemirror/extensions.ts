@@ -17,7 +17,10 @@ export const autoElementSplit = () => keyBind({
 })
 
 function insertClosingTag(
-  view: EditorView, from: number, to: number, inserted: string){
+  view: EditorView,
+  from: number,
+  to: number,
+  inserted: string){
 
   const { doc } = view.state;
   
@@ -87,7 +90,10 @@ function insertNewlineAndIndentJSX(target: CommandTarget){
   });
 
   target.dispatch(
-    state.update(changes, { scrollIntoView: true, userEvent: "input" })
+    state.update(changes, {
+      scrollIntoView: true,
+      userEvent: "input"
+    })
   );
 
   return true

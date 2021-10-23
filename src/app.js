@@ -8,8 +8,8 @@ export const App = () => do {
   window: {
     height: "100vh";
     boxSizing: border-box;
-    padding: 10;
-    gridRows: "minmax(0, 1fr)";
+    padding: 0, 10;
+    gridRows: min, "minmax(0, 1fr)", min;
     overflow: hidden;
   }
 
@@ -22,21 +22,33 @@ export const App = () => do {
   </Provider>
 }
 
-const Footer = () => do {
-  height: 60;
-  flexAlign: center;
-  font: 14;
-  color: 0x333;
+const Header = () => do {
+  height: 50;
+  display: flex;
+  alignItems: center;
+  padding: 0, 20;
 
+  img: {
+    size: 30;
+    marginR: 10;
+    marginT: 2;
+  }
+  
   <this>
-    Gabe Klein - MIT - 2021
+    <img src="./icon/Logo.svg" />
+    Expressive REPL
   </this>
 }
 
-const Header = () => do {
-  height: 80;
-  
+const Footer = () => do {
+  height: 40;
+  marginB: 5;
+  color: 0x888;
+  flexAlign: center;
+  font: 12;
+
   <this>
+    Gabe Klein - MIT - 2021
   </this>
 }
 

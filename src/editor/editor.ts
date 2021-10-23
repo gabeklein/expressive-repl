@@ -2,8 +2,7 @@ import { Extension } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
 import { Model, ref, tap } from '@expressive/mvc';
 
-import { createView, editor, jsx, jsxEditor, readOnly } from '../codemirror';
-import { onKey, onUpdate } from '../codemirror/helpers';
+import { createView, editor, jsx, jsxEditor, onKey, onUpdate, readOnly } from '../codemirror';
 import { REPL } from './control';
 
 export default class Editor extends Model {
@@ -18,8 +17,8 @@ export default class Editor extends Model {
       extensions: this.plugin
     })
 
-    const refresh = () => view.requestMeasure();
-    const release = this.parent.on("fontSize", refresh);
+    const rerender = () => view.requestMeasure();
+    const release = this.parent.on("fontSize", rerender);
 
     this.view = view;
 
@@ -46,19 +45,24 @@ export default class Editor extends Model {
 }
 
 export class InputEditor extends Editor {
-  plugin = [ jsx, jsxEditor, editor, this.hotkeys() ];
+  plugin = [
+    jsx, jsxEditor, editor,
+    this.hotkeys(),
+    this.fontSize()
+  ];
 
   private hotkeys(){
     return [
       onUpdate(() => this.stale()),
-      onKey("Meta-=", () => this.fontSize(+1)),
-      onKey("Meta--", () => this.fontSize(-1)),
       onKey("Meta-s", () => this.save())
     ]
   }
 
-  fontSize(by: number){
-    this.parent.fontSize += by;
+  private fontSize(){
+    return [
+      onKey("Meta-=", () => { this.parent.fontSize++ }),
+      onKey("Meta--", () => { this.parent.fontSize-- })
+    ]
   }
 
   stale(){
@@ -70,15 +74,11 @@ export class InputEditor extends Editor {
   }
 
   init(container: HTMLElement){
-    const release = super.init(container);
-    const release2 =
-      this.parent.document.once("source", (text) => {
-        this.setText(text);
-      })
-    
-    return () => {
-      release();
-      release2();
+    try {
+      return super.init(container);
+    }
+    finally {
+      this.setText(this.parent.document.source);
     }
   }
 }
@@ -88,10 +88,9 @@ export class OutputView extends Editor {
 
   init(container: HTMLElement){
     const release = super.init(container);
-    const release2 =
-      this.parent.document.on("output_jsx", (text) => {
-        this.setText(text);
-      })
+    const release2 = this.parent.effect(state => {
+      this.setText(state.document.output_jsx);
+    })
       
     return () => {
       release();
