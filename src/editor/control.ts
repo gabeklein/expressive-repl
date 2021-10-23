@@ -10,9 +10,14 @@ enum Layout {
   PreviewOnly = "view"
 }
 
+const DEFAULT_CODE =
+`export const Hi = () => do {
+  <this>Hello World!</this>
+}`
+
 export class REPL extends Model {
   document = use(Document, doc => {
-    doc.source = localStorage.getItem("REPL:file");
+    doc.source = localStorage.getItem("REPL:file") || DEFAULT_CODE;
   });
 
   Render = from(this.generatePreview);
