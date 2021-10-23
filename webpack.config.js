@@ -19,7 +19,7 @@ const babelrc = {
   ],
   plugins: [
     require("@babel/plugin-proposal-class-properties"),
-    // require("react-refresh/babel")
+    require("react-refresh/babel")
   ]
 }
 
@@ -38,11 +38,6 @@ module.exports = {
   },
   devtool: "source-map",
   devServer: {
-    // host: "0.0.0.0",
-    // port: 8080,
-    // contentBase: path,
-    // allowedHosts: [ '.ngrok.io' ],
-    // historyApiFallback: true,
     hot: true
   },
   resolve: {
@@ -73,6 +68,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new ReactRefreshWebpackPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: working("./src/develop.html")
@@ -84,6 +80,5 @@ module.exports = {
           to: working("./public") },
       ]
     })
-    // new ReactRefreshWebpackPlugin()
   ]
 };
