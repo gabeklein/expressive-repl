@@ -15,9 +15,9 @@ export const App = () => do {
 
   <Provider of={get}>
     <window>
-      <Header />
+      {/* <Header /> */}
       <Interface layout={layout} />
-      <Footer />
+      {/* <Footer /> */}
     </window>
   </Provider>
 }
