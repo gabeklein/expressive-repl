@@ -10,7 +10,10 @@ export function transform(source: string, opts = {}){
   let { code } = Babel.transform(source, {
     filename: '/REPL.js',
     presets: [
-      [Expressive, opts]
+      [Expressive, {
+        ...opts,
+        hot: false
+      }]
     ]
   });
 
@@ -24,10 +27,15 @@ export function transform(source: string, opts = {}){
 export function build(source: string){
   let { code } = Babel.transform(source, {
     filename: '/REPL.js',
+    plugins: [
+      "transform-modules-commonjs"
+    ],
     presets: [
-      [Expressive, { output: "js", hot: true }],
-      "react",
-      "env"
+      [Expressive, {
+        output: "js",
+        hot: true
+      }],
+      "react"
     ]
   });
 
