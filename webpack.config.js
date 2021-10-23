@@ -65,6 +65,10 @@ module.exports = {
           require.resolve("style-loader"),
           require.resolve("css-loader")
         ]
+      },
+      {
+        test: /\.(svg|png|jpg|otf)$/i,
+        type: 'asset/resource'
       }
     ]
   },
