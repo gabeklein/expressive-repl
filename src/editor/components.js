@@ -28,8 +28,6 @@ export const MockOutput = () => do {
 
 export const LiveResult = () => do {
   const { document, Render } = REPL.tap();
-  const error = document.error;
-  const message = error.current;
 
   flex: 1;
   flexAlign: center;
@@ -44,12 +42,12 @@ export const LiveResult = () => do {
     fontSize: 0.7, em;
   }
 
-  if(message)
-    <issue>{message}</issue>
+  if(document.error)
+    <issue>{document.error}</issue>
   else if(!Render)
     <issue>Waiting for exports...</issue>
   else
-    <Boundary onError={error}>
+    <Boundary onError={err => document.error = err}>
       <Render />
     </Boundary>
 }

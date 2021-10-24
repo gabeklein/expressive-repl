@@ -17,7 +17,7 @@ export class Document extends Model {
   output_js = from(this.build);
   output = from(this.eval);
 
-  error = ref<string>();
+  error = "";
   stale = false;
 
   didCreate(){
@@ -33,7 +33,7 @@ export class Document extends Model {
     }
     catch(error){
       console.error(error);
-      this.error("Error while compiling module.");
+      this.error = "Error while compiling module.";
     }
     finally {
       this.stale = false;
@@ -46,7 +46,7 @@ export class Document extends Model {
       return build(this.source);
     }
     catch(error){
-      this.error("Error while building preview.");
+      this.error = "Error while building preview.";
       console.error(error)
     }
   }
@@ -59,7 +59,7 @@ export class Document extends Model {
       return evaluate(this.output_js);
     }
     catch(error){
-      this.error("Error while building preview.");
+      this.error = "Error while building preview.";
       console.error(error);
       return {};
     }
