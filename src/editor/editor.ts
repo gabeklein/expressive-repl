@@ -10,17 +10,15 @@ export default class Editor extends Model {
   element = ref(this.init);
 
   view: EditorView;
-  plugin?: Extension;
+  apply?: Extension;
 
   init(parent: HTMLElement){
-    const view = createView(parent, {
-      extensions: this.plugin
+    const view = this.view = createView(parent, {
+      extensions: this.apply
     })
 
     const rerender = () => view.requestMeasure();
     const release = this.parent.on("fontSize", rerender);
-
-    this.view = view;
 
     return () => {
       release();
@@ -45,7 +43,7 @@ export default class Editor extends Model {
 }
 
 export class InputEditor extends Editor {
-  plugin = [
+  apply = [
     jsx,
     jsxEditor,
     editor,
@@ -75,7 +73,7 @@ export class InputEditor extends Editor {
 }
 
 export class OutputView extends Editor {
-  plugin = [ jsx, readOnly ];
+  apply = [ jsx, readOnly ];
 
   init(container: HTMLElement){
     const release = super.init(container);
