@@ -1,7 +1,7 @@
 import Model, { from, parent, ref, use } from '@expressive/mvc';
 
 import { build, transform } from '../transform';
-import { extractComponent } from './evaluate';
+import { evaluate } from '../transform/evaluate';
 
 enum Layout {
   Compact = "compact",
@@ -38,8 +38,14 @@ export class REPL extends Model {
     const { output_js, error } = this.document;
 
     try {
-      if(output_js)
-        return extractComponent(output_js);
+      if(!output_js)
+        return;
+
+      const module = evaluate(output_js);
+      const output = Object.values(module)[0];
+
+      if(typeof output === "function")
+        return output as React.FC<{}>;
     }
     catch(err){
       console.error(err);
@@ -65,8 +71,8 @@ class Document extends Model {
       return transform(source, parent.options);
     }
     catch(error){
+      console.error(error);
       this.error("Error while compiling module.");
-      console.error(error)
     }
     finally {
       this.stale = false;

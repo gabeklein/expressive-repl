@@ -17,13 +17,3 @@ export function evaluate(source: string){
 
   return module.exports as {};
 }
-
-export function extractComponent(source: string){
-  const module = evaluate(source);
-  let FC = Object.values(module)[0];
-
-  if(typeof FC !== "function")
-    FC = undefined;
-
-  return FC as React.FC<{}>;
-}
