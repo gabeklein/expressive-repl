@@ -46,25 +46,15 @@ export default class Editor extends Model {
 
 export class InputEditor extends Editor {
   plugin = [
-    jsx, jsxEditor, editor,
-    this.hotkeys(),
-    this.fontSize()
+    jsx,
+    jsxEditor,
+    editor,
+    onUpdate(() => this.stale()),
+    onKey("Meta-s", () => this.save()),
+    onKey("Ctrl-s", () => this.save()),
+    onKey("Meta-=", () => { this.parent.fontSize++ }),
+    onKey("Meta--", () => { this.parent.fontSize-- })
   ];
-
-  private hotkeys(){
-    return [
-      onUpdate(() => this.stale()),
-      onKey("Meta-s", () => this.save()),
-      onKey("Ctrl-s", () => this.save())
-    ]
-  }
-
-  private fontSize(){
-    return [
-      onKey("Meta-=", () => { this.parent.fontSize++ }),
-      onKey("Meta--", () => { this.parent.fontSize-- })
-    ]
-  }
 
   stale(){
     this.parent.document.stale = true;
