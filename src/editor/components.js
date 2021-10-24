@@ -23,7 +23,7 @@ export const MockOutput = () => do {
   const { element, parent } = OutputView.use();
   const { stale, fontSize } = parent;
 
-  <Editor ref={element} stale={stale} font={fontSize} />
+  <Editor ref={element} font={fontSize} stale={stale} />
 }
 
 export const LiveResult = () => do {
@@ -37,6 +37,7 @@ export const LiveResult = () => do {
   margin: 3;
   radius: 8;
   position: relative;
+  overflow: hidden;
   
   issue: {
     color: 0xd47878;
