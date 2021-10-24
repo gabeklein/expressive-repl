@@ -54,7 +54,8 @@ export class InputEditor extends Editor {
   private hotkeys(){
     return [
       onUpdate(() => this.stale()),
-      onKey("Meta-s", () => this.save())
+      onKey("Meta-s", () => this.save()),
+      onKey("Ctrl-s", () => this.save())
     ]
   }
 

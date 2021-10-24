@@ -22,7 +22,7 @@ export class REPL extends Model {
 
   Render = from(this.generatePreview);
 
-  layout = Layout.Compact;
+  layout = Layout.Columns;
   fontSize = 15;
 
   options = {
