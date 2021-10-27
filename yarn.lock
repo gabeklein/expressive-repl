@@ -529,11 +529,12 @@
   resolved "https://registry.yarnpkg.com/@expressive/css/-/css-1.0.0-beta.68.tgz#7dcfeafcdab082041319565ce52fc11c317bda93"
   integrity sha512-UwoIqq+6MHfghgX7cOZuUNhtcvCqx4zB66Hb0bcS64R2zSNtI3n1SO8Bu/jPKZnQ5O8QLH5KMlpDyqiWd/Pzsg==
 
-"@expressive/layout@^1.0.0-beta.5":
-  version "1.0.0-beta.5"
-  resolved "https://registry.yarnpkg.com/@expressive/layout/-/layout-1.0.0-beta.5.tgz#9d8b84e326a8316032a52ee09fffe1ba8461c1b8"
-  integrity sha512-1zbHJZMe9AlrfJHRtvsDIz9QR98xSgeuQ4ouVhve65jNjxO6pDnQkuaI5vQOSqRHa+TJ8Z7nFut94zEavQeocg==
+"@expressive/layout@^1.0.0-beta.6":
+  version "1.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/@expressive/layout/-/layout-1.0.0-beta.6.tgz#dd6bf99cad589b0dcda0ed3d7010084d2c34bdd5"
+  integrity sha512-9RrJhj76sqAimPLitn1EowxneHQo+UQiL8auLU8ufZFy/P7HSzRKmgW7p8ttnDPQZS6q//BZM74OBBZbJIjRww==
   dependencies:
+    "@babel/plugin-proposal-class-properties" "^7.14.5"
     "@expressive/mvc" "^1.0.0-beta.14"
 
 "@expressive/macro-pseudo@^1.0.0-beta.73":
