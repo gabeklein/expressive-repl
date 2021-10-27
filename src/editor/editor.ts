@@ -2,7 +2,7 @@ import { Extension } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
 import { Model, ref, tap } from '@expressive/mvc';
 
-import { createView, editor, jsx, jsxEditor, onKey, onUpdate, readOnly } from '../codemirror';
+import { createView, editor, jsx, jsxEditor, metaKey, onUpdate, readOnly } from '../codemirror';
 import { REPL } from './control';
 
 export default class Editor extends Model {
@@ -17,8 +17,9 @@ export default class Editor extends Model {
       extensions: this.apply
     })
 
-    const rerender = () => view.requestMeasure();
-    const release = this.parent.on("fontSize", rerender);
+    const release = this.parent.on("fontSize", () => {
+      view.requestMeasure();
+    });
 
     return () => {
       release();
@@ -47,20 +48,19 @@ export class InputEditor extends Editor {
     jsx,
     jsxEditor,
     editor,
-    onUpdate(() => this.stale()),
-    onKey("Meta-s", () => this.save()),
-    onKey("Ctrl-s", () => this.save()),
-    onKey("Meta-=", () => { this.parent.fontSize++ }),
-    onKey("Meta--", () => { this.parent.fontSize-- })
+    metaKey("=", () => {
+      this.parent.fontSize++;
+    }),
+    metaKey("-", () => {
+      this.parent.fontSize--;
+    }),
+    metaKey("s", () => {
+      this.parent.document.source = this.getText();
+    }),
+    onUpdate(() => {
+      this.parent.document.stale = true;
+    })
   ];
-
-  stale(){
-    this.parent.document.stale = true;
-  }
-
-  save(){
-    this.parent.document.source = this.getText();
-  }
 
   init(container: HTMLElement){
     try {
@@ -77,8 +77,8 @@ export class OutputView extends Editor {
 
   init(container: HTMLElement){
     const release = super.init(container);
-    const release2 = this.parent.effect(state => {
-      this.setText(state.document.output_jsx);
+    const release2 = this.parent.effect(({ document }) => {
+      this.setText(document.output_jsx);
     })
       
     return () => {

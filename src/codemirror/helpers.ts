@@ -19,6 +19,16 @@ export function onKey<T extends string>(
   });
 }
 
+/** Callback on specified (Cmd / Control) key event. */
+export function metaKey(
+  key: string, action: (key: string) => boolean | void){
+
+  return [
+    onKey(`Meta-${key}`, action),
+    onKey(`Ctrl-${key}`, action)
+  ]
+}
+
 /** Callback on document update. */
 export function onUpdate(callback: () => void){
   return EditorView.updateListener.of((update) => {
