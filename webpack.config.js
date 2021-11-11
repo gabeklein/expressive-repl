@@ -14,12 +14,12 @@ const linked = {
 
 const babelrc = {
   presets: [
-    require("@babel/preset-typescript"),
-    require("@expressive/babel-preset-react")
+    "@babel/preset-typescript",
+    "@expressive/babel-preset-react"
   ],
   plugins: [
-    require("@babel/plugin-proposal-class-properties"),
-    require("react-refresh/babel")
+    "@babel/plugin-proposal-class-properties",
+    "react-refresh/babel"
   ]
 }
 
