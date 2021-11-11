@@ -1,7 +1,7 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 const working = (relative) => path.resolve(process.cwd(), relative);
 
@@ -25,13 +25,11 @@ const babelrc = {
 
 module.exports = {
   mode: "development",
-  entry: {
-    index: "./src/index.js"
-  },
+  entry: "./src/index.js",
   output: {
     path: __dirname + "/public",
     publicPath: "/",
-    devtoolModuleFilenameTemplate: 'file:///[absolute-resource-path]'
+    devtoolModuleFilenameTemplate: "file:///[absolute-resource-path]"
   },
   externals: {
     "@babel/standalone": "Babel"
@@ -42,7 +40,7 @@ module.exports = {
   },
   resolve: {
     alias: linked,
-    extensions: ['.js', '.ts'],
+    extensions: [".js", ".ts"],
   },
   module: {
     rules: [
@@ -50,28 +48,28 @@ module.exports = {
         test: /\.(js|ts)$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: babelrc
         }
       },
       {
         test: /\.css$/,
         use: [
-          require.resolve("style-loader"),
-          require.resolve("css-loader")
+          "style-loader",
+          "css-loader"
         ]
       },
       {
         test: /\.(svg|png|jpg|otf)$/i,
-        type: 'asset/resource'
+        type: "asset/resource"
       }
     ]
   },
   plugins: [
     new ReactRefreshWebpackPlugin(),
     new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: working("./src/develop.html")
+      filename: "index.html",
+      template: "./src/develop.html"
     }),
     new CopyWebpackPlugin({
       patterns: [
