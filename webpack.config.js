@@ -3,28 +3,30 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
-const working = (relative) => path.resolve(process.cwd(), relative);
+const DEV = !!process.env.WEBPACK_SERVE;
 
-const linked = {
+const LINKED = {
   "react": require.resolve("react"),
   "react-dom": require.resolve("react-dom"),
   "@expressive/mvc": require.resolve("@expressive/mvc"),
   "@expressive/css": require.resolve("@expressive/css"),
 }
 
-const babelrc = {
+const BABEL_CONFIG = {
   presets: [
     "@babel/preset-typescript",
     "@expressive/babel-preset-react"
   ],
   plugins: [
-    "@babel/plugin-proposal-class-properties",
-    "react-refresh/babel"
+    "@babel/plugin-proposal-class-properties"
   ]
 }
 
+if(DEV)
+  BABEL_CONFIG.plugins.push("react-refresh/babel");
+
 module.exports = {
-  mode: "development",
+  mode: DEV ? "development" : "production",
   entry: "./src/index.js",
   output: {
     path: __dirname + "/public",
@@ -34,12 +36,17 @@ module.exports = {
   externals: {
     "@babel/standalone": "Babel"
   },
-  devtool: "source-map",
+  devtool: DEV ? "source-map" : undefined,
   devServer: {
     hot: true
   },
+  stats: {
+    modules: false,
+    assets: false,
+    chunks: false
+  },
   resolve: {
-    alias: linked,
+    alias: LINKED,
     extensions: [".js", ".ts"],
   },
   module: {
@@ -49,7 +56,7 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
-          options: babelrc
+          options: BABEL_CONFIG
         }
       },
       {
@@ -74,8 +81,9 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: working("./static"),
-          to: working("./public") },
+          from: __dirname + "/static",
+          to: __dirname + "/public"
+        },
       ]
     })
   ]
