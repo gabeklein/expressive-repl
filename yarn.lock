@@ -510,32 +510,32 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.3.tgz#90420f9f9c6d3987f176a19a7d8e764271a2f55d"
   integrity sha512-Fxt+AfXgjMoin2maPIYzFZnQjAXjAL0PHscM5pRTtatFqB+vZxAM9tLp2Optnuw3QOQC40jTNeGYFOMvyf7v9g==
 
-"@expressive/babel-plugin-jsx@^1.0.0-beta.75":
-  version "1.0.0-beta.75"
-  resolved "https://registry.yarnpkg.com/@expressive/babel-plugin-jsx/-/babel-plugin-jsx-1.0.0-beta.75.tgz#ac5aedadf5b5fc8e4e8c3f1317f1e5ce69a892d7"
-  integrity sha512-9eoyhOausw4PK36Th8c/o5FXPou0RjmrrsBk9laSfGkAgKDhlQPKoJdA9N8BBRgP/H6ZXxbLvdvvLYA4s1Q0yA==
+"@expressive/babel-plugin-jsx@^1.0.0-beta.81":
+  version "1.0.0-beta.81"
+  resolved "https://registry.yarnpkg.com/@expressive/babel-plugin-jsx/-/babel-plugin-jsx-1.0.0-beta.81.tgz#1420a138e281a8ba660bad8109ac5082e7683baf"
+  integrity sha512-7ouCdqQbpqqLxI7swDuYE/F3iV+PZeOX0Ne0EVqx8IwM6bGv19ogfIEDrgJIWLkkOCmKMHnNIroi/9PP+C1yUg==
 
-"@expressive/babel-preset-react@^1.0.0-beta.77":
-  version "1.0.0-beta.77"
-  resolved "https://registry.yarnpkg.com/@expressive/babel-preset-react/-/babel-preset-react-1.0.0-beta.77.tgz#c89a790085a1ce38950f2a8a5ec76dfe10b94a5b"
-  integrity sha512-pOVcXoG9JxsbF1/eS+wuNiSAlbsa2XlWcKiOe4LquuoCglwBc39Hjm3NYp4PUoKOQibDdVs/5bJ5ZhSxp04rdw==
+"@expressive/babel-preset-react@^1.0.0-beta.82":
+  version "1.0.0-beta.82"
+  resolved "https://registry.yarnpkg.com/@expressive/babel-preset-react/-/babel-preset-react-1.0.0-beta.82.tgz#9f0fd2afb88e5fdee0d601b81c9d513c1ff8130b"
+  integrity sha512-oXonS0PaymjQ2HbCl3y1U1NDviRkBLA5P/JyClfv038Il/jXMhaWovERtiKZI7TagjMkV4BGs6hYuittR1o8IQ==
   dependencies:
-    "@expressive/babel-plugin-jsx" "^1.0.0-beta.75"
+    "@expressive/babel-plugin-jsx" "^1.0.0-beta.81"
     "@expressive/macro-pseudo" "^1.0.0-beta.73"
-    "@expressive/macro-style" "^1.0.0-beta.77"
+    "@expressive/macro-style" "^1.0.0-beta.82"
 
 "@expressive/css@^1.0.0-beta.68":
   version "1.0.0-beta.68"
   resolved "https://registry.yarnpkg.com/@expressive/css/-/css-1.0.0-beta.68.tgz#7dcfeafcdab082041319565ce52fc11c317bda93"
   integrity sha512-UwoIqq+6MHfghgX7cOZuUNhtcvCqx4zB66Hb0bcS64R2zSNtI3n1SO8Bu/jPKZnQ5O8QLH5KMlpDyqiWd/Pzsg==
 
-"@expressive/layout@^1.0.0-beta.6":
-  version "1.0.0-beta.6"
-  resolved "https://registry.yarnpkg.com/@expressive/layout/-/layout-1.0.0-beta.6.tgz#dd6bf99cad589b0dcda0ed3d7010084d2c34bdd5"
-  integrity sha512-9RrJhj76sqAimPLitn1EowxneHQo+UQiL8auLU8ufZFy/P7HSzRKmgW7p8ttnDPQZS6q//BZM74OBBZbJIjRww==
+"@expressive/layout@^1.0.0-beta.7":
+  version "1.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/@expressive/layout/-/layout-1.0.0-beta.7.tgz#a0472a8a29a492bd5037e8419c8819d11df5e10b"
+  integrity sha512-hNaaSKMC7LYEWhY2ydZBWfc03Y7/H5PhHhNh+itOV9dLOCC6cSjnxpIQDRnQt8o0k3o7fgdK8IN7KT5AK4kF+w==
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.14.5"
-    "@expressive/mvc" "^1.0.0-beta.14"
+    "@expressive/mvc" "^1.0.0-beta.27"
 
 "@expressive/macro-pseudo@^1.0.0-beta.73":
   version "1.0.0-beta.73"
@@ -544,17 +544,17 @@
   dependencies:
     "@babel/types" "7.10.3"
 
-"@expressive/macro-style@^1.0.0-beta.77":
-  version "1.0.0-beta.77"
-  resolved "https://registry.yarnpkg.com/@expressive/macro-style/-/macro-style-1.0.0-beta.77.tgz#b05e31b4fadcecf69d98e01a2b371a1ef16e46ce"
-  integrity sha512-r11OEQPswfQPsK7qXuVsrciT1a6G1mxYmftPRCH5XzDi4LuemH6T0PlT4FELd91Y2pYGW26TB/0EkJoAct0gxw==
+"@expressive/macro-style@^1.0.0-beta.82":
+  version "1.0.0-beta.82"
+  resolved "https://registry.yarnpkg.com/@expressive/macro-style/-/macro-style-1.0.0-beta.82.tgz#1dddf1a6c9883db84ac40b16d12047d8ad9e0676"
+  integrity sha512-5/stKZ0eZ6t95hPCYYpqqfuL7dyt9eSugAFbwoGR8Y0pliTmusnsE4WJIAj7hSaEePIPIflEKkKb/5hZBto8xA==
   dependencies:
     "@babel/types" "7.10.3"
 
-"@expressive/mvc@^1.0.0-beta.14":
-  version "1.0.0-beta.14"
-  resolved "https://registry.yarnpkg.com/@expressive/mvc/-/mvc-1.0.0-beta.14.tgz#5ae03f5ee306924c4e85e8a6de516589af9c4759"
-  integrity sha512-oq5HT4v8JjB5vgZREmRmSzg1/vQqyvTrHyrt1e6tSoeQV3erBzazPX39en5xZMuEnEho/V4Js6whm5428uJCUw==
+"@expressive/mvc@^1.0.0-beta.27":
+  version "1.0.0-beta.27"
+  resolved "https://registry.yarnpkg.com/@expressive/mvc/-/mvc-1.0.0-beta.27.tgz#aff49d5862727b4e4644ff284a868704e7862d86"
+  integrity sha512-dwKBbj7KhArM0YZaQcXwxMLb7tZAQR8aT+Kplly2TknR/jY3fKLoZuh00S5dSTZxAJHWodK8LBkFp3+5ohaPlw==
 
 "@lezer/common@^0.15.0":
   version "0.15.3"

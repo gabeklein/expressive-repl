@@ -1,7 +1,5 @@
-import Model, { from, parent, ref, use } from '@expressive/mvc';
+import Model, { from, use } from '@expressive/mvc';
 
-import { build, transform } from '../transform';
-import { evaluate } from '../transform/evaluate';
 import { Document } from './document';
 
 enum Layout {
@@ -14,7 +12,7 @@ enum Layout {
 export class REPL extends Model {
   document = use(Document);
 
-  Render = from(this.generatePreview);
+  Render = from(() => this.generatePreview);
 
   layout = Layout.Columns;
   fontSize = 15;

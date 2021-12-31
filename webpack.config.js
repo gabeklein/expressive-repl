@@ -48,6 +48,9 @@ module.exports = {
   resolve: {
     alias: LINKED,
     extensions: [".js", ".ts"],
+    fallback: {
+      "path": false
+    }
   },
   module: {
     rules: [

@@ -1,4 +1,4 @@
-import Model, { from, parent, ref } from '@expressive/mvc';
+import Model, { from, parent } from '@expressive/mvc';
 
 import { build, transform } from '../transform';
 import { evaluate } from '../transform/evaluate';
@@ -13,9 +13,9 @@ export class Document extends Model {
   parent = parent(REPL);
   source = "";
 
-  output_jsx = from(this.transform);
-  output_js = from(this.build);
-  output = from(this.eval);
+  output_jsx = from(() => this.transform);
+  output_js = from(() => this.build);
+  output = from(() => this.eval);
 
   error = "";
   stale = false;
