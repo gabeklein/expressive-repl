@@ -1,5 +1,3 @@
-import React from "react";
-
 /** Imports shared with sandbox. */
 const Sandbox = {
   "react": require("react"),
