@@ -5,7 +5,7 @@ import { evaluate } from '../transform/evaluate';
 import { REPL } from './control';
 
 const DEFAULT_CODE =
-`export const Hi = () => do {
+`export const Hi = () => {
   <this>Hello World!</this>
 }`
 

@@ -510,24 +510,24 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.3.tgz#90420f9f9c6d3987f176a19a7d8e764271a2f55d"
   integrity sha512-Fxt+AfXgjMoin2maPIYzFZnQjAXjAL0PHscM5pRTtatFqB+vZxAM9tLp2Optnuw3QOQC40jTNeGYFOMvyf7v9g==
 
-"@expressive/babel-plugin-jsx@^1.0.0-beta.83":
-  version "1.0.0-beta.83"
-  resolved "https://registry.yarnpkg.com/@expressive/babel-plugin-jsx/-/babel-plugin-jsx-1.0.0-beta.83.tgz#27610e6263669098fda9fd781b546c69c41d508c"
-  integrity sha512-c2RJT7dh1psuNEKqLPIq61So95T2MXAnf3ardKo2gPCX1Z5e6tZwAjreAwNoF/sVzeGxXRyKZIAqLu3fjMd98g==
+"@expressive/babel-plugin-jsx@^1.0.0-beta.94":
+  version "1.0.0-beta.94"
+  resolved "https://registry.yarnpkg.com/@expressive/babel-plugin-jsx/-/babel-plugin-jsx-1.0.0-beta.94.tgz#84d840f4e211b686d78526e6f87bf707526e3e59"
+  integrity sha512-Vzx25B2B8PkXI5d4Gxb01MLFVK7/ZdELWOEPF32M+Jk1AkV3m8ITQMpMIOG6RwNgq5HOr9kfRIT373OzxUeqrQ==
 
-"@expressive/babel-preset-react@^1.0.0-beta.83":
-  version "1.0.0-beta.83"
-  resolved "https://registry.yarnpkg.com/@expressive/babel-preset-react/-/babel-preset-react-1.0.0-beta.83.tgz#938cce20f56ae6331c291ad14bd70c25893c9c0f"
-  integrity sha512-VRQ0OLcDNPJOulLrF4SE+d143OPygvhMBBY90XTUayq4ddsdL8P/FOX0ccmkPWJc3g7sj2W+IgvWtP0k+9ieWA==
+"@expressive/babel-preset-react@^1.0.0-beta.94":
+  version "1.0.0-beta.94"
+  resolved "https://registry.yarnpkg.com/@expressive/babel-preset-react/-/babel-preset-react-1.0.0-beta.94.tgz#b67ef5e4315cdb45245ce52daae32f06b6c53393"
+  integrity sha512-P3F/1PmXAEkjAvnBu7vMLAKCNB7o2i/Leocewqu9mXAup+4gohXZ3SYVa7Yvj4um1qIUUO/U2gVYNH6THPW+lA==
   dependencies:
-    "@expressive/babel-plugin-jsx" "^1.0.0-beta.83"
-    "@expressive/macro-pseudo" "^1.0.0-beta.73"
-    "@expressive/macro-style" "^1.0.0-beta.83"
+    "@expressive/babel-plugin-jsx" "^1.0.0-beta.94"
+    "@expressive/macro-pseudo" "^1.0.0-canary.0"
+    "@expressive/macro-style" "^1.0.0-canary.0"
 
-"@expressive/css@^1.0.0-beta.68":
-  version "1.0.0-beta.68"
-  resolved "https://registry.yarnpkg.com/@expressive/css/-/css-1.0.0-beta.68.tgz#7dcfeafcdab082041319565ce52fc11c317bda93"
-  integrity sha512-UwoIqq+6MHfghgX7cOZuUNhtcvCqx4zB66Hb0bcS64R2zSNtI3n1SO8Bu/jPKZnQ5O8QLH5KMlpDyqiWd/Pzsg==
+"@expressive/css@^1.0.0-beta.90":
+  version "1.0.0-beta.90"
+  resolved "https://registry.yarnpkg.com/@expressive/css/-/css-1.0.0-beta.90.tgz#370c1f7718fed0c38f6e6317ce3580c1bcc68bae"
+  integrity sha512-Io+zoy96pA/+GnlO8aVnJBVe7b1Nku7P+rqcX2bh697oj95LsF8zRSwwxKXdZyIbx6FrSJAp94yAoHHEKYFKgg==
 
 "@expressive/layout@^1.0.0-beta.7":
   version "1.0.0-beta.7"
@@ -537,17 +537,17 @@
     "@babel/plugin-proposal-class-properties" "^7.14.5"
     "@expressive/mvc" "^1.0.0-beta.27"
 
-"@expressive/macro-pseudo@^1.0.0-beta.73":
-  version "1.0.0-beta.73"
-  resolved "https://registry.yarnpkg.com/@expressive/macro-pseudo/-/macro-pseudo-1.0.0-beta.73.tgz#48574f96d1ef69a5900e4ea579cff48ae350744c"
-  integrity sha512-RMC9L4nqi6LjMIsoUGAForbotWc7w2as/wxZAVqIJJLzoxEjJWIT/9+4Q7R76MjXMTljM+TmDT9BN6WY4V6NYw==
+"@expressive/macro-pseudo@^1.0.0-canary.0":
+  version "1.0.0-canary.0"
+  resolved "https://registry.yarnpkg.com/@expressive/macro-pseudo/-/macro-pseudo-1.0.0-canary.0.tgz#7a809b4022e3ca9b6278a60335b0728ca097362c"
+  integrity sha512-JkMLWQbbCJqo6kvSTeHDbeNqIFmGekXoUJyFuiJ2XtZVa0h7CKi03SxqdmdDxUsHhl7ptRa0Ft8tfyAR45K8vw==
   dependencies:
     "@babel/types" "7.10.3"
 
-"@expressive/macro-style@^1.0.0-beta.83":
-  version "1.0.0-beta.83"
-  resolved "https://registry.yarnpkg.com/@expressive/macro-style/-/macro-style-1.0.0-beta.83.tgz#4bb3acf97056930c6d8826b9488691dfcfb9bfff"
-  integrity sha512-w3kWcPBJpG7lYIBlHK1fAOZp4V1sd4kskraQE9CBITF/L0T8dhioMBIq8h9cxxaEESttC8t5RiRQneIKBa029Q==
+"@expressive/macro-style@^1.0.0-canary.0":
+  version "1.0.0-canary.0"
+  resolved "https://registry.yarnpkg.com/@expressive/macro-style/-/macro-style-1.0.0-canary.0.tgz#77a11416c0d00aa2181a08f6e010dceb5cf14e32"
+  integrity sha512-+xJy9eWNodzDR07tidLzdcF89mTXdIfwg9LsewKALnZ8PnT19aYZd49wtwAVzhZeHCMzbPv/sGz/sK0lX2vMqw==
   dependencies:
     "@babel/types" "7.10.3"
 

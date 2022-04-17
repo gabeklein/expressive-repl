@@ -4,29 +4,31 @@ import { evaluate } from '../transform';
 import { REPL } from './control';
 import { InputEditor, OutputView } from '../editor/editor';
 
-const Editor = ({ font, stale }) => do {
+const Editor = ({ font, stale }) => {
   className = stale && "cm-stale";
 
   forward: ref, className;
   fontSize: `${font}px`;
   overflow: hidden;
   margin: 3;
+
+  <this />
 }
 
-export const EditInput = () => do {
+export const EditInput = () => {
   const { element, parent } = InputEditor.use();
 
   <Editor ref={element} font={parent.fontSize} />
 }
 
-export const MockOutput = () => do {
+export const MockOutput = () => {
   const { element, parent } = OutputView.use();
   const { stale, fontSize } = parent;
 
   <Editor ref={element} font={fontSize} stale={stale} />
 }
 
-export const LiveResult = () => do {
+export const LiveResult = () => {
   const { document: doc, Render } = REPL.tap();
 
   flex: 1;

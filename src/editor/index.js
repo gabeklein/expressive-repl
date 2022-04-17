@@ -4,30 +4,34 @@ import { EditInput, LiveResult, MockOutput } from './components';
 
 export { REPL } from "./control";
 
-export const Interface = ({ layout }) => do {
+export const Interface = () => {
+  const layout = "compact";
+  const View =
+    layout == "compact" ? Columns :
+    layout == "fill" ? Fill :
+    layout == "view" ? LiveResult :
+    layout == "code" ? MockOutput : null;
+
   Row: {
     forward: className;
   }
 
-  results: {
-    if(layout == "compact")
-      <Col>
-        <MockOutput />
-        <LiveResult />
-      </Col>
-    else if(layout == "fill")
-      <this>
-        <MockOutput />
-        <LiveResult />
-      </this>
-    else if(layout == "view")
-      <LiveResult />
-    else if(layout == "code")
-      <EditInput />
-  }
-
   <Row>
     <EditInput />
-    <results />
+    <View />
   </Row>
+}
+
+export const Fill = () => {
+  <this>
+    <MockOutput />
+    <LiveResult />
+  </this>
+}
+
+export const Columns = () => {
+  <Col>
+    <MockOutput />
+    <LiveResult />
+  </Col>
 }

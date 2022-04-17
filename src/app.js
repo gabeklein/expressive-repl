@@ -2,7 +2,7 @@ import { Provider } from '@expressive/mvc';
 
 import { Interface, REPL } from './editor';
 
-export const App = () => do {
+export const App = () => {
   const { get, layout } = REPL.use();
 
   window: {
@@ -22,7 +22,7 @@ export const App = () => do {
   </Provider>
 }
 
-const Header = () => do {
+const Header = () => {
   height: 50;
   display: flex;
   alignItems: center;
@@ -40,7 +40,7 @@ const Header = () => do {
   </this>
 }
 
-const Footer = () => do {
+const Footer = () => {
   height: 40;
   marginB: 5;
   color: 0x888;
@@ -48,7 +48,7 @@ const Footer = () => do {
   font: 12;
 
   <this>
-    Gabe Klein - MIT - 2021
+    Gabe Klein - MIT - 2022
   </this>
 }
 
