@@ -25,21 +25,25 @@ export function transform(source: string, opts = {}){
 
 /** Generate eval-ready code from source. */
 export function build(source: string){
-  let { code } = Babel.transform(source, {
+  let step1 = Babel.transform(source, {
     filename: '/REPL.js',
-    plugins: [
-      "transform-modules-commonjs"
-    ],
     presets: [
       [Expressive, {
-        output: "js",
+        output: "jsx",
         hot: true
-      }],
-      "react"
+      }]
     ]
   });
 
-  return code;
+  const step2 = Babel.transform(step1.code, {
+    filename: '/REPL.js',
+    plugins: [
+      "transform-react-jsx",
+      "transform-modules-commonjs"
+    ]
+  });
+
+  return step2.code;
 }
 
 function prettify(source: string){
