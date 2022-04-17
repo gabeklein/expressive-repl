@@ -11,7 +11,7 @@ export const Header = () => {
   }
   
   <this>
-    <img src="./icon/Logo.svg" />
+    <img src="./Logo.svg" />
     Expressive REPL
   </this>
 }
