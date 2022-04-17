@@ -23,29 +23,6 @@ export function transform(source: string, opts = {}){
   return code;
 }
 
-/** Generate eval-ready code from source. */
-export function build(source: string){
-  let step1 = Babel.transform(source, {
-    filename: '/REPL.js',
-    presets: [
-      [Expressive, {
-        output: "jsx",
-        hot: true
-      }]
-    ]
-  });
-
-  const step2 = Babel.transform(step1.code, {
-    filename: '/REPL.js',
-    plugins: [
-      "transform-react-jsx",
-      "transform-modules-commonjs"
-    ]
-  });
-
-  return step2.code;
-}
-
 function prettify(source: string){
   return Prettier.format(source, {
     // fake parser! returns AST we have

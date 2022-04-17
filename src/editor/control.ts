@@ -12,11 +12,8 @@ enum Layout {
 export class REPL extends Model {
   document = use(Document);
 
-  Render = from(() => this.generatePreview);
-
   layout = Layout.Columns;
   fontSize = 15;
-
   options = {
     output: "jsx",
     printStyle: "pretty"
@@ -24,13 +21,5 @@ export class REPL extends Model {
 
   didCreate(){
     (window as any).REPL = this;
-  }
-
-  generatePreview(){
-    const module = this.document.output;
-    const exported = Object.values(module)[0];
-
-    if(exported)
-      return exported as React.FC<{}>;
   }
 }

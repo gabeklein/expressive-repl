@@ -37,11 +37,11 @@ const transforms = [
   removeTrailingline
 ];
 
-function reformat(code: string){
+function cleanup(code: string){
   for(const op of transforms)
     code = op(code);
   
   return code;
 }
 
-export default reformat;
+export default cleanup;

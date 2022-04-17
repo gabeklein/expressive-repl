@@ -1,7 +1,6 @@
 import Model, { from, parent } from '@expressive/mvc';
 
-import { build, transform } from '../transform';
-import { evaluate } from '../transform/evaluate';
+import { transform } from '../transform';
 import { REPL } from './control';
 
 const DEFAULT_CODE =
@@ -14,8 +13,6 @@ export class Document extends Model {
   source = "";
 
   output_jsx = from(() => this.transform);
-  output_js = from(() => this.build);
-  output = from(() => this.eval);
 
   error = "";
   stale = false;
@@ -38,30 +35,6 @@ export class Document extends Model {
     finally {
       this.stale = false;
       localStorage.setItem("REPL:file", source);
-    }
-  }
-
-  build(){
-    try {
-      return build(this.source);
-    }
-    catch(error){
-      this.error = "Error while building preview.";
-      console.error(error)
-    }
-  }
-
-  eval(){
-    if(!this.output_js)
-      return {};
-
-    try {
-      return evaluate(this.output_js);
-    }
-    catch(error){
-      this.error = "Error while building preview.";
-      console.error(error);
-      return {};
     }
   }
 }

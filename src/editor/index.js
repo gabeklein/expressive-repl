@@ -1,6 +1,7 @@
 import { Col, Row } from '@expressive/layout';
 
-import { EditInput, LiveResult, MockOutput } from './components';
+import Preview from '../preview/Preview';
+import { EditInput, MockOutput } from './components';
 
 export { REPL } from "./control";
 
@@ -9,7 +10,7 @@ export const Interface = () => {
   const View =
     layout == "compact" ? Columns :
     layout == "fill" ? Fill :
-    layout == "view" ? LiveResult :
+    layout == "view" ? Preview :
     layout == "code" ? MockOutput : null;
 
   Row: {
@@ -25,13 +26,13 @@ export const Interface = () => {
 export const Fill = () => {
   <this>
     <MockOutput />
-    <LiveResult />
+    <Preview />
   </this>
 }
 
 export const Columns = () => {
   <Col>
     <MockOutput />
-    <LiveResult />
+    <Preview />
   </Col>
 }
