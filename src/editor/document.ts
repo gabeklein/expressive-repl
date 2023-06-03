@@ -1,4 +1,4 @@
-import Model, { from, parent } from '@expressive/mvc';
+import Model, { get } from '@expressive/react';
 
 import { transform } from '../transform';
 import { REPL } from './control';
@@ -9,17 +9,20 @@ const DEFAULT_CODE =
 }`
 
 export class Document extends Model {
-  parent = parent(REPL);
+  parent = get(REPL);
   source = "";
 
-  output_jsx = from(() => this.transform);
+  output_jsx = get(() => this.transform);
 
   error = "";
   stale = false;
 
-  didCreate(){
-    this.source =
-      localStorage.getItem("REPL:file") || DEFAULT_CODE;
+  constructor(){
+    super();
+    this.get(() => {
+      const saved = localStorage.getItem("REPL:file");
+      this.source = saved || DEFAULT_CODE;
+    })
   }
 
   transform(){
@@ -34,7 +37,7 @@ export class Document extends Model {
     }
     finally {
       this.stale = false;
-      localStorage.setItem("REPL:file", source);
+      // localStorage.setItem("REPL:file", source);
     }
   }
 }

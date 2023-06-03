@@ -1,20 +1,17 @@
 import './editor-light.css';
 import './editor.css';
 
-import { closeBrackets, closeBracketsKeymap } from '@codemirror/closebrackets';
-import { defaultKeymap, indentWithTab } from '@codemirror/commands';
-import { commentKeymap } from '@codemirror/comment';
-import { lineNumbers } from '@codemirror/gutter';
-import { classHighlightStyle } from '@codemirror/highlight';
-import { history, historyKeymap } from '@codemirror/history';
+import { closeBrackets, closeBracketsKeymap } from '@codemirror/autocomplete';
+import { defaultKeymap, history, historyKeymap, indentWithTab } from '@codemirror/commands';
 import { javascript } from '@codemirror/lang-javascript';
-import { indentOnInput } from '@codemirror/language';
+import { indentOnInput, syntaxHighlighting } from '@codemirror/language';
 import { searchKeymap } from '@codemirror/search';
-import { EditorState, EditorStateConfig } from '@codemirror/state';
-import { drawSelection, EditorView } from '@codemirror/view';
+import { EditorState, EditorStateConfig, Extension } from '@codemirror/state';
+import { drawSelection, EditorView, lineNumbers } from '@codemirror/view';
+import { classHighlighter } from '@lezer/highlight';
 
-import { keyBind } from './helpers';
 import { autoCloseTab, autoElementSplit } from './extensions';
+import { keyBind } from './helpers';
 
 export * from './helpers';
 
@@ -27,8 +24,8 @@ export function createView(
 }
 
 /** Base plugins for displaying JSX */
-export const jsx = [
-  classHighlightStyle,
+export const jsx: Extension[] = [
+  syntaxHighlighting(classHighlighter),
   javascript({ jsx: true }),
   lineNumbers(),
   drawSelection()
@@ -55,7 +52,6 @@ export const editor = [
     defaultKeymap,
     searchKeymap,
     historyKeymap,
-    commentKeymap,
     indentWithTab
   )
 ]

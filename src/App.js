@@ -1,11 +1,9 @@
-import { Provider } from '@expressive/mvc';
+import { Provider } from '@expressive/react';
 import { Footer, Header } from './components/common';
 
 import { Interface, REPL } from './editor';
 
 export const App = () => {
-  const { get, layout } = REPL.use();
-
   window: {
     height: "100vh";
     boxSizing: border-box;
@@ -14,10 +12,10 @@ export const App = () => {
     overflow: hidden;
   }
 
-  <Provider of={get}>
+  <Provider for={REPL}>
     <window>
       <Header />
-      <Interface layout={layout} />
+      <Interface />
       <Footer />
     </window>
   </Provider>

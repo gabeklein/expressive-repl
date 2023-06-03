@@ -1,14 +1,12 @@
 import { InputEditor, OutputView } from '../editor/editor';
 
 const Editor = ({ font, stale }) => {
-  className = stale && "cm-stale";
-
   forward: ref, className;
   fontSize: `${font}px`;
   overflow: hidden;
   margin: 3;
 
-  <this />
+  <this className={stale && "cm-stale"} />
 }
 
 export const EditInput = () => {

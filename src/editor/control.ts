@@ -1,25 +1,25 @@
-import Model, { from, use } from '@expressive/mvc';
+import Model, { use } from '@expressive/react';
 
 import { Document } from './document';
 
-enum Layout {
-  Compact = "compact",
-  Columns = "fill",
-  CodeOnly = "code",
-  PreviewOnly = "view"
+declare namespace REPL {
+  type Layout = "compact" | "fill" | "code" | "view";
 }
 
-export class REPL extends Model {
+class REPL extends Model {
   document = use(Document);
 
-  layout = Layout.Columns;
+  constructor(){
+    super();
+    (window as any).REPL = this;
+  }
+
+  layout: REPL.Layout = "compact";
   fontSize = 15;
   options = {
     output: "jsx",
     printStyle: "pretty"
   }
-
-  didCreate(){
-    (window as any).REPL = this;
-  }
 }
+
+export { REPL }

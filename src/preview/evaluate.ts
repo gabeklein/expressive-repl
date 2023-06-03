@@ -5,7 +5,7 @@ import Expressive from '@expressive/babel-preset-react';
 const SANDBOX_MODULES = {
   "react": require("react"),
   "@expressive/css": require("@expressive/css"),
-  "@expressive/mvc": require("@expressive/mvc")
+  "@expressive/react": require("@expressive/react")
 }
 
 export function renderFactory(source: string){
@@ -13,7 +13,7 @@ export function renderFactory(source: string){
     return;
 
   const code = build(source);
-  const module = evaluate(code);
+  const module = evaluate(code as string);
   const exported = Object.values(module)[0];
 
   if(exported)
@@ -22,7 +22,7 @@ export function renderFactory(source: string){
 
 /** Generate eval-ready code from source. */
 function build(source: string){
-  let step1 = Babel.transform(source, {
+  const step1 = Babel.transform(source, {
     filename: '/REPL.js',
     presets: [
       [Expressive, {
@@ -32,7 +32,7 @@ function build(source: string){
     ]
   });
 
-  const step2 = Babel.transform(step1.code, {
+  const step2 = Babel.transform(step1.code as string, {
     filename: '/REPL.js',
     plugins: [
       "transform-react-jsx",
@@ -49,7 +49,12 @@ function evaluate(source: string){
   const module = { exports: {} };
   const require = (name: string) => SANDBOX_MODULES[name];
 
-  run(require, module.exports, module);
+  try {
+    run(require, module.exports, module);
+  }
+  catch(err){
+    debugger
+  }
 
   return module.exports as {};
 }

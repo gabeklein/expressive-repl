@@ -1,15 +1,15 @@
 import { Extension } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
-import { Model, ref, tap } from '@expressive/mvc';
+import { get, Model, ref, set } from '@expressive/react';
 
 import { createView, editor, jsx, jsxEditor, metaKey, onUpdate, readOnly } from '../codemirror';
 import { REPL } from './control';
 
 export default class Editor extends Model {
-  parent = tap(REPL, true);
+  parent = get(REPL);
   element = ref(this.init);
 
-  view: EditorView;
+  view = set<EditorView>();
   apply?: Extension;
 
   init(parent: HTMLElement){
@@ -17,13 +17,15 @@ export default class Editor extends Model {
       extensions: this.apply
     })
 
-    const release = this.parent.on("fontSize", () => {
+    const release = this.parent.get(state => {
+      void state.fontSize;
       view.requestMeasure();
     });
 
     return () => {
       release();
       view.destroy();
+      // @ts-ignore
       this.view = undefined;
     }
   }
@@ -63,12 +65,9 @@ export class InputEditor extends Editor {
   ];
 
   init(container: HTMLElement){
-    try {
-      return super.init(container);
-    }
-    finally {
-      this.setText(this.parent.document.source);
-    }
+    const done = super.init(container);
+    this.setText(this.parent.document.source);
+    return done;
   }
 }
 
@@ -77,7 +76,7 @@ export class OutputView extends Editor {
 
   init(container: HTMLElement){
     const release = super.init(container);
-    const release2 = this.parent.effect(({ document }) => {
+    const release2 = this.parent.get(({ document }) => {
       this.setText(document.output_jsx);
     })
       

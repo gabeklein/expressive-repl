@@ -1,17 +1,13 @@
-import { Col, Row } from '@expressive/layout';
-
+import { Fragment } from 'react';
+import { Col, Row } from '../layout';
 import Preview from '../preview/Preview';
 import { EditInput, MockOutput } from './components';
+import { REPL } from './control';
 
-export { REPL } from "./control";
+export { REPL };
 
 export const Interface = () => {
-  const layout = "compact";
-  const View =
-    layout == "compact" ? Columns :
-    layout == "fill" ? Fill :
-    layout == "view" ? Preview :
-    layout == "code" ? MockOutput : null;
+  const { layout } = REPL.get();
 
   Row: {
     forward: className;
@@ -19,20 +15,20 @@ export const Interface = () => {
 
   <Row>
     <EditInput />
-    <View />
+    {layout == "compact" ? (
+      <Col>
+        <MockOutput />
+        <Preview />
+      </Col>
+    ) : layout == "fill" ? (
+      <Fragment>
+        <MockOutput />
+        <Preview />
+      </Fragment>
+    ) : layout == "view" ? (
+      <Preview />
+    ) : (
+      layout == "code" && <MockOutput />
+    )}
   </Row>
-}
-
-export const Fill = () => {
-  <this>
-    <MockOutput />
-    <Preview />
-  </this>
-}
-
-export const Columns = () => {
-  <Col>
-    <MockOutput />
-    <Preview />
-  </Col>
 }

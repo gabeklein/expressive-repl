@@ -22,7 +22,7 @@ const Preview = () => {
   else if(!Render)
     <issue>Waiting for exports...</issue>
   else
-    <Boundary onError={err => set.error = err}>
+    <Boundary>
       <Render />
     </Boundary>
 }

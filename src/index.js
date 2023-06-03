@@ -1,12 +1,11 @@
 import './styles.css';
 
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./app";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+import App from './App';
 
 window.addEventListener("load", () => {
-  ReactDOM.render(
-    React.createElement(App),
-    document.getElementById("react-root")
-  );
+  const container = document.getElementById('react-root');
+  ReactDOM.createRoot(container).render(<App />);
 });

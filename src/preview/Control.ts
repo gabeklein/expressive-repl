@@ -1,13 +1,13 @@
-import Model, { from, tap } from '@expressive/mvc';
+import Model, { get } from '@expressive/react';
 
 import { REPL } from '../editor';
 import { renderFactory } from './evaluate';
 
 class Control extends Model {
-  parent = tap(REPL);
+  parent = get(REPL);
   error = "";
 
-  Render = from(this, $ => {
+  Render = get(this, $ => {
     const { source } = $.parent.document;
 
     try {

@@ -12,7 +12,7 @@ export const Header = () => {
   
   <this>
     <img src="./Logo.svg" />
-    Expressive REPL
+    Expressive JSX Demo
   </this>
 }
 
@@ -24,6 +24,6 @@ export const Footer = () => {
   font: 12;
 
   <this>
-    Gabe Klein - MIT - 2022
+    Gabe Klein - MIT - 2023
   </this>
 }
