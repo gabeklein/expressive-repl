@@ -5,13 +5,6 @@ const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin"
 
 const DEV = !!process.env.WEBPACK_SERVE;
 
-const LINKED = {
-  "react": require.resolve("react"),
-  "react-dom": require.resolve("react-dom"),
-  "@expressive/mvc": require.resolve("@expressive/mvc"),
-  "@expressive/css": require.resolve("@expressive/css"),
-}
-
 const BABEL_CONFIG = {
   presets: [
     "@babel/preset-typescript",
@@ -46,7 +39,6 @@ module.exports = {
     chunks: false
   },
   resolve: {
-    alias: LINKED,
     extensions: [".js", ".ts"],
     fallback: {
       "path": false
