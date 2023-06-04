@@ -46,8 +46,8 @@ function build(source: string){
 /** Evaluate string as a commonJS module. */
 function evaluate(source: string){
   const run = new Function("require", "exports", "module", source);
-  const module = { exports: {} };
   const require = (name: string) => SANDBOX_MODULES[name];
+  const module = { exports: {} };
 
   try {
     run(require, module.exports, module);
