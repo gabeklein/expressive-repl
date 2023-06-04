@@ -1,11 +1,11 @@
 import { Fragment } from 'react';
 
+import { Editor } from '../codemirror/Editor';
 import { Col, Row } from '../layout';
 import Preview from '../preview/Preview';
 import { InputEditor } from './InputEditor';
 import { Main } from './Main';
 import { OutputView } from './OutputView';
-import { View } from './View';
 
 export const Interface = () => {
   const { layout } = Main.get();
@@ -33,4 +33,26 @@ export const Interface = () => {
 /** @type {React.FC} */
 const MockOutput = () => {
   <View type={OutputView} />
+}
+
+/**
+ * @type {React.FC<{
+ *   type: typeof Editor;
+ *   className?: string;
+ * }>}
+ **/
+export const View = ({ type }) => {
+  const {
+    element,
+    main: {
+      fontSize
+    }
+  } = type.use();
+
+  forward: className;
+  fontSize: `${fontSize}px`;
+  overflow: hidden;
+  margin: 3;
+
+  <this ref={element} />
 }
