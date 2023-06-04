@@ -8,37 +8,39 @@ import { REPL } from './REPL';
 export abstract class Editor extends Model {
   abstract extensions: Extension;
 
-  parent = get(REPL);
-  editor = set<EditorView>();
-  element = ref(this.initialize);
+  protected init?(parent: HTMLElement): (() => void) | void;
 
-  initialize(parent: HTMLElement){
-    const editor = createView(parent, {
+  parent = get(REPL);
+
+  view = set<EditorView>();
+
+  element = ref(e => {
+    const view = this.view = createView(e, {
       extensions: this.extensions
     });
 
+    const done = this.init && this.init(e);
     const release = this.parent.get(state => {
       void state.fontSize;
-      editor.requestMeasure();
+      view.requestMeasure();
     });
-
-    this.editor = editor;
 
     return () => {
       release();
-      editor.destroy();
+      if(done) done();
+      view.destroy();
     }
+  });
+
+  get text(){
+    return this.view.state.doc.toString();
   }
 
-  getText(){
-    return this.editor.state.doc.toString();
-  }
-
-  setText(to: string){
-    this.editor.dispatch({
+  set text(to: string){
+    this.view.dispatch({
       changes: {
         from: 0,
-        to: this.editor.state.doc.length,
+        to: this.view.state.doc.length,
         insert: to
       }
     })
@@ -57,32 +59,24 @@ export class InputEditor extends Editor {
       this.parent.fontSize--;
     }),
     metaKey("s", () => {
-      this.parent.document.source = this.getText();
+      this.parent.document.source = this.text;
     }),
     onUpdate(() => {
       this.parent.document.stale = true;
     })
   ];
 
-  initialize(container: HTMLElement){
-    const done = super.initialize(container);
-    this.setText(this.parent.document.source);
-    return done;
+  init(){
+    this.text = this.parent.document.source;
   }
 }
 
 export class OutputView extends Editor {
   extensions = [ jsx, readOnly ];
 
-  initialize(container: HTMLElement){
-    const release = super.initialize(container);
-    const release2 = this.parent.get(({ document }) => {
-      this.setText(document.output_jsx);
+  init(){
+    return this.parent.get(repl => {
+      this.text = repl.document.output_jsx;
     })
-      
-    return () => {
-      release();
-      release2();
-    }
   }
 }
