@@ -2,7 +2,7 @@ import { Model, ref, set } from '@expressive/react';
 import './editor-light.css';
 import './editor.css';
 
-import { EditorState, EditorStateConfig, Extension } from '@codemirror/state';
+import { EditorState, Extension } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
 
 export * from './helpers';
@@ -10,6 +10,7 @@ export * from './extends';
 
 export abstract class Editor extends Model {
   abstract extends: Extension;
+
   protected abstract ready(): (() => void) | void;
 
   view = set<EditorView>();

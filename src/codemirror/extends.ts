@@ -22,14 +22,10 @@ export const readOnly = [
   EditorView.editable.of(false)
 ]
 
-/** Custom JSX editor shortcuts */
-export const jsxEditor = [
-  autoCloseTab(),
-  autoElementSplit()
-]
-
 /** Default editor extensions */
 export const editor = [
+  autoCloseTab(),
+  autoElementSplit(),
   history(),
   indentOnInput(),
   closeBrackets(),

@@ -61,8 +61,8 @@ function insertNewlineAndIndentJSX(target: CommandTarget){
   if(notBetweenTags)
     return false;
 
-  let changes = state.changeByRange(({ from, to }) => {
-    let cx = new IndentContext(state, {
+  const changes = state.changeByRange(({ from, to }) => {
+    const cx = new IndentContext(state, {
       simulateBreak: from,
       simulateDoubleBreak: true
     });
@@ -74,7 +74,7 @@ function insertNewlineAndIndentJSX(target: CommandTarget){
       offset = /^\s*/.exec(line)![0].length;
     }
 
-    let line = state.doc.lineAt(from);
+    const line = state.doc.lineAt(from);
 
     while(to < line.to && /\s/.test(line.text[to - line.from]))
       to++;
