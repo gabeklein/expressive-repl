@@ -1,4 +1,4 @@
-import Model, { get } from '@expressive/react';
+import Model, { get, set } from '@expressive/react';
 
 import { transform } from './transform';
 import { REPL } from './REPL';
@@ -10,20 +10,16 @@ const DEFAULT_CODE =
 
 export class Document extends Model {
   parent = get(REPL);
-  source = "";
+
+  source = set(() => {
+    const saved = localStorage.getItem("REPL:file");
+    return saved || DEFAULT_CODE;
+  });
 
   output_jsx = get(() => this.transform);
 
-  error = "";
   stale = false;
-
-  constructor(){
-    super();
-    this.get(() => {
-      const saved = localStorage.getItem("REPL:file");
-      this.source = saved || DEFAULT_CODE;
-    })
-  }
+  error = "";
 
   transform(){
     const { source, parent } = this;
