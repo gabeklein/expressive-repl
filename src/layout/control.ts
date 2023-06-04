@@ -29,6 +29,7 @@ export class Control extends Model {
   container = ref(this.applyLayout);
 
   output = get(() => this.getOutput);
+
   children = set([], value => {
     this.items = flattenChildren(value);
     this.space = this.items.map(() => 1);

@@ -3,14 +3,14 @@ import { EditorView } from '@codemirror/view';
 import { get, Model, ref, set } from '@expressive/react';
 
 import { createView, editor, jsx, jsxEditor, metaKey, onUpdate, readOnly } from '../codemirror';
-import { REPL } from './REPL';
+import { Main } from './Main';
 
 export abstract class Editor extends Model {
   abstract extensions: Extension;
 
   protected init?(parent: HTMLElement): (() => void) | void;
 
-  parent = get(REPL);
+  parent = get(Main);
 
   view = set<EditorView>();
 

@@ -2,24 +2,24 @@ import Model, { use } from '@expressive/react';
 
 import { Document } from './Document';
 
-declare namespace REPL {
+declare namespace Main {
   type Layout = "compact" | "fill" | "code" | "view";
 }
 
-class REPL extends Model {
+class Main extends Model {
   document = use(Document);
 
   constructor(){
     super();
-    (window as any).REPL = this;
+    (window as any).editor = this;
   }
 
   fontSize = 15;
-  layout: REPL.Layout = "fill";
+  layout: Main.Layout = "fill";
   options = {
     output: "jsx",
     printStyle: "pretty"
   }
 }
 
-export { REPL }
+export { Main }

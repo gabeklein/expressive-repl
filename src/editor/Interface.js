@@ -3,13 +3,11 @@ import { Fragment } from 'react';
 import { Col, Row } from '../layout';
 import Preview from '../preview/Preview';
 import { InputEditor, OutputView } from './Editor';
-import { REPL } from './REPL';
+import { Main } from './Main';
 import { View } from './View';
 
-export { REPL };
-
 export const Interface = (props) => {
-  const { layout } = REPL.get();
+  const { layout } = Main.get();
 
   <Row {...props}>
     <EditInput />

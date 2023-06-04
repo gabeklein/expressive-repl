@@ -1,7 +1,8 @@
 import { Provider } from '@expressive/react';
 
 import { Footer, Header } from './components/common';
-import { Interface, REPL } from './editor/Interface';
+import { Interface } from './editor/Interface';
+import { Main } from './editor/Main';
 
 export const App = () => {
   height: vh(100);
@@ -10,7 +11,7 @@ export const App = () => {
   gridRows: min, minmax(0, "1fr"), min;
   overflow: hidden;
 
-  <Provider for={REPL}>
+  <Provider for={Main}>
     <Header />
     <Interface />
     <Footer />

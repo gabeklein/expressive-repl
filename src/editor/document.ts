@@ -1,7 +1,7 @@
 import Model, { get, set } from '@expressive/react';
 
 import { transform } from './transform';
-import { REPL } from './REPL';
+import { Main } from './Main';
 
 const DEFAULT_CODE =
 `export const Hi = () => {
@@ -9,7 +9,7 @@ const DEFAULT_CODE =
 }`
 
 export class Document extends Model {
-  parent = get(REPL);
+  main = get(Main);
 
   source = set(() => {
     const saved = localStorage.getItem("REPL:file");
@@ -22,10 +22,10 @@ export class Document extends Model {
   error = "";
 
   transform(){
-    const { source, parent } = this;
+    const { source, main } = this;
 
     try {
-      return transform(source, parent.options);
+      return transform(source, main.options);
     }
     catch(error){
       console.error(error);
