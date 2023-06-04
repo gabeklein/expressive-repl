@@ -5,10 +5,10 @@ import { Interface, REPL } from './editor';
 
 export const App = () => {
   window: {
-    height: "100vh";
+    height: vh(100);
     boxSizing: border-box;
     padding: 0, 10;
-    gridRows: min, "minmax(0, 1fr)", min;
+    gridRows: min, minmax(0, "1fr"), min;
     overflow: hidden;
   }
 

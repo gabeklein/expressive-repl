@@ -26,13 +26,13 @@ export class Control extends Model {
   items = [] as React.ReactNode[];
   space = [] as number[];
 
+  container = ref(this.applyLayout);
+
+  output = get(() => this.getOutput);
   children = set([], value => {
     this.items = flattenChildren(value);
     this.space = this.items.map(() => 1);
   });
-
-  container = ref(this.applyLayout);
-  output = get(() => this.getOutput);
 
   protected get isRow(){
     return this.type == Direction.Row;

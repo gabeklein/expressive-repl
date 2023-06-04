@@ -1,4 +1,4 @@
-import Babel from '@babel/standalone';
+import * as Babel from '@babel/standalone';
 import Expressive from '@expressive/babel-preset-react';
 
 /** Imports shared with sandbox. */

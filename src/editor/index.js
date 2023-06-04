@@ -6,14 +6,10 @@ import { REPL } from './control';
 
 export { REPL };
 
-export const Interface = () => {
+export const Interface = (props) => {
   const { layout } = REPL.get();
 
-  Row: {
-    forward: className;
-  }
-
-  <Row>
+  <Row {...props}>
     <EditInput />
     {layout == "compact" ? (
       <Col>

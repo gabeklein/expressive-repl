@@ -14,8 +14,8 @@ class REPL extends Model {
     (window as any).REPL = this;
   }
 
-  layout: REPL.Layout = "compact";
   fontSize = 15;
+  layout: REPL.Layout = "fill";
   options = {
     output: "jsx",
     printStyle: "pretty"
