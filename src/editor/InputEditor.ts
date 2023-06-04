@@ -2,7 +2,7 @@ import { Extension } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
 import { get, Model, ref, set } from '@expressive/react';
 
-import { createView, editor, jsx, jsxEditor, metaKey, onUpdate, readOnly } from '../codemirror';
+import { createView, editor, jsx, jsxEditor, metaKey, onUpdate } from '../codemirror';
 import { Main } from './Main';
 import { Document } from './Document';
 
@@ -10,7 +10,7 @@ export abstract class Editor extends Model {
   abstract extensions: Extension;
   protected abstract ready(): (() => void) | void;
 
-  parent = get(Main);
+  main = get(Main);
   document = get(Document);
 
   view = set<EditorView>();
@@ -21,8 +21,7 @@ export abstract class Editor extends Model {
     });
 
     const done = this.ready();
-    const release = this.parent.get(state => {
-      void state.fontSize;
+    const release = this.main.get("fontSize", () => {
       view.requestMeasure();
     });
 
@@ -54,10 +53,10 @@ export class InputEditor extends Editor {
     jsxEditor,
     editor,
     metaKey("=", () => {
-      this.parent.fontSize++;
+      this.main.fontSize++;
     }),
     metaKey("-", () => {
-      this.parent.fontSize--;
+      this.main.fontSize--;
     }),
     metaKey("s", () => {
       this.document.source = this.text;
@@ -72,12 +71,3 @@ export class InputEditor extends Editor {
   }
 }
 
-export class OutputView extends Editor {
-  extensions = [ jsx, readOnly ];
-
-  ready(){
-    return this.parent.document.get($ => {
-      this.text = $.output_jsx;
-    })
-  }
-}

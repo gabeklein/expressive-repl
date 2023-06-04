@@ -1,4 +1,4 @@
-import { Editor } from './Editor';
+import { Editor } from './InputEditor';
 
 /**
  * @type {React.FC<{
@@ -9,7 +9,7 @@ import { Editor } from './Editor';
 export const View = ({ type }) => {
   const {
     element,
-    parent: {
+    main: {
       fontSize
     }
   } = type.use();

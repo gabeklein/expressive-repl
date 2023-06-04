@@ -2,8 +2,9 @@ import { Fragment } from 'react';
 
 import { Col, Row } from '../layout';
 import Preview from '../preview/Preview';
-import { InputEditor, OutputView } from './Editor';
+import { InputEditor } from './InputEditor';
 import { Main } from './Main';
+import { OutputView } from './OutputView';
 import { View } from './View';
 
 export const Interface = () => {
