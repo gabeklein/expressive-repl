@@ -2,7 +2,7 @@ import Boundary from './Boundary';
 import Control from './Control';
 
 const Preview = () => {
-  const { set, error, Render } = Control.use();
+  const { error, Render } = Control.use();
 
   flex: 1;
   flexAlign: center;
