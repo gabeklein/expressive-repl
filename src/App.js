@@ -1,7 +1,7 @@
 import { Provider } from '@expressive/react';
 
 import { Footer, Header } from './components/common';
-import { Interface, REPL } from './editor';
+import { Interface, REPL } from './editor/Interface';
 
 export const App = () => {
   height: vh(100);
