@@ -1,8 +1,10 @@
 import { Fragment } from 'react';
+
 import { Col, Row } from '../layout';
 import Preview from '../preview/Preview';
-import { EditInput, MockOutput } from './components';
+import { InputEditor, OutputView } from './Editor';
 import { REPL } from './REPL';
+import { View } from './View';
 
 export { REPL };
 
@@ -27,4 +29,14 @@ export const Interface = (props) => {
       layout == "code" && <MockOutput />
     )}
   </Row>
+}
+
+/** @type {React.FC} */
+const EditInput = () => {
+  <View type={InputEditor} />
+}
+
+/** @type {React.FC} */
+const MockOutput = () => {
+  <View type={OutputView} />
 }

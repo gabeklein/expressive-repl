@@ -5,8 +5,8 @@ import { get, Model, ref, set } from '@expressive/react';
 import { createView, editor, jsx, jsxEditor, metaKey, onUpdate, readOnly } from '../codemirror';
 import { REPL } from './REPL';
 
-export class Editor extends Model {
-  extensions?: Extension;
+export abstract class Editor extends Model {
+  abstract extensions: Extension;
 
   parent = get(REPL);
   editor = set<EditorView>();
