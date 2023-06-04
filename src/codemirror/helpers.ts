@@ -4,7 +4,7 @@ type KeyBindings = KeyBinding | readonly KeyBinding[];
 
 /** Register keymap helper */
 export function keyBind(...args: KeyBindings[]){
-  return keymap.of([].concat(...args));
+  return keymap.of([].concat(...args as any[]));
 }
 
 /** Callback on specified keyboard event. */
