@@ -1,6 +1,6 @@
 import { Provider } from '@expressive/react';
-import { Footer, Header } from './components/common';
 
+import { Footer, Header } from './components/common';
 import { Interface, REPL } from './editor';
 
 export const App = () => {
