@@ -3,42 +3,42 @@ import { EditorView } from '@codemirror/view';
 import { get, Model, ref, set } from '@expressive/react';
 
 import { createView, editor, jsx, jsxEditor, metaKey, onUpdate, readOnly } from '../codemirror';
-import { REPL } from './control';
+import { REPL } from './REPL';
 
-export default class Editor extends Model {
+export class Editor extends Model {
+  extensions?: Extension;
+
   parent = get(REPL);
-  element = ref(this.init);
+  editor = set<EditorView>();
+  element = ref(this.initialize);
 
-  view = set<EditorView>();
-  apply?: Extension;
-
-  init(parent: HTMLElement){
-    const view = this.view = createView(parent, {
-      extensions: this.apply
-    })
+  initialize(parent: HTMLElement){
+    const editor = createView(parent, {
+      extensions: this.extensions
+    });
 
     const release = this.parent.get(state => {
       void state.fontSize;
-      view.requestMeasure();
+      editor.requestMeasure();
     });
+
+    this.editor = editor;
 
     return () => {
       release();
-      view.destroy();
-      // @ts-ignore
-      this.view = undefined;
+      editor.destroy();
     }
   }
 
   getText(){
-    return this.view.state.doc.toString();
+    return this.editor.state.doc.toString();
   }
 
   setText(to: string){
-    this.view.dispatch({
+    this.editor.dispatch({
       changes: {
         from: 0,
-        to: this.view.state.doc.length,
+        to: this.editor.state.doc.length,
         insert: to
       }
     })
@@ -46,7 +46,7 @@ export default class Editor extends Model {
 }
 
 export class InputEditor extends Editor {
-  apply = [
+  extensions = [
     jsx,
     jsxEditor,
     editor,
@@ -64,18 +64,18 @@ export class InputEditor extends Editor {
     })
   ];
 
-  init(container: HTMLElement){
-    const done = super.init(container);
+  initialize(container: HTMLElement){
+    const done = super.initialize(container);
     this.setText(this.parent.document.source);
     return done;
   }
 }
 
 export class OutputView extends Editor {
-  apply = [ jsx, readOnly ];
+  extensions = [ jsx, readOnly ];
 
-  init(container: HTMLElement){
-    const release = super.init(container);
+  initialize(container: HTMLElement){
+    const release = super.initialize(container);
     const release2 = this.parent.get(({ document }) => {
       this.setText(document.output_jsx);
     })

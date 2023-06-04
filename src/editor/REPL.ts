@@ -1,6 +1,6 @@
 import Model, { use } from '@expressive/react';
 
-import { Document } from './document';
+import { Document } from './Document';
 
 declare namespace REPL {
   type Layout = "compact" | "fill" | "code" | "view";

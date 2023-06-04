@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { Col, Row } from '../layout';
 import Preview from '../preview/Preview';
 import { EditInput, MockOutput } from './components';
-import { REPL } from './control';
+import { REPL } from './REPL';
 
 export { REPL };
 

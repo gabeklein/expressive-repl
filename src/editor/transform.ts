@@ -1,3 +1,40 @@
+import * as Babel from '@babel/standalone';
+import Expressive from '@expressive/babel-preset-react';
+import parserBabel from 'prettier/parser-babel';
+import Prettier from 'prettier/standalone';
+
+/** Generate preview JSX code from source. */
+export function transform(source: string, opts = {}){
+  const result = Babel.transform(source, {
+    filename: '/REPL.js',
+    presets: [
+      [Expressive, {
+        ...opts,
+        hot: false 
+      }]
+    ]
+  });
+
+  return transforms.reduce(
+    (code, fix) => fix(code),
+    result.code!
+  );
+}
+
+function applyPrettier(source: string){
+  return Prettier.format(source, {
+    // fake parser! returns AST we have
+    // parser: () => output.ast,
+    parser: "babel",
+    plugins: [ parserBabel ],
+    singleQuote: false, 
+    trailingComma: "none", 
+    jsxBracketSameLine: true,
+    tabWidth: 2,
+    printWidth: 60
+  });
+}
+
 const statementLineSpacing = (x: string) =>
   x.replace(/^(.+?)\n(export|const|let)/gm, "$1\n\n$2")
 
@@ -34,14 +71,6 @@ const transforms = [
   tabCharactersMustDie,
   compactStylesInclude,
   ensureSpaceBeforeCSS,
-  removeTrailingline
+  removeTrailingline,
+  applyPrettier
 ];
-
-function cleanup(code: string){
-  for(const op of transforms)
-    code = op(code);
-  
-  return code;
-}
-
-export default cleanup;

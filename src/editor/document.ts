@@ -1,7 +1,7 @@
 import Model, { get } from '@expressive/react';
 
-import { transform } from '../transform';
-import { REPL } from './control';
+import { transform } from './transform';
+import { REPL } from './REPL';
 
 const DEFAULT_CODE =
 `export const Hi = () => {

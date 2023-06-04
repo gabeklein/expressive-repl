@@ -1,4 +1,4 @@
-import { InputEditor, OutputView } from '../editor/editor';
+import { InputEditor, OutputView } from './Editor';
 
 const Editor = ({ font, stale }) => {
   forward: ref, className;
