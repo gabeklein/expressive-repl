@@ -63,6 +63,7 @@ const removeTrailingline = (x: string) =>
   x.replace(/\n$/, "")
 
 const transforms = [
+  applyPrettier,
   statementLineSpacing,
   jsxReturnSpacing,
   spaceOutBlocks,
@@ -71,6 +72,5 @@ const transforms = [
   tabCharactersMustDie,
   compactStylesInclude,
   ensureSpaceBeforeCSS,
-  removeTrailingline,
-  applyPrettier
+  removeTrailingline
 ];
