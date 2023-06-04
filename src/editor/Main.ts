@@ -2,6 +2,12 @@ import Model, { use } from '@expressive/react';
 
 import { Document } from './Document';
 
+declare global {
+  interface Window {
+    editor: Main;
+  }
+}
+
 declare namespace Main {
   type Layout = "compact" | "fill" | "code" | "view";
 }
@@ -11,7 +17,7 @@ class Main extends Model {
 
   constructor(){
     super();
-    (window as any).editor = this;
+    window.editor = this;
   }
 
   fontSize = 15;
