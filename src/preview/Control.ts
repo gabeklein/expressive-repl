@@ -1,14 +1,14 @@
 import Model, { get } from '@expressive/react';
 
-import { REPL } from '../editor';
+import { Document } from '../editor/Document';
 import { renderFactory } from './evaluate';
 
 class Control extends Model {
-  parent = get(REPL);
+  document = get(Document);
   error = "";
 
   Render = get(this, $ => {
-    const { source } = $.parent.document;
+    const { source } = $.document;
 
     try {
       return renderFactory(source);
