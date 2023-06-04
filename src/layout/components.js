@@ -11,12 +11,16 @@ export const Layout = (props) => {
   </this>
 }
 
-export const Row = (props) => {
-  <Layout {...props} type="columns" />
+export const Row = ({ children }) => {
+  <Layout type="columns">
+    {children}
+  </Layout>
 }
 
-export const Column = (props) => {
-  <Layout {...props} type="rows" />
+export const Column = ({ children }) => {
+  <Layout type="rows">
+    {children}
+  </Layout>
 }
 
 for(const Component of [Layout, Row, Column])
