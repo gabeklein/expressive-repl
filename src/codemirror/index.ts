@@ -7,7 +7,7 @@ import { javascript } from '@codemirror/lang-javascript';
 import { indentOnInput, syntaxHighlighting } from '@codemirror/language';
 import { searchKeymap } from '@codemirror/search';
 import { EditorState, EditorStateConfig, Extension } from '@codemirror/state';
-import { drawSelection, EditorView, lineNumbers } from '@codemirror/view';
+import { EditorView, lineNumbers } from '@codemirror/view';
 import { classHighlighter } from '@lezer/highlight';
 
 import { autoCloseTab, autoElementSplit } from './extensions';
@@ -27,8 +27,7 @@ export function createView(
 export const jsx: Extension[] = [
   syntaxHighlighting(classHighlighter),
   javascript({ jsx: true }),
-  lineNumbers(),
-  drawSelection()
+  lineNumbers()
 ]
 
 /** Set editor to read-only */
