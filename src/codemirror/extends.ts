@@ -1,27 +1,14 @@
-import './editor-light.css';
-import './editor.css';
-
 import { closeBrackets, closeBracketsKeymap } from '@codemirror/autocomplete';
 import { defaultKeymap, history, historyKeymap, indentWithTab } from '@codemirror/commands';
 import { javascript } from '@codemirror/lang-javascript';
 import { indentOnInput, syntaxHighlighting } from '@codemirror/language';
 import { searchKeymap } from '@codemirror/search';
-import { EditorState, EditorStateConfig, Extension } from '@codemirror/state';
+import { Extension } from '@codemirror/state';
 import { EditorView, lineNumbers } from '@codemirror/view';
 import { classHighlighter } from '@lezer/highlight';
 
-import { autoCloseTab, autoElementSplit } from './extensions';
+import { autoCloseTab, autoElementSplit } from './extend';
 import { keyBind } from './helpers';
-
-export * from './helpers';
-
-export function createView(
-  container: HTMLElement,
-  config?: EditorStateConfig){
-
-  const state = EditorState.create(config);
-  return new EditorView({ parent: container, state });
-}
 
 /** Base plugins for displaying JSX */
 export const jsx: Extension[] = [

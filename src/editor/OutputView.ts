@@ -1,17 +1,21 @@
-import { jsx, readOnly } from '../codemirror';
-import { Editor } from './InputEditor';
+import { get } from '@expressive/react';
+
+import { Editor, jsx, readOnly } from '../codemirror/Editor';
+import { Main } from './Main';
 import { transform } from './transform';
 
 export class OutputView extends Editor {
-  extensions = [jsx, readOnly];
+  extends = [jsx, readOnly];
+
+  main = get(Main);
   
   ready(){
     const main = this.main;
-    const doc = this.document;
+    const doc = main.document;
 
-    return doc.get(current => {
+    const release = doc.get(({ source }) => {
       try {
-        this.text = transform(current.source, main.options);
+        this.text = transform(source, main.options);
       }
       catch(error){
         console.error(error);
@@ -22,5 +26,14 @@ export class OutputView extends Editor {
         // localStorage.setItem("REPL:file", source);
       }
     });
+
+    const release2 = main.get("fontSize", () => {
+      this.view.requestMeasure();
+    });
+
+    return () => {
+      release();
+      release2();
+    }
   }
 }

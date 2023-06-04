@@ -1,54 +1,14 @@
-import { Extension } from '@codemirror/state';
-import { EditorView } from '@codemirror/view';
-import { get, Model, ref, set } from '@expressive/react';
+import { get } from '@expressive/react';
 
-import { createView, editor, jsx, jsxEditor, metaKey, onUpdate } from '../codemirror';
+import { Editor, editor, jsx, jsxEditor, metaKey, onUpdate } from '../codemirror/Editor';
 import { Main } from './Main';
 import { Document } from './Document';
 
-export abstract class Editor extends Model {
-  abstract extensions: Extension;
-  protected abstract ready(): (() => void) | void;
-
-  main = get(Main);
-  document = get(Document);
-
-  view = set<EditorView>();
-
-  element = ref(e => {
-    const view = this.view = createView(e, {
-      extensions: this.extensions
-    });
-
-    const done = this.ready();
-    const release = this.main.get("fontSize", () => {
-      view.requestMeasure();
-    });
-
-    return () => {
-      release();
-      if(done) done();
-      view.destroy();
-    }
-  });
-
-  get text(){
-    return this.view.state.doc.toString();
-  }
-
-  set text(to: string){
-    this.view.dispatch({
-      changes: {
-        from: 0,
-        to: this.view.state.doc.length,
-        insert: to
-      }
-    })
-  }
-}
-
 export class InputEditor extends Editor {
-  extensions = [
+  main = get(Main);
+  doc = get(Document);
+
+  extends = [
     jsx,
     jsxEditor,
     editor,
@@ -59,15 +19,19 @@ export class InputEditor extends Editor {
       this.main.fontSize--;
     }),
     metaKey("s", () => {
-      this.document.source = this.text;
+      this.doc.source = this.text;
     }),
     onUpdate(() => {
-      this.document.stale = true;
+      this.doc.stale = true;
     })
   ];
 
   ready(){
-    this.text = this.document.source;
+    this.text = this.doc.source;
+
+    return this.main.get("fontSize", () => {
+      this.view.requestMeasure();
+    });
   }
 }
 
