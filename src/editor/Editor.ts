@@ -4,13 +4,14 @@ import { get, Model, ref, set } from '@expressive/react';
 
 import { createView, editor, jsx, jsxEditor, metaKey, onUpdate, readOnly } from '../codemirror';
 import { Main } from './Main';
+import { Document } from './Document';
 
 export abstract class Editor extends Model {
   abstract extensions: Extension;
-
-  protected init?(parent: HTMLElement): (() => void) | void;
+  protected abstract ready(): (() => void) | void;
 
   parent = get(Main);
+  document = get(Document);
 
   view = set<EditorView>();
 
@@ -19,7 +20,7 @@ export abstract class Editor extends Model {
       extensions: this.extensions
     });
 
-    const done = this.init && this.init(e);
+    const done = this.ready();
     const release = this.parent.get(state => {
       void state.fontSize;
       view.requestMeasure();
@@ -59,24 +60,24 @@ export class InputEditor extends Editor {
       this.parent.fontSize--;
     }),
     metaKey("s", () => {
-      this.parent.document.source = this.text;
+      this.document.source = this.text;
     }),
     onUpdate(() => {
-      this.parent.document.stale = true;
+      this.document.stale = true;
     })
   ];
 
-  init(){
-    this.text = this.parent.document.source;
+  ready(){
+    this.text = this.document.source;
   }
 }
 
 export class OutputView extends Editor {
   extensions = [ jsx, readOnly ];
 
-  init(){
-    return this.parent.get(repl => {
-      this.text = repl.document.output_jsx;
+  ready(){
+    return this.parent.document.get($ => {
+      this.text = $.output_jsx;
     })
   }
 }

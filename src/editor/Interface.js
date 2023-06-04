@@ -6,11 +6,11 @@ import { InputEditor, OutputView } from './Editor';
 import { Main } from './Main';
 import { View } from './View';
 
-export const Interface = (props) => {
+export const Interface = () => {
   const { layout } = Main.get();
 
-  <Row {...props}>
-    <EditInput />
+  <Row>
+    <View type={InputEditor} />
     {layout == "compact" ? (
       <Col>
         <MockOutput />
@@ -27,11 +27,6 @@ export const Interface = (props) => {
       layout == "code" && <MockOutput />
     )}
   </Row>
-}
-
-/** @type {React.FC} */
-const EditInput = () => {
-  <View type={InputEditor} />
 }
 
 /** @type {React.FC} */
