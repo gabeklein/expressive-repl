@@ -28,7 +28,7 @@ export class Control extends Model {
   output = get(() => this.getOutput);
 
   container = ref(this.applyLayout);
-  separator = set(() => this.parent?.separator || "div");
+  separator = set(() => this.parent?.separator || "div") as any;
 
   children = set([], value => {
     this.items = flattenChildren(value);
@@ -74,49 +74,47 @@ export class Control extends Model {
   }
 
   protected getOutput(){
-    const { items, separator } = this;
+    const { items } = this;
     const output: ReactNode[] = [];
 
     items.forEach((child: any, i, array) => {
-      let key = i * 2;
+      const key = i * 2;
 
       output.push(
         React.cloneElement(child, {
-          key,
-          index: key,
-          ...child.props
+          index: key, key, ...child.props
         })
       );
 
-      if(i + 1 >= array.length)
-        return;
-
-      const { parent } = this;
-      const events = this.handle(++key);
-      const ref = createRef(events);
-
-      let pull: ((value: any) => void) | undefined;
-      let push: ((value: any) => void) | undefined;
-
-      if(parent){
-        const key = this.index!;
-
-        if(key > 1)
-          pull = createRef(events, parent.handle(key - 1));
-
-        if(key < items.length - 2)
-          push = createRef(events, parent.handle(key + 1));
-      }
-
-      output.push(
-        React.createElement(separator, { key, pull, push, ref })
-      );
+      if(i + 1 < array.length)
+        output.push(this.createHandle(key + 1));
     });
 
     return output;
   }
 
-  handle(key: number): DragEvents {
+  protected createHandle(key: number){
+    const { items, parent, separator } = this;
+    const events = this.handle(key);
+    const ref = createRef(events);
+
+    let pull: ((value: any) => void) | undefined;
+    let push: ((value: any) => void) | undefined;
+
+    if(parent){
+      const key = this.index!;
+
+      if(key > 1)
+        pull = createRef(events, parent.handle(key - 1));
+
+      if(key < items.length - 2)
+        push = createRef(events, parent.handle(key + 1));
+    }
+
+    return React.createElement(separator, { key, pull, push, ref })
+  }
+
+  public handle(key: number): DragEvents {
     return {
       start: () => {
         this.calibrate();
