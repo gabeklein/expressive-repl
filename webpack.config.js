@@ -4,7 +4,7 @@ const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin"
 
 const DEV = !!process.env.WEBPACK_SERVE;
 
-const BABEL_CONFIG = {
+const BABEL = {
   presets: [
     "@babel/preset-typescript",
     "@expressive/babel-preset-react"
@@ -14,36 +14,24 @@ const BABEL_CONFIG = {
   ]
 }
 
-if(DEV)
-  BABEL_CONFIG.plugins.push("react-refresh/babel");
-
 /** @type {import("webpack").Configuration} */
-module.exports = {
-  mode: DEV ? "development" : "production",
+const CONFIG = module.exports = {
+  mode: "development",
   entry: "./src/index.js",
+  devtool: "source-map",
   output: {
     path: __dirname + "/public",
     publicPath: "/",
-    devtoolModuleFilenameTemplate: "file:///[absolute-resource-path]"
+    devtoolModuleFilenameTemplate: info => (
+      `webpack://${info.resourcePath}`
+    ),
   },
   externals: {
     "@babel/standalone": "Babel"
   },
-  devtool: DEV ? "source-map" : undefined,
-  devServer: {
-    hot: true
-  },
-  stats: {
-    modules: false,
-    assets: false,
-    chunks: false
-  },
   resolve: {
     extensions: [".js", ".ts"],
-    modules: [
-      `${__dirname}/src`,
-      "node_modules"
-    ],
+    modules: ['./src', './node_modules'],
     fallback: {
       "path": false
     }
@@ -51,11 +39,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|ts)$/,
+        test: /\.[jt]s$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
-          options: BABEL_CONFIG
+          options: BABEL
         }
       },
       {
@@ -67,12 +55,14 @@ module.exports = {
       },
       {
         test: /\.(svg|png|jpg|otf)$/i,
-        type: "asset/resource"
+        type: "asset/resource",
+        generator: {
+          filename: `static/[hash:10][ext]`
+        }
       }
     ]
   },
   plugins: [
-    new ReactRefreshWebpackPlugin(),
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: "./src/develop.html"
@@ -87,3 +77,38 @@ module.exports = {
     })
   ]
 };
+
+if(DEV){
+  CONFIG.mode = "development",
+  CONFIG.devtool = "source-map",
+  CONFIG.stats = "errors-only",
+  CONFIG.devServer = {
+    host: "0.0.0.0",
+    port: 8080,
+    historyApiFallback: true,
+    hot: true
+  }
+  CONFIG.plugins.push(
+    new ReactRefreshWebpackPlugin()
+  );
+
+  BABEL.plugins.push("react-refresh/babel");
+}
+else {
+  CONFIG.optimization = {
+    splitChunks: {
+      cacheGroups: {
+        react: {
+          test: /node_modules\/react/,
+          name: 'react',
+          chunks: 'all',
+        },
+        vendor: {
+          test: /node_modules/,
+          name: 'vendor',
+          chunks: 'all',
+        }
+      }
+    }
+  }
+}
