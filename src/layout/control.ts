@@ -24,14 +24,11 @@ export class Control extends Model {
   items = [] as ReactNode[];
   space = [] as number[];
 
-  container = ref(this.applyLayout);
-
+  parent = get(Control, false);
   output = get(() => this.getOutput);
 
-  parent = get(Control, false);
-  separator = set(() => {
-    return this.parent?.separator || "div"
-  });
+  container = ref(this.applyLayout);
+  separator = set(() => this.parent?.separator || "div");
 
   children = set([], value => {
     this.items = flattenChildren(value);
