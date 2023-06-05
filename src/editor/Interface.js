@@ -41,7 +41,7 @@ const MockOutput = () => {
  *   className?: string;
  * }>}
  **/
-export const View = ({ type }) => {
+export const View = ({ type, className }) => {
   const {
     element,
     main: {
@@ -49,9 +49,11 @@ export const View = ({ type }) => {
     }
   } = type.use();
 
-  forward: className;
-  fontSize: `${fontSize}px`;
   overflow: hidden;
 
-  <this ref={element} />
+  <this
+    ref={element}
+    className={className}
+    style={{ fontSize }}
+  />
 }
