@@ -52,7 +52,6 @@ export const View = ({ type }) => {
   forward: className;
   fontSize: `${fontSize}px`;
   overflow: hidden;
-  margin: 3;
 
   <this ref={element} />
 }
