@@ -15,7 +15,7 @@ export class Control extends Model {
   static managed = new WeakSet();
 
   type = Direction.Row;
-  gap = 5;
+  gap = 9;
 
   template?: string[];
   index?: number = undefined;

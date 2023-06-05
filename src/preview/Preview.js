@@ -7,7 +7,6 @@ const Preview = () => {
   flex: 1;
   flexAlign: center;
   border: dashed, 2, 0xccc;
-  margin: 3;
   radius: 8;
   position: relative;
   overflow: hidden;

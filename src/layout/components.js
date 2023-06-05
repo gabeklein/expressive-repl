@@ -49,15 +49,15 @@ const Handle = ({ pull, push }) => {
     grab: {
       top: 10;
       bottom: 10;
-      right: 1;
-      left: 1;
+      right: 3;
+      left: 3;
     }
   }
   else {
     cursor: row-resize;
     grab: {
-      top: 1;
-      bottom: 1;
+      top: 3;
+      bottom: 3;
       right: 10;
       left: 10;
     }
@@ -67,14 +67,14 @@ const Handle = ({ pull, push }) => {
 
   if(pull)
     <Corner ref={pull} style={{
-      top: -gap,
-      left: -gap*2
+      top: 0,
+      left: -gap
     }}/>
 
   if(push)
     <Corner ref={push} style={{
-      bottom: -gap,
-      right: -gap*2
+      bottom: 0,
+      right: -gap
     }}/>
 }
 
