@@ -8,6 +8,8 @@ export class InputEditor extends Editor {
   main = get(Main);
   doc = get(Document);
 
+  fontSize = get(Main, x => x.fontSize);
+
   extends = [
     jsx,
     editor,
@@ -27,10 +29,6 @@ export class InputEditor extends Editor {
 
   ready(){
     this.text = this.doc.source;
-
-    return this.main.get("fontSize", () => {
-      this.view.requestMeasure();
-    });
   }
 }
 

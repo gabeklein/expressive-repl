@@ -13,14 +13,23 @@ export abstract class Editor extends Model {
 
   protected abstract ready(): (() => void) | void;
 
+  public fontSize = 14;
+
   view = set<EditorView>();
 
   element = ref(parent => {
+    if(!parent) return;
+
     const state = EditorState.create({ extensions: this.extends });
     const view = this.view = new EditorView({ parent, state });
     const done = this.ready();
+    const release = this.get(({ fontSize }) => {
+      parent.style.fontSize = fontSize + "px";
+      view.requestMeasure();
+    });
 
     return () => {
+      release();
       if(done) done();
       view.destroy();
     }
