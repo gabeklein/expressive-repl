@@ -1,6 +1,6 @@
 import Model, { get } from '@expressive/react';
+import { Document } from 'editor/Document';
 
-import { Document } from '../editor/Document';
 import { renderFactory } from './evaluate';
 
 class Control extends Model {

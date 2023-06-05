@@ -1,8 +1,8 @@
 import { get } from '@expressive/react';
+import { Editor, editor, jsx, metaKey, onUpdate } from 'codemirror/Editor';
 
-import { Editor, editor, jsx, metaKey, onUpdate } from '../codemirror/Editor';
-import { Main } from './Main';
 import { Document } from './Document';
+import { Main } from './Main';
 
 export class InputEditor extends Editor {
   main = get(Main);

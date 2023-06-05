@@ -1,7 +1,8 @@
 import * as Babel from '@babel/standalone';
-import Expressive from '@expressive/babel-preset-react';
 import parserBabel from 'prettier/parser-babel';
 import Prettier from 'prettier/standalone';
+
+const Expressive = require("@expressive/babel-preset-react");
 
 /** Generate preview JSX code from source. */
 export function transform(source: string, opts = {}){

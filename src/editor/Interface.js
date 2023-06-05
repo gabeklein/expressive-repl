@@ -1,8 +1,8 @@
+import { Editor } from 'codemirror/Editor';
+import { Col, Row } from 'layout';
+import Preview from 'preview/Preview';
 import { Fragment } from 'react';
 
-import { Editor } from '../codemirror/Editor';
-import { Col, Row } from '../layout';
-import Preview from '../preview/Preview';
 import { InputEditor } from './InputEditor';
 import { Main } from './Main';
 import { OutputView } from './OutputView';

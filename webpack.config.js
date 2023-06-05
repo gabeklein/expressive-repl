@@ -17,6 +17,7 @@ const BABEL_CONFIG = {
 if(DEV)
   BABEL_CONFIG.plugins.push("react-refresh/babel");
 
+/** @type {import("webpack").Configuration} */
 module.exports = {
   mode: DEV ? "development" : "production",
   entry: "./src/index.js",
@@ -39,6 +40,10 @@ module.exports = {
   },
   resolve: {
     extensions: [".js", ".ts"],
+    modules: [
+      `${__dirname}/src`,
+      "node_modules"
+    ],
     fallback: {
       "path": false
     }

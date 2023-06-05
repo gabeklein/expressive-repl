@@ -1,6 +1,6 @@
 import { get } from '@expressive/react';
+import { Editor, jsx, readOnly } from 'codemirror/Editor';
 
-import { Editor, jsx, readOnly } from '../codemirror/Editor';
 import { Main } from './Main';
 import { transform } from './transform';
 

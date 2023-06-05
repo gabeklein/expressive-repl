@@ -1,8 +1,9 @@
 import * as Babel from '@babel/standalone';
-import Expressive from '@expressive/babel-preset-react';
+
+const Expressive = require("@expressive/babel-preset-react");
 
 /** Imports shared with sandbox. */
-const SANDBOX_MODULES = {
+const SANDBOX_MODULES: Record<string, any> = {
   "react": require("react"),
   "@expressive/css": require("@expressive/css"),
   "@expressive/react": require("@expressive/react")
