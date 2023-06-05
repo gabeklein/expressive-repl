@@ -21,7 +21,7 @@ class Main extends Model {
   }
 
   fontSize = 15;
-  layout: Main.Layout = "fill";
+  layout: Main.Layout = "compact";
   options = {
     output: "jsx",
     printStyle: "pretty"

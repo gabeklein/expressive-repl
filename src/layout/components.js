@@ -1,64 +1,52 @@
+import { Provider } from "@expressive/react";
 import { Control } from "./control";
+import { forwardRef } from "react";
 
 export const Layout = (props) => {
-  const { output, container } = Control.use({ separator: Handle, ...props }, true);
+  const {
+    is: control,
+    output,
+    container
+  } = Control.use(props, true);
 
-  forward: className;
   display: grid;
 
-  <this ref={container}>
-    {output}
+  <this ref={container} className={props.className}>
+    <Provider for={control}>
+      {output}
+    </Provider>
   </this>
 }
 
-export const Row = ({ children }) => {
-  <Layout type="columns">
-    {children}
-  </Layout>
+export const Row = (props) => {
+  <Layout separator={Handle} {...props} type="columns" />
 }
 
-export const Column = ({ children }) => {
-  <Layout type="rows">
-    {children}
-  </Layout>
+export const Column = (props) => {
+  <Layout separator={Handle} {...props} type="rows" />
 }
 
-for(const Component of [Layout, Row, Column])
-  Control.managed.add(Component);
+const Handle = ({ pull, push }) => {
+  const { type, gap } = Control.get();
 
-const Handle = ({ type, gap, pull, push }) => {
   forward: ref, className;
   position: relative;
 
   css: hover: {
-    grabBar: {
+    grab: {
       bg: 0x9cc3ff;
     }
   }
 
-  grabBar: {
+  grab: {
     position: absolute;
     radius: round;
     transition: "background 0.1s ease-out";
   }
-  
-  corner: {
-    position: absolute;
-    cursor: move;
-    radius: round;
-    size: 9;
-    borderColor: transparent;
-    borderStyle: solid;
-    borderWidth: 3;
-
-    css: hover: {
-      borderColor: 0x9cc3ff;
-    }
-  }
 
   if(type == "columns"){
     cursor: col-resize;
-    grabBar: {
+    grab: {
       top: 10;
       bottom: 10;
       right: 1;
@@ -67,7 +55,7 @@ const Handle = ({ type, gap, pull, push }) => {
   }
   else {
     cursor: row-resize;
-    grabBar: {
+    grab: {
       top: 1;
       bottom: 1;
       right: 10;
@@ -75,17 +63,33 @@ const Handle = ({ type, gap, pull, push }) => {
     }
   }
 
-  <grabBar />;
+  <grab />;
 
   if(pull)
-    <corner ref={pull} style={{
+    <Corner ref={pull} style={{
       top: -gap,
       left: -gap*2
     }}/>
 
   if(push)
-    <corner ref={push} style={{
+    <Corner ref={push} style={{
       bottom: -gap,
       right: -gap*2
     }}/>
 }
+
+const Corner = forwardRef((props, ref) => {
+  position: absolute;
+  cursor: move;
+  radius: round;
+  size: 9;
+  borderColor: transparent;
+  borderStyle: solid;
+  borderWidth: 3;
+
+  css: hover: {
+    borderColor: 0x9cc3ff;
+  }
+  
+  <this ref={ref} {...props} />
+})

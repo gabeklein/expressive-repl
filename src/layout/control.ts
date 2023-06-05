@@ -1,5 +1,5 @@
 import Model, { get, ref, set } from '@expressive/react';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import { createRef, DragEvents } from './events';
 
@@ -15,20 +15,23 @@ export class Control extends Model {
   static managed = new WeakSet();
 
   type = Direction.Row;
-  separator = "div";
   gap = 5;
 
   template?: string[];
-  parent?: Control = undefined;
-  parentOffset?: number = undefined;
+  index?: number = undefined;
 
   active = 0;
-  items = [] as React.ReactNode[];
+  items = [] as ReactNode[];
   space = [] as number[];
 
   container = ref(this.applyLayout);
 
   output = get(() => this.getOutput);
+
+  parent = get(Control, false);
+  separator = set(() => {
+    return this.parent?.separator || "div"
+  });
 
   children = set([], value => {
     this.items = flattenChildren(value);
@@ -74,57 +77,46 @@ export class Control extends Model {
   }
 
   protected getOutput(){
-    const output: React.ReactNode[] = [];
+    const { items, separator } = this;
+    const output: ReactNode[] = [];
 
-    this.items.forEach((child: any, i, array) => {
+    items.forEach((child: any, i, array) => {
+      let key = i * 2;
+
       output.push(
-        this.createSection(i * 2, child)
+        React.cloneElement(child, {
+          key,
+          index: key,
+          ...child.props
+        })
       );
 
-      if(i + 1 in array)
-        output.push(
-          this.createSeparator(i * 2 + 1)
-        );
+      if(i + 1 >= array.length)
+        return;
+
+      const { parent } = this;
+      const events = this.handle(++key);
+      const ref = createRef(events);
+
+      let pull: ((value: any) => void) | undefined;
+      let push: ((value: any) => void) | undefined;
+
+      if(parent){
+        const key = this.index!;
+
+        if(key > 1)
+          pull = createRef(events, parent.handle(key - 1));
+
+        if(key < items.length - 2)
+          push = createRef(events, parent.handle(key + 1));
+      }
+
+      output.push(
+        React.createElement(separator, { key, pull, push, ref })
+      );
     });
 
     return output;
-  }
-
-  protected createSection(key: number, node: any){
-    const props = { key, ...node.props };
-
-    if(Control.managed.has(node.type))
-      Object.assign(props, {
-        parent: this,
-        parentOffset: key,
-        separator: this.separator
-      });
-
-    return React.cloneElement(node, props);
-  }
-
-  protected createSeparator(key: number){
-    const events = this.handle(key);
-    let pull: ((value: any) => void) | undefined;
-    let push: ((value: any) => void) | undefined;
-
-    if(this.parent){
-      const also = this.parent;
-      const key = this.parentOffset!;
-
-      if(key > 1)
-        pull = createRef(events, also.handle(key - 1));
-
-      if(key < this.items.length - 2)
-        push = createRef(events, also.handle(key + 1));
-    }
-
-    return React.createElement(this.separator, {
-      key, pull, push,
-      ref: createRef(events),
-      type: this.type,
-      gap: this.gap
-    });
   }
 
   handle(key: number): DragEvents {
@@ -143,12 +135,10 @@ export class Control extends Model {
   }
 }
 
-function flattenChildren(
-  input: React.ReactNode): React.ReactNode[] {
-
+function flattenChildren(input: ReactNode): ReactNode[] {
   const array = React.Children.toArray(input);
 
-  return array.reduce((flatChildren: React.ReactNode[], child) => {
+  return array.reduce((flatChildren: ReactNode[], child) => {
     const item = child as React.ReactElement<any>;
 
     if(item.type === React.Fragment)
