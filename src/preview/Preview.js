@@ -2,7 +2,12 @@ import Boundary from './Boundary';
 import Control from './Control';
 
 const Preview = () => {
-  const { error, Render } = Control.use();
+  const {
+    error,
+    key,
+    onError,
+    Render,
+  } = Control.use();
 
   flex: 1;
   flexAlign: center;
@@ -21,7 +26,7 @@ const Preview = () => {
   else if(!Render)
     <issue>Waiting for exports...</issue>
   else
-    <Boundary>
+    <Boundary key={key} onError={onError}>
       <Render />
     </Boundary>
 }
