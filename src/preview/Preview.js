@@ -1,4 +1,4 @@
-import Boundary from './Boundary';
+import Sandbox from './Sandbox';
 import Control from './Control';
 
 const Preview = () => {
@@ -6,7 +6,7 @@ const Preview = () => {
     error,
     key,
     onError,
-    Render,
+    component,
   } = Control.use();
 
   flex: 1;
@@ -23,12 +23,10 @@ const Preview = () => {
 
   if(error)
     <issue>{error}</issue>
-  else if(!Render)
+  else if(!component)
     <issue>Waiting for exports...</issue>
   else
-    <Boundary key={key} onError={onError}>
-      <Render />
-    </Boundary>
+    <Sandbox key={key} onError={onError} component={component} />
 }
 
 export default Preview;

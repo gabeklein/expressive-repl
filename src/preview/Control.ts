@@ -15,7 +15,7 @@ class Control extends Model {
     console.error(error);
   }
 
-  Render = get(this, $ => {
+  component = get(this, $ => {
     const { source } = $.document;
 
     try {
