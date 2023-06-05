@@ -6,11 +6,11 @@ const DEFAULT_CODE =
 }`
 
 export class Document extends Model {
+  stale = false;
+  error = "";
+
   source = set(() => {
     const saved = localStorage.getItem("REPL:file");
     return saved || DEFAULT_CODE;
   });
-
-  stale = false;
-  error = "";
 }
