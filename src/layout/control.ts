@@ -4,7 +4,6 @@ import React, { ReactNode } from 'react';
 import { createRef, DragEvents } from './events';
 
 const AXIS = ["gridTemplateRows", "gridTemplateColumns"] as const;
-const getAxis = (row: boolean) => row ? AXIS : AXIS.slice().reverse();
 
 enum Direction {
   Row = "columns",
@@ -14,17 +13,15 @@ enum Direction {
 export class Control extends Model {
   static managed = new WeakSet();
 
+  index?: number = undefined;
+  parent = get(Control, false);
+
   type = Direction.Row;
   gap = 9;
 
-  template?: string[];
-  index?: number = undefined;
-
-  active = 0;
   items = [] as ReactNode[];
   space = [] as number[];
 
-  parent = get(Control, false);
   output = get(() => this.getOutput);
 
   container = ref(this.applyLayout);
@@ -46,18 +43,19 @@ export class Control extends Model {
 
     this.space[prior] += diff;
     this.space[after] -= diff;
-
-    this.applyLayout();
+    this.set("space");
   }
   
-  public applyLayout(e?: HTMLElement){
-    const element = e || this.container.current!;
-    const axis = getAxis(this.isRow);
+  public applyLayout(element: HTMLElement){
+    return element && this.get($ => {
+      const { isRow, gap, space } = $;
+      const axis = isRow ? AXIS : AXIS.slice().reverse();
 
-    element.style[axis[0]] = `minmax(0, 1fr)`;
-    element.style[axis[1]] = this.space
-      .map(value => `minmax(0, ${value}fr)`)
-      .join(` ${this.gap}px `);
+      element.style[axis[0]] = `minmax(0, 1fr)`;
+      element.style[axis[1]] = space
+        .map(value => `minmax(0, ${value}fr)`)
+        .join(` ${gap}px `);
+    })
   }
 
   public calibrate(){
@@ -118,11 +116,8 @@ export class Control extends Model {
     return {
       start: () => {
         this.calibrate();
-        this.active = key;
       },
-      stop: () => {
-        this.active = 0;
-      },
+      stop: () => {},
       move: (x, y) => {
         this.nudge(key, [x, y]);
       }
