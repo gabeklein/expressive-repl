@@ -68,20 +68,18 @@ const CONFIG = module.exports = {
       template: "./src/develop.html"
     }),
     new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: __dirname + "/static",
-          to: __dirname + "/public"
-        },
-      ]
+      patterns: [{
+        from: "./static",
+        to: "."
+      }]
     })
   ]
 };
 
 if(DEV){
-  CONFIG.mode = "development",
-  CONFIG.devtool = "source-map",
-  CONFIG.stats = "errors-only",
+  CONFIG.mode = "development";
+  CONFIG.devtool = "source-map";
+  CONFIG.stats = "errors-only";
   CONFIG.devServer = {
     host: "0.0.0.0",
     port: 8080,
@@ -95,6 +93,10 @@ if(DEV){
   BABEL.plugins.push("react-refresh/babel");
 }
 else {
+  CONFIG.stats = {
+    chunks: false,
+    modules: false,
+  }
   CONFIG.optimization = {
     splitChunks: {
       cacheGroups: {
