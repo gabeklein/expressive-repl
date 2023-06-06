@@ -69,31 +69,6 @@ export class Control extends Model {
     return output;
   }
 
-  public watch(index: number){
-    return () => {
-      const { isRow, gap, space, container: { current } } = this;
-      const rect = current!.getBoundingClientRect();
-      const max = rect[isRow ? "width" : "height"];
-
-      const currentSum = space.reduce((a, n) => a + n, 0);
-      const currentMax = max - ((space.length - 1) * gap);
-
-      this.space = space.map(x => (
-        Math.round(x * currentMax / currentSum)
-      ));
-
-      return (x: number, y: number) => {
-        const diff = this.isRow ? x : y;
-        const prior = (index - 1) / 2;
-        const after = prior + 1; 
-    
-        this.space[prior] += diff;
-        this.space[after] -= diff;
-        this.set("space");
-      }
-    }
-  }
-
   protected createHandle(key: number){
     const { items, parent, separator } = this;
     const events = this.watch(key);
@@ -119,6 +94,34 @@ export class Control extends Model {
       push,
       ref
     })
+  }
+
+  public watch(index: number){
+    const { isRow, gap } = this;
+
+    return () => {
+      const { space, container } = this;
+
+      const rect = container.current!.getBoundingClientRect();
+      const max = rect[isRow ? "width" : "height"];
+
+      const currentSum = space.reduce((a, n) => a + n, 0);
+      const currentMax = max - ((space.length - 1) * gap);
+
+      this.space = space.map(x => (
+        Math.round(x * currentMax / currentSum)
+      ));
+
+      return (x: number, y: number) => {
+        const diff = this.isRow ? x : y;
+        const prior = (index - 1) / 2;
+        const after = prior + 1; 
+    
+        this.space[prior] += diff;
+        this.space[after] -= diff;
+        this.set("space");
+      }
+    }
   }
 }
 
