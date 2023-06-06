@@ -8,26 +8,36 @@ import { Main } from './Main';
 import { OutputView } from './OutputView';
 
 export const Interface = () => {
-  const { layout } = Main.get();
-
   <Row>
     <View type={InputEditor} />
-    {layout == "compact" ? (
-      <Col>
-        <MockOutput />
-        <Preview />
-      </Col>
-    ) : layout == "fill" ? (
-      <Fragment>
-        <MockOutput />
-        <Preview />
-      </Fragment>
-    ) : layout == "view" ? (
-      <Preview />
-    ) : (
-      layout == "code" && <MockOutput />
-    )}
+    <Layout />
+    <MockOutput />
   </Row>
+}
+
+const Layout = () => {
+  const { layout } = Main.get();
+
+  switch (layout) {
+    case 'columns':
+      return (
+        <Col>
+          <MockOutput />
+          <Preview />
+        </Col>
+      );
+    case 'fill':
+      return (
+        <Fragment>
+          <MockOutput />
+          <Preview />
+        </Fragment>
+      );
+    case 'view':
+      return <Preview />;
+    case 'code':
+      return <MockOutput />;
+  }
 }
 
 /** @type {React.FC} */
