@@ -11,7 +11,6 @@ export const Interface = () => {
   <Row>
     <View type={InputEditor} />
     <Layout />
-    <MockOutput />
   </Row>
 }
 
@@ -52,18 +51,9 @@ const MockOutput = () => {
  * }>}
  **/
 export const View = ({ type, className }) => {
-  const {
-    element,
-    main: {
-      fontSize
-    }
-  } = type.use();
+  const { element } = type.use();
 
   overflow: hidden;
 
-  <this
-    ref={element}
-    className={className}
-    style={{ fontSize }}
-  />
+  <this ref={element} className={className} />
 }
