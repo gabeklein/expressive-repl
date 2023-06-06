@@ -18,7 +18,7 @@ const Layout = () => {
   const { layout } = Main.get();
 
   switch (layout) {
-    case 'columns':
+    case 'compact':
       return (
         <Col>
           <MockOutput />

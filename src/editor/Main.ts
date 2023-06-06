@@ -9,7 +9,7 @@ declare global {
 }
 
 declare namespace Main {
-  type Layout = "columns" | "fill" | "code" | "view";
+  type Layout = "compact" | "fill" | "code" | "view";
 }
 
 class Main extends Model {
@@ -21,7 +21,7 @@ class Main extends Model {
   }
 
   fontSize = 15;
-  layout: Main.Layout = "columns";
+  layout: Main.Layout = "compact";
   options = {
     output: "jsx",
     printStyle: "pretty"
