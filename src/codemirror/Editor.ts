@@ -18,8 +18,6 @@ export abstract class Editor extends Model {
   view = set<EditorView>();
 
   element = ref(parent => {
-    if(!parent) return;
-
     const state = EditorState.create({ extensions: this.extends });
     const view = this.view = new EditorView({ parent, state });
     const done = this.ready();

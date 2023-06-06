@@ -47,7 +47,7 @@ export class Control extends Model {
   }
   
   public applyLayout(element: HTMLElement){
-    return element && this.get($ => {
+    return this.get($ => {
       const { isRow, gap, space } = $;
       const axis = isRow ? AXIS : AXIS.slice().reverse();
 

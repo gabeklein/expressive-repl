@@ -482,17 +482,17 @@
   dependencies:
     "@babel/types" "7.10.3"
 
-"@expressive/mvc@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.yarnpkg.com/@expressive/mvc/-/mvc-0.29.0.tgz#e5330e06f729e4483ba5d19cfe88bd98058c8937"
-  integrity sha512-iZmxUmM3b+CBKJMBx8p7rO1WJksqLikaGRN2ITanjN5TaFAwUy1UxWiwrzhxFFIzzacKcSKrSBO4kBhKZ2jAKQ==
+"@expressive/mvc@^0.29.1":
+  version "0.29.1"
+  resolved "https://registry.yarnpkg.com/@expressive/mvc/-/mvc-0.29.1.tgz#7c8d3ef7689c5b9cb52ba1d4e98d431791629a2e"
+  integrity sha512-xQjyzqI6E/dqm9Oc1HZoiICeYTBm+PJGDzKgX8zgilKbfgp7ABav+C+d0YV1z+VSNOZ709TLf7IJclhWlHtMpw==
 
-"@expressive/react@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.yarnpkg.com/@expressive/react/-/react-0.29.0.tgz#a59fdbf7d551cab08aa98b888efd11c0ae6a3e17"
-  integrity sha512-xP8uqChfeCr4+HnJtBxez4MuV8C8pVstpcc9t6wVzawTi/81oPr/rpqYnGlrX5sczOjS12U3K0ndfVZBbAg2FQ==
+"@expressive/react@^0.29.1":
+  version "0.29.1"
+  resolved "https://registry.yarnpkg.com/@expressive/react/-/react-0.29.1.tgz#0a50e85bd8cd9645ae6ebc4eb1a89bc59229a7e1"
+  integrity sha512-KPkX5Tfnzj+5Yum+OwTdLyVn72JSFCqqVsyO2BYWXV/B8dgk65wvR7VlHz2lKHWX/IU/26b0tkvAJwHXrLyCGw==
   dependencies:
-    "@expressive/mvc" "^0.29.0"
+    "@expressive/mvc" "^0.29.1"
 
 "@jridgewell/gen-mapping@^0.3.0", "@jridgewell/gen-mapping@^0.3.2":
   version "0.3.3"
