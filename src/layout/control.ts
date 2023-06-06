@@ -36,8 +36,8 @@ export class Control extends Model {
     return this.type == Direction.Row;
   }
 
-  public nudge(index: number, offset: [number, number]){
-    const diff = offset[this.isRow ? 0 : 1];
+  public nudge(index: number, x: number, y: number){
+    const diff = this.isRow ? x : y;
     const prior = (index - 1) / 2;
     const after = prior + 1; 
 
@@ -119,7 +119,7 @@ export class Control extends Model {
       },
       stop: () => {},
       move: (x, y) => {
-        this.nudge(key, [x, y]);
+        this.nudge(key, x, y);
       }
     }
   }
