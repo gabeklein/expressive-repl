@@ -1,7 +1,7 @@
 import Model, { get, ref, set } from '@expressive/react';
 import React, { ReactNode } from 'react';
 
-import { createRef, DragEvents } from './events';
+import { createRef } from './events';
 
 const AXIS = ["gridTemplateRows", "gridTemplateColumns"] as const;
 
@@ -35,40 +35,18 @@ export class Control extends Model {
   protected get isRow(){
     return this.type == Direction.Row;
   }
-
-  public nudge(index: number, x: number, y: number){
-    const diff = this.isRow ? x : y;
-    const prior = (index - 1) / 2;
-    const after = prior + 1; 
-
-    this.space[prior] += diff;
-    this.space[after] -= diff;
-    this.set("space");
-  }
   
   public applyLayout(element: HTMLElement){
-    return this.get($ => {
-      const { isRow, gap, space } = $;
-      const axis = isRow ? AXIS : AXIS.slice().reverse();
+    const { gap } = this;
+    const [x, y] = this.isRow ? AXIS : AXIS.slice().reverse();
 
-      element.style[axis[0]] = `minmax(0, 1fr)`;
-      element.style[axis[1]] = space
+    element.style[x] = `minmax(0, 1fr)`;
+
+    return this.get(({ space }) => {
+      element.style[y] = space
         .map(value => `minmax(0, ${value}fr)`)
         .join(` ${gap}px `);
     })
-  }
-
-  public calibrate(){
-    const { isRow, gap, space, container } = this;
-    const rect = container.current!.getBoundingClientRect();
-    const max = rect[isRow ? "width" : "height"];
-
-    const currentSum = space.reduce((a, n) => a + n, 0);
-    const currentMax = max - ((space.length - 1) * gap);
-
-    this.space = space.map(x => (
-      Math.round(x * currentMax / currentSum)
-    ));
   }
 
   protected getOutput(){
@@ -91,9 +69,34 @@ export class Control extends Model {
     return output;
   }
 
+  public watch(index: number){
+    return () => {
+      const { isRow, gap, space, container: { current } } = this;
+      const rect = current!.getBoundingClientRect();
+      const max = rect[isRow ? "width" : "height"];
+
+      const currentSum = space.reduce((a, n) => a + n, 0);
+      const currentMax = max - ((space.length - 1) * gap);
+
+      this.space = space.map(x => (
+        Math.round(x * currentMax / currentSum)
+      ));
+
+      return (x: number, y: number) => {
+        const diff = this.isRow ? x : y;
+        const prior = (index - 1) / 2;
+        const after = prior + 1; 
+    
+        this.space[prior] += diff;
+        this.space[after] -= diff;
+        this.set("space");
+      }
+    }
+  }
+
   protected createHandle(key: number){
     const { items, parent, separator } = this;
-    const events = this.handle(key);
+    const events = this.watch(key);
     const ref = createRef(events);
 
     let pull: ((value: any) => void) | undefined;
@@ -103,25 +106,19 @@ export class Control extends Model {
       const key = this.index!;
 
       if(key > 1)
-        pull = createRef(events, parent.handle(key - 1));
+        pull = createRef(events, parent.watch(key - 1));
 
       if(key < items.length - 2)
-        push = createRef(events, parent.handle(key + 1));
+        push = createRef(events, parent.watch(key + 1));
     }
 
-    return React.createElement(separator, { key, pull, push, ref })
-  }
-
-  public handle(key: number): DragEvents {
-    return {
-      start: () => {
-        this.calibrate();
-      },
-      stop: () => {},
-      move: (x, y) => {
-        this.nudge(key, x, y);
-      }
-    }
+    return React.createElement(separator, {
+      key,
+      index: key,
+      pull,
+      push,
+      ref
+    })
   }
 }
 
