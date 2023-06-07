@@ -9,13 +9,16 @@ export const Layout = (props) => {
     container
   } = Control.use(props, true);
 
-  display: grid;
+  grid: {
+    forward: className;
+    display: grid;
+  }
 
-  <this ref={container} className={props.className}>
-    <Provider for={control}>
+  <Provider for={control}>
+    <grid ref={container}>
       {output}
-    </Provider>
-  </this>
+    </grid>
+  </Provider>
 }
 
 export const Row = (props) => {
