@@ -13,7 +13,8 @@ export const autoCloseTab = () =>
  * Key command will line-split and indent, if cursor is between '>' and '<'.
  */
 export const autoElementSplit = () => keyBind({
-  key: "Enter", run: insertNewlineAndIndentJSX
+  key: "Enter",
+  run: insertNewlineAndIndentJSX
 })
 
 function insertClosingTag(
