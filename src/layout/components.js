@@ -22,11 +22,11 @@ export const Layout = (props) => {
 }
 
 export const Row = (props) => {
-  <Layout separator={Handle} {...props} type="columns" />
+  <Layout row separator={Handle} {...props} />
 }
 
 export const Column = (props) => {
-  <Layout separator={Handle} {...props} type="rows" />
+  <Layout separator={Handle} {...props} />
 }
 
 const Handle = ({ pull, push }) => {

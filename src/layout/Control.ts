@@ -5,18 +5,13 @@ import { createRef } from './events';
 
 const AXIS = ["gridTemplateRows", "gridTemplateColumns"] as const;
 
-enum Direction {
-  Row = "columns",
-  Column = "rows"
-}
-
 export class Control extends Model {
   static managed = new WeakSet();
 
   index?: number = undefined;
   parent = get(Control, false);
 
-  type = Direction.Row;
+  row = false;
   gap = 9;
 
   items = [] as ReactNode[];
@@ -32,14 +27,10 @@ export class Control extends Model {
     this.items = flattenChildren(value);
     this.space = this.items.map(() => 1);
   });
-
-  protected get isRow(){
-    return this.type == Direction.Row;
-  }
   
   public applyLayout(element: HTMLElement){
     const { gap } = this;
-    const [x, y] = this.isRow ? AXIS : AXIS.slice().reverse();
+    const [x, y] = this.row ? AXIS : AXIS.slice().reverse();
 
     element.style[x] = `minmax(0, 1fr)`;
 
@@ -73,13 +64,13 @@ export class Control extends Model {
   }
 
   public watch(index: number){
-    const { isRow, gap } = this;
+    const { row, gap } = this;
 
     return () => {
       const { space, container } = this;
 
       const rect = container.current!.getBoundingClientRect();
-      const max = rect[isRow ? "width" : "height"];
+      const max = rect[row ? "width" : "height"];
 
       const currentSum = space.reduce((a, n) => a + n, 0);
       const currentMax = max - ((space.length - 1) * gap);
@@ -89,7 +80,7 @@ export class Control extends Model {
       ));
 
       return (x: number, y: number) => {
-        const diff = this.isRow ? x : y;
+        const diff = this.row ? x : y;
         const prior = (index - 1) / 2;
         const after = prior + 1; 
     
