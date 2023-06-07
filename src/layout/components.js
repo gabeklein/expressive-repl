@@ -32,6 +32,21 @@ export const Column = (props) => {
 const Handle = ({ pull, push }) => {
   const { type, gap } = Control.get();
 
+  Grab: {
+    forward: className, ref;
+  }
+  
+  <Grab vertical={type == "columns"}>
+    {pull && (
+      <Corner ref={pull} style={{ top: 0, left: -gap }} />
+    )}
+    {push && (
+      <Corner ref={push} style={{ bottom: 0, right: -gap }} />
+    )}
+  </Grab>
+}
+
+const Grab = ({ vertical, children }) => {
   forward: ref, className;
   position: relative;
 
@@ -47,7 +62,7 @@ const Handle = ({ pull, push }) => {
     transition: "background 0.1s ease-out";
   }
 
-  if(type == "columns"){
+  if(vertical){
     cursor: col-resize;
     grab: {
       top: 10;
@@ -66,19 +81,10 @@ const Handle = ({ pull, push }) => {
     }
   }
 
-  <grab />;
-
-  if(pull)
-    <Corner ref={pull} style={{
-      top: 0,
-      left: -gap
-    }}/>
-
-  if(push)
-    <Corner ref={push} style={{
-      bottom: 0,
-      right: -gap
-    }}/>
+  <this>
+    <grab />
+    {children}
+  </this>
 }
 
 const Corner = forwardRef((props, ref) => {
