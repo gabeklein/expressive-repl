@@ -4,7 +4,7 @@ import { javascript } from '@codemirror/lang-javascript';
 import { indentOnInput, syntaxHighlighting } from '@codemirror/language';
 import { searchKeymap } from '@codemirror/search';
 import { Extension } from '@codemirror/state';
-import { EditorView, lineNumbers } from '@codemirror/view';
+import { EditorView, lineNumbers, drawSelection } from '@codemirror/view';
 import { classHighlighter } from '@lezer/highlight';
 
 import { autoCloseTab, autoElementSplit } from './extend';
@@ -29,6 +29,7 @@ export const editor = [
   history(),
   indentOnInput(),
   closeBrackets(),
+  drawSelection(),
   keyBind(
     closeBracketsKeymap,
     defaultKeymap,
