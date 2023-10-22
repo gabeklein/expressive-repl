@@ -30,7 +30,7 @@ const CONFIG = module.exports = {
     "@babel/standalone": "Babel"
   },
   resolve: {
-    extensions: [".js", ".ts"],
+    extensions: [".js", ".jsx", ".ts"],
     modules: ['./src', './node_modules'],
     fallback: {
       "path": false
@@ -39,7 +39,7 @@ const CONFIG = module.exports = {
   module: {
     rules: [
       {
-        test: /\.[jt]s$/,
+        test: /\.[jt]sx?$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",

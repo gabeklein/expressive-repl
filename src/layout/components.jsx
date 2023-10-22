@@ -22,7 +22,7 @@ export const Layout = (props) => {
 }
 
 export const Row = (props) => {
-  <Layout row separator={Handle} {...props} />
+  <Layout separator={Handle} {...props} row />
 }
 
 export const Column = (props) => {
@@ -50,18 +50,6 @@ const Grab = ({ vertical, children }) => {
   forward: ref, className;
   position: relative;
 
-  css: hover: {
-    grab: {
-      bg: 0x9cc3ff;
-    }
-  }
-
-  grab: {
-    position: absolute;
-    radius: round;
-    transition: "background 0.1s ease-out";
-  }
-
   if(vertical){
     cursor: col-resize;
     grab: {
@@ -79,6 +67,18 @@ const Grab = ({ vertical, children }) => {
       right: 10;
       left: 10;
     }
+  }
+
+  css: hover: {
+    grab: {
+      bg: 0x9cc3ff;
+    }
+  }
+
+  grab: {
+    position: absolute;
+    radius: round;
+    transition: "background 0.1s ease-out";
   }
 
   <this>
