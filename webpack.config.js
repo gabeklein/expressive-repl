@@ -21,10 +21,10 @@ const CONFIG = module.exports = {
   devtool: "source-map",
   output: {
     path: __dirname + "/public",
-    publicPath: "/"
-    // devtoolModuleFilenameTemplate: info => (
-    //   `webpack://${info.resourcePath}`
-    // ),
+    publicPath: "/",
+    devtoolModuleFilenameTemplate: info => (
+      `webpack://${info.resourcePath.slice(2)}`
+    ),
   },
   externals: {
     "@babel/standalone": "Babel"

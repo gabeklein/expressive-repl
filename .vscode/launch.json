@@ -8,6 +8,9 @@
       "port": 9222,
       "url": "http://localhost:8080",
       "webRoot": "${workspaceFolder}",
+      "sourceMapPathOverrides": {
+        "webpack://*": "${workspaceFolder}/*"
+      },
       "sourceMaps": true
     }
   ]
