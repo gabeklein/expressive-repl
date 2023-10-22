@@ -17,7 +17,7 @@ const BABEL = {
 /** @type {import("webpack").Configuration} */
 const CONFIG = module.exports = {
   mode: "development",
-  entry: "./src/index.js",
+  entry: "./src/index.jsx",
   devtool: "source-map",
   output: {
     path: __dirname + "/public",
