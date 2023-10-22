@@ -9,10 +9,7 @@ export function transform(source: string, opts = {}){
   const result = Babel.transform(source, {
     filename: '/REPL.js',
     presets: [
-      [Expressive, {
-        ...opts,
-        hot: false 
-      }]
+      [Expressive, { ...opts, hot: false }]
     ]
   });
 

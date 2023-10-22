@@ -21,7 +21,11 @@ export class Control extends Model {
 
   container = ref(this.applyLayout);
 
-  separator = set(() => this.parent?.separator || "div") as any;
+  separator = set((): any => {
+    return this.parent
+      ? this.parent.separator
+      : "div";
+  });
 
   children = set([], value => {
     this.items = flattenChildren(value);
