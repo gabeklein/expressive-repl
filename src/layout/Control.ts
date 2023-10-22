@@ -1,4 +1,4 @@
-import Model, { get, ref, set } from '@expressive/react';
+import Model, { get, ref } from '@expressive/react';
 import React, { ReactNode } from 'react';
 
 import { createRef } from './events';
@@ -8,33 +8,41 @@ const AXIS = ["gridTemplateRows", "gridTemplateColumns"] as const;
 export class Control extends Model {
   static managed = new WeakSet();
 
+  static using(props: any){
+    return this.use($ => {
+      $.row = props.row;
+      $.index = props.index;
+      $.separator = props.separator;
+      $.items = flatten(props.children);
+      $.space = $.items.map(() => 1);
+    }, true);
+  }
+
   index?: number = undefined;
-  parent = get(Control, false);
 
   row = false;
   gap = 9;
 
+  separator = "div";
+
   items = [] as ReactNode[];
   space = [] as number[];
 
+  parent = get(Control, false);
   output = get(() => this.getOutput);
-
   container = ref(this.applyLayout);
 
-  separator = set((): any => {
-    return this.parent
-      ? this.parent.separator
-      : "div";
-  });
-
-  children = set([], value => {
-    this.items = flattenChildren(value);
-    this.space = this.items.map(() => 1);
-  });
+  constructor(){
+    super();
+    this.get(() => {
+      if(this.parent)
+        this.separator = this.parent.separator;
+    })
+  }
   
   public applyLayout(element: HTMLElement){
     const { gap } = this;
-    const [x, y] = this.row ? AXIS : AXIS.slice().reverse();
+    const [ x, y ] = this.row ? AXIS : AXIS.slice().reverse();
 
     element.style[x] = `minmax(0, 1fr)`;
 
@@ -119,7 +127,7 @@ const Separate: React.FC<{ index: number }> = (props) => {
   });
 }
 
-function flattenChildren(input: ReactNode): ReactNode[] {
+function flatten(input: ReactNode): ReactNode[] {
   const array = React.Children.toArray(input);
 
   return array.reduce((flatChildren: ReactNode[], child) => {
@@ -127,7 +135,7 @@ function flattenChildren(input: ReactNode): ReactNode[] {
 
     if(item.type === React.Fragment)
       return flatChildren.concat(
-        flattenChildren(item.props.children)
+        flatten(item.props.children)
       );
       
     flatChildren.push(child);

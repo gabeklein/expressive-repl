@@ -7,7 +7,7 @@ export const Layout = (props) => {
     is: control,
     output,
     container
-  } = Control.use(props, true);
+  } = Control.using(props);
 
   grid: {
     forward: className;
@@ -29,49 +29,36 @@ export const Column = (props) => {
   <Layout separator={Handle} {...props} />
 }
 
-const Handle = ({ pull, push }) => {
-  const { type, gap } = Control.get();
+const Handle = forwardRef(({ pull, push }, ref) => {
+  const { row, gap } = Control.get();
 
-  Grab: {
-    forward: className, ref;
-  }
-  
-  <Grab vertical={type == "columns"}>
-    {pull && (
-      <Corner ref={pull} style={{ top: 0, left: -gap }} />
-    )}
-    {push && (
-      <Corner ref={push} style={{ bottom: 0, right: -gap }} />
-    )}
-  </Grab>
-}
+  self: {
+    forward: className;
+    position: relative;
 
-const Grab = ({ vertical, children }) => {
-  forward: ref, className;
-  position: relative;
-
-  if(vertical){
-    cursor: col-resize;
-    grab: {
-      top: 10;
-      bottom: 10;
-      right: 3;
-      left: 3;
+    css: hover: {
+      grab: {
+        bg: 0x9cc3ff;
+      }
     }
-  }
-  else {
-    cursor: row-resize;
-    grab: {
-      top: 3;
-      bottom: 3;
-      right: 10;
-      left: 10;
-    }
-  }
 
-  css: hover: {
-    grab: {
-      bg: 0x9cc3ff;
+    if(row){
+      cursor: col-resize;
+      grab: {
+        top: 10;
+        bottom: 10;
+        right: 3;
+        left: 3;
+      }
+    }
+    else {
+      cursor: row-resize;
+      grab: {
+        top: 3;
+        bottom: 3;
+        right: 10;
+        left: 10;
+      }
     }
   }
 
@@ -81,24 +68,27 @@ const Grab = ({ vertical, children }) => {
     transition: "background 0.1s ease-out";
   }
 
-  <this>
-    <grab />
-    {children}
-  </this>
-}
+  corner: {
+    position: absolute;
+    cursor: move;
+    radius: round;
+    size: 9;
+    borderColor: transparent;
+    borderStyle: solid;
+    borderWidth: 3;
 
-const Corner = forwardRef((props, ref) => {
-  position: absolute;
-  cursor: move;
-  radius: round;
-  size: 9;
-  borderColor: transparent;
-  borderStyle: solid;
-  borderWidth: 3;
-
-  css: hover: {
-    borderColor: 0x9cc3ff;
+    css: hover: {
+      borderColor: 0x9cc3ff;
+    }
   }
   
-  <this ref={ref} {...props} />
+  <self ref={ref}>
+    <grab />
+    {pull && (
+      <corner ref={pull} style={{ top: 0, left: -gap }} />
+    )}
+    {push && (
+      <corner ref={push} style={{ bottom: 0, right: -gap }} />
+    )}
+  </self>
 })
