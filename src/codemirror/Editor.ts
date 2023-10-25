@@ -9,7 +9,7 @@ export * from './helpers';
 export * from './extends';
 
 export abstract class Editor extends Model {
-  abstract extends: Extension;
+  abstract extends: Extension | (() => Extension);
 
   protected abstract ready(): (() => void) | void;
 
@@ -18,19 +18,25 @@ export abstract class Editor extends Model {
   view = set<EditorView>();
 
   element = ref(parent => {
-    const state = EditorState.create({ extensions: this.extends });
-    const view = this.view = new EditorView({ parent, state });
-    const done = this.ready();
-    const release = this.get(({ fontSize }) => {
-      parent.style.fontSize = fontSize + "px";
-      view.requestMeasure();
-    });
-
-    return () => {
-      release();
-      if(done) done();
-      view.destroy();
-    }
+    return this.get(() => {
+      const ext = typeof this.extends === "function"
+        ? this.extends()
+        : this.extends;
+  
+      const state = EditorState.create({ extensions: ext });
+      const view = this.view = new EditorView({ parent, state });
+      const done = this.ready();
+      const release = this.get(current => {
+        parent.style.fontSize = current.fontSize + "px";
+        view.requestMeasure();
+      });
+  
+      return () => {
+        release();
+        if(done) done();
+        view.destroy();
+      }
+    })
   });
 
   get text(){

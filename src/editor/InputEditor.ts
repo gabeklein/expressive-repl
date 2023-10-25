@@ -10,22 +10,26 @@ export class InputEditor extends Editor {
 
   fontSize = get(Main, x => x.fontSize);
 
-  extends = [
-    jsx,
-    editor,
-    cmd("=", () => {
-      this.main.fontSize++;
-    }),
-    cmd("-", () => {
-      this.main.fontSize--;
-    }),
-    cmd("s", () => {
-      this.doc.source = this.text;
-    }),
-    onUpdate(() => {
-      this.doc.stale = true;
-    })
-  ];
+  extends = () => {
+    const { main, doc } = this;
+
+    return [
+      jsx,
+      editor,
+      cmd("=", () => {
+        main.fontSize++;
+      }),
+      cmd("-", () => {
+        main.fontSize--;
+      }),
+      cmd("s", () => {
+        doc.source = this.text;
+      }),
+      onUpdate(() => {
+        doc.stale = true;
+      })
+    ];
+  }
 
   ready(){
     this.text = this.doc.source;
