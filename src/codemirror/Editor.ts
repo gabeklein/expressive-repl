@@ -14,13 +14,13 @@ export abstract class Editor extends Model {
   view = set<EditorView>();
   element = ref(this.createEditor);
 
-  protected abstract ready(): (() => void) | void;
+  protected abstract onReady(): (() => void) | void;
   protected abstract extends(): Extension;
 
   protected createEditor(parent: HTMLDivElement){
     const state = EditorState.create({ extensions: this.extends() });
     const view = this.view = new EditorView({ parent, state });
-    const done = this.ready();
+    const done = this.onReady();
     const release = this.main.get(({ fontSize }) => {
       parent.style.fontSize = fontSize + "px";
       view.requestMeasure();

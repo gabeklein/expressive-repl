@@ -8,7 +8,7 @@ export class InputEditor extends Editor {
   main = get(Main);
   doc = get(Document);
 
-  ready(){
+  onReady(){
     this.text = this.doc.input_jsx;
   }
 

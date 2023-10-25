@@ -29,7 +29,7 @@ export class OutputView extends Editor {
     }
   }
   
-  ready(){
+  onReady(){
     return this.doc.get(current => {
       this.text = current.output_js;
     });
