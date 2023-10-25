@@ -1,9 +1,9 @@
 import Model, { get, ref } from '@expressive/react';
 import React, { ReactNode } from 'react';
 
-import { createRef } from './events';
-
 const AXIS = ["gridTemplateRows", "gridTemplateColumns"] as const;
+
+type DragEvent = () => (x: number, y: number) => void;
 
 export class Control extends Model {
   static managed = new WeakSet();
@@ -34,11 +34,10 @@ export class Control extends Model {
   output = get(() => this.getOutput);
 
   constructor(){
-    super();
-    this.get(() => {
+    super(() => {
       if(this.parent)
         this.separator = this.parent.separator;
-    })
+    });
   }
   
   public applyLayout(element: HTMLElement){
@@ -68,7 +67,7 @@ export class Control extends Model {
       if(i + 1 < array.length){
         index++;
         output.push(
-          React.createElement(Separate, { key: index, index })
+          React.createElement(Spacer, { key: index, index })
         );
       }
     });
@@ -105,17 +104,17 @@ export class Control extends Model {
   }
 }
 
-const Separate: React.FC<{ index: number }> = (props) => {
-  return Control.get($ => {
-    const { separator, parent, items } = $;
-    const events = $.watch(props.index);
+const Spacer: React.FC<{ index: number }> = (props) => {
+  return Control.get(self => {
+    const { separator, parent, items } = self;
+    const events = self.watch(props.index);
     const ref = createRef(events);
 
     let pull: ((value: any) => void) | undefined;
     let push: ((value: any) => void) | undefined;
 
     if(parent){
-      const key = $.index!;
+      const key = self.index!;
 
       if(key > 1)
         pull = createRef(events, parent.watch(key - 1));
@@ -142,4 +141,53 @@ function flatten(input: ReactNode): ReactNode[] {
     flatChildren.push(child);
     return flatChildren;
   }, []);
+}
+
+function createRef(...handle: DragEvent[]){
+  let unSet: Function | void;
+
+  return (element: HTMLElement) => {
+    if(typeof unSet == "function")
+      unSet();
+
+    if(!element)
+      return;
+    
+    const beginResize = on(event => {
+      if(event.button !== 0)
+        return;
+      
+      let previous = event;
+
+      const onDidMove = handle.map(x => x());
+      const resize = on(event => {
+        const dX = event.x - previous.x;
+        const dY = event.y - previous.y;
+        onDidMove.map(cb => cb(dX, dY));
+        previous = event;
+      })
+
+      const endResize = on(() => {
+        document.removeEventListener("mousemove", resize);
+        document.removeEventListener("mouseup", endResize);
+      })
+
+      document.addEventListener("mousemove", resize);
+      document.addEventListener("mouseup", endResize);
+    })
+
+    element.addEventListener("mousedown", beginResize);
+
+    unSet = () => {
+      element.removeEventListener("mousedown", beginResize);
+    }
+  }
+}
+
+function on(handler: (event: MouseEvent) => void){
+  return (e: MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    handler(e);
+  }
 }
