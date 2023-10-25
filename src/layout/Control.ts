@@ -28,9 +28,10 @@ export class Control extends Model {
   items = [] as ReactNode[];
   space = [] as number[];
 
+  container = ref(this.applyLayout);
+
   parent = get(Control, false);
   output = get(() => this.getOutput);
-  container = ref(this.applyLayout);
 
   constructor(){
     super();
