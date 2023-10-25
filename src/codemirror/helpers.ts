@@ -20,7 +20,7 @@ export function onKey<T extends string>(
 }
 
 /** Callback on specified (Cmd / Control) key event. */
-export function meta(
+export function cmd(
   key: string, action: (key: string) => boolean | void){
 
   return [

@@ -1,5 +1,5 @@
 import { get } from '@expressive/react';
-import { Editor, editor, jsx, meta, onUpdate } from 'codemirror/Editor';
+import { Editor, editor, jsx, cmd, onUpdate } from 'codemirror/Editor';
 
 import { Document } from './Document';
 import { Main } from './Main';
@@ -13,13 +13,13 @@ export class InputEditor extends Editor {
   extends = [
     jsx,
     editor,
-    meta("=", () => {
+    cmd("=", () => {
       this.main.fontSize++;
     }),
-    meta("-", () => {
+    cmd("-", () => {
       this.main.fontSize--;
     }),
-    meta("s", () => {
+    cmd("s", () => {
       this.doc.source = this.text;
     }),
     onUpdate(() => {
