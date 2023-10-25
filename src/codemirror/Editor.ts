@@ -10,21 +10,15 @@ export * from './helpers';
 export * from './extends';
 
 export abstract class Editor extends Model {
-  abstract extends(): Extension;
-
-  protected abstract ready(): (() => void) | void;
-
-  public fontSize = get(Main, x => x.fontSize);
-
+  main = get(Main);
   view = set<EditorView>();
-
-  element = ref(parent => {
+  element = ref<HTMLDivElement>((parent) => {
     return this.get(() => {
       const state = EditorState.create({ extensions: this.extends() });
       const view = this.view = new EditorView({ parent, state });
       const done = this.ready();
-      const release = this.get(current => {
-        parent.style.fontSize = current.fontSize + "px";
+      const release = this.main.get(({ fontSize }) => {
+        parent.style.fontSize = fontSize + "px";
         view.requestMeasure();
       });
   
@@ -35,6 +29,9 @@ export abstract class Editor extends Model {
       }
     })
   });
+
+  protected abstract ready(): (() => void) | void;
+  protected abstract extends(): Extension;
 
   get text(){
     return this.view.state.doc.toString();

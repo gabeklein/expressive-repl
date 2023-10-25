@@ -21,8 +21,7 @@ export class Document extends Model {
 
   constructor(){
     super(() => {
-      const code = localStorage.getItem("REPL:file") || DEFAULT_CODE;
-      this.input_jsx = code;
+      this.input_jsx = localStorage.getItem("REPL:file") || DEFAULT_CODE;
       this.build();
     });
   }
