@@ -1,9 +1,10 @@
-import { Model, ref, set } from '@expressive/react';
-import './editor-light.css';
+import './editor-dark.css';
 import './editor.css';
 
 import { EditorState, Extension } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
+import { get, Model, ref, set } from '@expressive/react';
+import { Main } from 'editor/Main';
 
 export * from './helpers';
 export * from './extends';
@@ -13,7 +14,7 @@ export abstract class Editor extends Model {
 
   protected abstract ready(): (() => void) | void;
 
-  public fontSize = 14;
+  public fontSize = get(Main, x => x.fontSize);
 
   view = set<EditorView>();
 

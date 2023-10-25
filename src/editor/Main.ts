@@ -14,12 +14,6 @@ declare namespace Main {
 
 class Main extends Model {
   document = use(Document);
-
-  constructor(){
-    super();
-    window.editor = this;
-  }
-
   fontSize = 15;
   layout: Main.Layout = "compact";
   options = {

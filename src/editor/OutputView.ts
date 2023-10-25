@@ -9,8 +9,6 @@ export class OutputView extends Editor {
   main = get(Main);
   doc = get(Document);
 
-  fontSize = get(Main, x => x.fontSize);
-
   extends(){
     return [jsx, readOnly];
   }
@@ -32,6 +30,8 @@ export class OutputView extends Editor {
   }
   
   ready(){
-    return this.doc.get(x => this.build(x.source));
+    return this.doc.get(current => {
+      this.text = current.output_js;
+    });
   }
 }

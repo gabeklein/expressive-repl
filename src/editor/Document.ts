@@ -1,4 +1,7 @@
-import Model, { set } from '@expressive/react';
+import Model, { get } from '@expressive/react';
+
+import { Main } from './Main';
+import { transform } from './transform';
 
 const DEFAULT_CODE =
 `export const Hi = () => {
@@ -6,11 +9,46 @@ const DEFAULT_CODE =
 }`
 
 export class Document extends Model {
+  main = get(Main);
+
   stale = false;
   error = "";
 
-  source = set(() => {
-    const saved = localStorage.getItem("REPL:file");
-    return saved || DEFAULT_CODE;
-  });
+  input_jsx = "";
+
+  output_js = "";
+  output_css = "";
+
+  constructor(){
+    super(() => {
+      const code = localStorage.getItem("REPL:file") || DEFAULT_CODE;
+      this.input_jsx = code;
+      this.build();
+    });
+  }
+
+  build(){
+    const { options } = this.main;
+
+    try {
+      let css = "";
+      const js = transform(this.input_jsx, {
+        ...options,
+        output: "jsx",
+        cssModule: false,
+        printStyle: "pretty",
+        extractCss: (text: string) => {
+          css = text;
+        }
+      });
+
+      this.output_js = js;
+      this.output_css = css;
+      this.stale = false;
+    }
+    catch(error){
+      console.error(error);
+      this.error = "Error while compiling module.";
+    }
+  }
 }

@@ -4,10 +4,10 @@ import { Document } from 'editor/Document';
 import { renderFactory } from './evaluate';
 
 class Control extends Model {
-  document = get(Document);
+  doc = get(Document);
   error = "";
   key = get(this, $ => {
-    return simpleHash($.document.source);
+    return simpleHash($.doc.input_jsx);
   });
 
   onError = (error: Error, info: any) => {
@@ -16,11 +16,11 @@ class Control extends Model {
   }
 
   component = get(this, $ => {
-    const { source } = $.document;
+    const { output_js } = $.doc;
 
     try {
       this.error = "";
-      return renderFactory(source);
+      return renderFactory(output_js);
     }
     catch(error){
       this.error = "Error while building preview.";
