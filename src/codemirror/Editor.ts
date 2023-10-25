@@ -9,7 +9,7 @@ export * from './helpers';
 export * from './extends';
 
 export abstract class Editor extends Model {
-  abstract extends: Extension | (() => Extension);
+  abstract extends(): Extension;
 
   protected abstract ready(): (() => void) | void;
 
@@ -19,11 +19,7 @@ export abstract class Editor extends Model {
 
   element = ref(parent => {
     return this.get(() => {
-      const ext = typeof this.extends === "function"
-        ? this.extends()
-        : this.extends;
-  
-      const state = EditorState.create({ extensions: ext });
+      const state = EditorState.create({ extensions: this.extends() });
       const view = this.view = new EditorView({ parent, state });
       const done = this.ready();
       const release = this.get(current => {

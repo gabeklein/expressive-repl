@@ -10,7 +10,7 @@ export class InputEditor extends Editor {
 
   fontSize = get(Main, x => x.fontSize);
 
-  extends = () => {
+  extends(){
     const { main, doc } = this;
 
     return [

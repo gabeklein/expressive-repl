@@ -6,12 +6,14 @@ import { Main } from './Main';
 import { transform } from './transform';
 
 export class OutputView extends Editor {
-  extends = [jsx, readOnly];
-
   main = get(Main);
   doc = get(Document);
 
   fontSize = get(Main, x => x.fontSize);
+
+  extends(){
+    return [jsx, readOnly];
+  }
 
   build(source: string){
     const { document, options } = this.main;
