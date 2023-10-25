@@ -1,8 +1,10 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+const path = require("path");
 
 const DEV = !!process.env.WEBPACK_SERVE;
+const CWD = process.cwd();
 
 const BABEL = {
   presets: [
@@ -22,9 +24,9 @@ const CONFIG = module.exports = {
   output: {
     path: __dirname + "/public",
     publicPath: "/",
-    devtoolModuleFilenameTemplate: info => (
-      `webpack://${info.resourcePath.slice(2)}`
-    ),
+    devtoolModuleFilenameTemplate: info => {
+      return 'webpack://' + path.relative(CWD, info.absoluteResourcePath);
+    },
   },
   externals: {
     "@babel/standalone": "Babel"
