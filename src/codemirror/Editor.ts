@@ -12,26 +12,26 @@ export * from './extends';
 export abstract class Editor extends Model {
   main = get(Main);
   view = set<EditorView>();
-  element = ref<HTMLDivElement>((parent) => {
-    return this.get(() => {
-      const state = EditorState.create({ extensions: this.extends() });
-      const view = this.view = new EditorView({ parent, state });
-      const done = this.ready();
-      const release = this.main.get(({ fontSize }) => {
-        parent.style.fontSize = fontSize + "px";
-        view.requestMeasure();
-      });
-  
-      return () => {
-        release();
-        if(done) done();
-        view.destroy();
-      }
-    })
-  });
+  element = ref(this.createEditor);
 
   protected abstract ready(): (() => void) | void;
   protected abstract extends(): Extension;
+
+  protected createEditor(parent: HTMLDivElement){
+    const state = EditorState.create({ extensions: this.extends() });
+    const view = this.view = new EditorView({ parent, state });
+    const done = this.ready();
+    const release = this.main.get(({ fontSize }) => {
+      parent.style.fontSize = fontSize + "px";
+      view.requestMeasure();
+    });
+
+    return () => {
+      release();
+      if(done) done();
+      view.destroy();
+    }
+  }
 
   get text(){
     return this.view.state.doc.toString();
