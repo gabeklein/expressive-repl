@@ -8,6 +8,10 @@ export class InputEditor extends Editor {
   main = get(Main);
   doc = get(Document);
 
+  ready(){
+    this.text = this.doc.input_jsx;
+  }
+
   extends(){
     const { main, doc } = this;
 
@@ -28,10 +32,6 @@ export class InputEditor extends Editor {
         doc.stale = true;
       })
     ];
-  }
-
-  ready(){
-    this.text = this.doc.input_jsx;
   }
 }
 
