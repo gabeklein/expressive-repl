@@ -32,33 +32,31 @@ export const Column = (props) => {
 const Handle = forwardRef(({ pull, push }, ref) => {
   const { row, gap } = Control.get();
 
-  self: {
-    forward: className;
-    position: relative;
+  forward: className;
+  position: relative;
 
-    css: hover: {
-      grab: {
-        bg: 0x9cc3ff;
-      }
+  css: hover: {
+    grab: {
+      bg: 0x9cc3ff;
     }
+  }
 
-    if(row){
-      cursor: col-resize;
-      grab: {
-        top: 10;
-        bottom: 10;
-        right: 3;
-        left: 3;
-      }
+  if(row){
+    cursor: col-resize;
+    grab: {
+      top: 10;
+      bottom: 10;
+      right: 3;
+      left: 3;
     }
-    else {
-      cursor: row-resize;
-      grab: {
-        top: 3;
-        bottom: 3;
-        right: 10;
-        left: 10;
-      }
+  }
+  else {
+    cursor: row-resize;
+    grab: {
+      top: 3;
+      bottom: 3;
+      right: 10;
+      left: 10;
     }
   }
 
@@ -82,7 +80,7 @@ const Handle = forwardRef(({ pull, push }, ref) => {
     }
   }
   
-  <self ref={ref}>
+  <this ref={ref}>
     <grab />
     {pull && (
       <corner ref={pull} style={{ top: 0, left: -gap }} />
@@ -90,5 +88,5 @@ const Handle = forwardRef(({ pull, push }, ref) => {
     {push && (
       <corner ref={push} style={{ bottom: 0, right: -gap }} />
     )}
-  </self>
+  </this>
 })
