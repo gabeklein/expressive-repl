@@ -10,6 +10,9 @@ export class Layout extends Model {
 
   static using(props: any){
     return this.use($ => {
+      if($.get(null))
+        return;
+
       $.row = props.row;
       $.index = props.index;
       $.separator = props.separator;
@@ -18,7 +21,12 @@ export class Layout extends Model {
     }, true);
   }
 
-  index?: number = undefined;
+  parent = get(Layout, false);
+  output = get(() => this.getOutput);
+
+  container = ref(this.applyLayout);
+
+  index?: number = 0;
 
   row = false;
   gap = 9;
@@ -27,11 +35,6 @@ export class Layout extends Model {
 
   items = [] as ReactNode[];
   space = [] as number[];
-
-  container = ref(this.applyLayout);
-
-  parent = get(Control, false);
-  output = get(() => this.getOutput);
 
   constructor(){
     super(() => {

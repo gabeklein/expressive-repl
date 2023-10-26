@@ -14,6 +14,20 @@ export abstract class Editor extends Model {
   view = set<EditorView>();
   element = ref(this.createEditor);
 
+  get text(){
+    return this.view.state.doc.toString();
+  }
+
+  set text(content: string){
+    this.view.dispatch({
+      changes: {
+        from: 0,
+        to: this.view.state.doc.length,
+        insert: content
+      }
+    })
+  }
+
   protected abstract onReady(): (() => void) | void;
   protected abstract extends(): Extension;
 
@@ -31,19 +45,5 @@ export abstract class Editor extends Model {
       if(done) done();
       view.destroy();
     }
-  }
-
-  get text(){
-    return this.view.state.doc.toString();
-  }
-
-  set text(to: string){
-    this.view.dispatch({
-      changes: {
-        from: 0,
-        to: this.view.state.doc.length,
-        insert: to
-      }
-    })
   }
 }
