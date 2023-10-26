@@ -29,21 +29,21 @@ export const Column = (props) => {
   <Layout separator={Handle} {...props} />
 }
 
-const Handle = forwardRef(({ pull, push }, ref) => {
-  const { row, gap } = Control.get();
+const Handle = forwardRef((props, ref) => {
+  const { pull, push, vertical, width } = props;
 
   forward: className;
   position: relative;
 
-  css: hover: {
-    grab: {
-      bg: 0x9cc3ff;
-    }
+  bar: {
+    position: absolute;
+    radius: round;
+    transition: "background 0.1s ease-out";
   }
 
-  if(row){
+  if(vertical){
     cursor: col-resize;
-    grab: {
+    bar: {
       top: 10;
       bottom: 10;
       right: 3;
@@ -52,7 +52,7 @@ const Handle = forwardRef(({ pull, push }, ref) => {
   }
   else {
     cursor: row-resize;
-    grab: {
+    bar: {
       top: 3;
       bottom: 3;
       right: 10;
@@ -60,33 +60,36 @@ const Handle = forwardRef(({ pull, push }, ref) => {
     }
   }
 
-  grab: {
-    position: absolute;
-    radius: round;
-    transition: "background 0.1s ease-out";
-  }
-
-  corner: {
-    position: absolute;
-    cursor: move;
-    radius: round;
-    size: 9;
-    borderColor: transparent;
-    borderStyle: solid;
-    borderWidth: 3;
-
-    css: hover: {
-      borderColor: 0x9cc3ff;
+  css: hover: {
+    bar: {
+      bg: 0x9cc3ff;
     }
   }
   
   <this ref={ref}>
-    <grab />
+    <bar />
     {pull && (
-      <corner ref={pull} style={{ top: 0, left: -gap }} />
+      <Corner ref={pull} style={{ top: 0, left: -width }} />
     )}
     {push && (
-      <corner ref={push} style={{ bottom: 0, right: -gap }} />
+      <Corner ref={push} style={{ bottom: 0, right: -width }} />
     )}
   </this>
+});
+
+const Corner = forwardRef((props, ref) => {
+  position: absolute;
+  cursor: move;
+  radius: round;
+  size: 9;
+  borderColor: transparent;
+  borderStyle: solid;
+  borderWidth: 3;
+
+  css: hover: {
+    borderColor: 0x9cc3ff;
+  }
+
+  <this ref={ref} style={props.style} />
 })
+

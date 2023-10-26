@@ -123,7 +123,14 @@ const Spacer: React.FC<{ index: number }> = (props) => {
         push = createRef(events, parent.watch(key + 1));
     }
 
-    return React.createElement(separator, { pull, push, ref });
+    return React.createElement(separator, {
+      pull,
+      push,
+      grab: ref,
+      vertical: self.row,
+      width: self.gap,
+      ref
+    });
   });
 }
 
