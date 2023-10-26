@@ -5,7 +5,7 @@ const AXIS = ["gridTemplateRows", "gridTemplateColumns"] as const;
 
 type DragEvent = () => (x: number, y: number) => void;
 
-export class Control extends Model {
+export class Layout extends Model {
   static managed = new WeakSet();
 
   static using(props: any){
@@ -105,7 +105,7 @@ export class Control extends Model {
 }
 
 const Spacer: React.FC<{ index: number }> = (props) => {
-  return Control.get(self => {
+  return Layout.get(self => {
     const { separator, parent, items } = self;
     const events = self.watch(props.index);
     const ref = createRef(events);

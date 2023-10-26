@@ -1,5 +1,5 @@
 import { Provider } from "@expressive/react";
-import { Control } from "./Control";
+import { Layout as Control } from "./Control";
 import { forwardRef } from "react";
 
 export const Layout = (props) => {
