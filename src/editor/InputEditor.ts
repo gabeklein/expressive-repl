@@ -9,7 +9,9 @@ export class InputEditor extends Editor {
   doc = get(Document);
 
   onReady(){
-    this.text = this.doc.input_jsx;
+    return this.doc.get(current => {
+      this.text = current.input_jsx;
+    })
   }
 
   extends(){
