@@ -19,6 +19,9 @@ export abstract class Editor extends Model {
   }
 
   set text(content: string){
+    if(this.text === content)
+      return;
+
     this.view.dispatch({
       changes: {
         from: 0,
