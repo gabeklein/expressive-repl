@@ -37,15 +37,16 @@ export abstract class Editor extends Model {
   protected createEditor(parent: HTMLDivElement){
     const state = EditorState.create({ extensions: this.extends() });
     const view = this.view = new EditorView({ parent, state });
-    const done = this.onReady();
-    const release = this.main.get(({ fontSize }) => {
+
+    const d1 = this.onReady();
+    const d2 = this.main.get(({ fontSize }) => {
       parent.style.fontSize = fontSize + "px";
       view.requestMeasure();
     });
 
     return () => {
-      release();
-      if(done) done();
+      d2();
+      d1 && d1();
       view.destroy();
     }
   }
