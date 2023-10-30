@@ -2,16 +2,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch dev portal",
+      "name": "Launch App",
       "type": "chrome",
       "request": "launch",
-      "port": 9222,
-      "url": "http://localhost:8080/",
-      "webRoot": "${workspaceFolder}",
-      "sourceMapPathOverrides": {
-        "webpack://*": "${workspaceFolder}/*"
-      },
-      "sourceMaps": true
+      "url": "http://localhost:5173/",
+      "webRoot": "${workspaceFolder}"
     }
   ]
 }
