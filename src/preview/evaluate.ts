@@ -1,12 +1,15 @@
 import * as Babel from '@babel/standalone';
+import * as Preset from '@expressive/babel-preset-react';
 
-const Expressive = require("@expressive/babel-preset-react");
+import * as REACT from 'react';
+import * as CSS from '@expressive/css';
+import * as MVC from '@expressive/react';
 
 /** Imports shared with sandbox. */
 const SANDBOX_MODULES: Record<string, any> = {
-  "react": require("react"),
-  "@expressive/css": require("@expressive/css"),
-  "@expressive/react": require("@expressive/react")
+  "react": REACT,
+  "@expressive/css": CSS,
+  "@expressive/react": MVC
 }
 
 export function renderFactory(source: string){
@@ -26,7 +29,7 @@ function build(source: string){
   const step1 = Babel.transform(source, {
     filename: '/REPL.js',
     presets: [
-      [Expressive, {
+      [Preset, {
         output: "jsx",
         hot: true
       }]

@@ -1,15 +1,14 @@
 import * as Babel from '@babel/standalone';
+import * as Preset from '@expressive/babel-preset-react';
 import parserBabel from 'prettier/parser-babel';
 import Prettier from 'prettier/standalone';
-
-const Expressive = require("@expressive/babel-preset-react");
 
 /** Generate preview JSX code from source. */
 export function transform(source: string, opts = {}){
   const result = Babel.transform(source, {
     filename: '/REPL.js',
     presets: [
-      [Expressive, { ...opts, hot: false }]
+      [Preset, { ...opts, hot: false }]
     ]
   });
 
