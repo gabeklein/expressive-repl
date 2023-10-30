@@ -131,8 +131,7 @@ const Spacer: React.FC<{ index: number }> = (props) => {
       push,
       grab: ref,
       vertical: self.row,
-      width: self.gap,
-      ref
+      width: self.gap
     });
   });
 }
