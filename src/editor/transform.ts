@@ -5,21 +5,20 @@ import Prettier from 'prettier/standalone';
 
 /** Generate preview JSX code from source. */
 export function transform(source: string, opts = {}){
-  const result = Babel.transform(source, {
+  let { code } = Babel.transform(source, {
     filename: '/REPL.js',
     presets: [
-      [Preset, { ...opts, hot: false }]
+      [Preset, {
+        ...opts,
+        hot: false
+      }]
     ]
   });
 
-  return transforms.reduce(
-    (code, fix) => fix(code),
-    result.code!
-  );
-}
+  if(!code)  
+    throw new Error("Failed to transform source.");
 
-function applyPrettier(source: string){
-  return Prettier.format(source, {
+  code = Prettier.format(code, {
     // fake parser! returns AST we have
     // parser: () => output.ast,
     parser: "babel",
@@ -30,6 +29,11 @@ function applyPrettier(source: string){
     tabWidth: 2,
     printWidth: 60
   });
+
+  for(const fix of transforms)
+    code = fix(code);
+
+  return code;
 }
 
 const statementLineSpacing = (x: string) =>
@@ -60,7 +64,6 @@ const removeTrailingline = (x: string) =>
   x.replace(/\n$/, "")
 
 const transforms = [
-  applyPrettier,
   statementLineSpacing,
   jsxReturnSpacing,
   spaceOutBlocks,
