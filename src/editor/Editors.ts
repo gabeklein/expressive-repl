@@ -1,5 +1,5 @@
 import { get } from '@expressive/react';
-import { cmd, Editor, editor, jsx, onUpdate } from 'codemirror/Editor';
+import { cmd, Editor, editor, jsx, onUpdate, readOnly } from 'codemirror/Editor';
 
 import { Document } from './Document';
 import { Main } from './Main';
@@ -37,3 +37,19 @@ export class InputEditor extends Editor {
   }
 }
 
+export class OutputView extends Editor {
+  doc = get(Document);
+
+  extends(){
+    return [
+      jsx,
+      readOnly
+    ];
+  }
+  
+  onReady(){
+    return this.doc.get(current => {
+      this.text = current.output_js;
+    });
+  }
+}
