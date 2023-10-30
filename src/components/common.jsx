@@ -11,7 +11,7 @@ export const Header = () => {
   }
   
   <this>
-    <img src="./Logo.svg" />
+    <img src="/static/Logo.svg" />
     Expressive JSX Demo
   </this>
 }
