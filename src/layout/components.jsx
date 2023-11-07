@@ -30,16 +30,16 @@ export const Column = (props) => {
 }
 
 const Handle = (props) => {
-  const { pull, push, vertical, width, grab } = props;
+  const {
+    grab,
+    pull,
+    push,
+    vertical,
+    width,
+  } = props;
 
   forward: className;
   position: relative;
-
-  bar: {
-    position: absolute;
-    radius: round;
-    transition: "background 0.1s ease-out";
-  }
 
   if(vertical){
     cursor: col-resize;
@@ -66,6 +66,12 @@ const Handle = (props) => {
     }
   }
 
+  bar: {
+    position: absolute;
+    radius: round;
+    transition: "background 0.1s ease-out";
+  }
+
   corner: {
     position: absolute;
     cursor: move;
@@ -73,20 +79,27 @@ const Handle = (props) => {
     size: 9;
     borderColor: transparent;
     borderStyle: solid;
-    borderWidth: 3;
 
     css: hover: {
       borderColor: 0x9cc3ff;
+    }
+
+    pull: {
+      top: 0;
+    }
+
+    push: {
+      bottom: 0;
     }
   }
   
   <this ref={grab}>
     <bar />
     {pull && (
-      <corner ref={pull} style={{ top: 0, left: -width }} />
+      <corner pull ref={pull} style={{ left: -width }} />
     )}
     {push && (
-      <corner ref={push} style={{ bottom: 0, right: -width }} />
+      <corner push ref={push} style={{ right: -width }} />
     )}
   </this>
 }

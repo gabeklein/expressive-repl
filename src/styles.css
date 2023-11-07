@@ -4,20 +4,6 @@ body {
   font-family: "Lato";
 }
 
-.token.label {
-  color: rgb(88, 166, 40);
-  font-weight: 400;
-}
-
-.token.hex {
-  color: orange;
-  font-weight: 400;
-}
-
-.token.operator {
-  background: none;
-}
-
 @font-face {
   font-family: 'Fira Mono';
   font-style: normal;

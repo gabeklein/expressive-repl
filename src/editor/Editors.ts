@@ -8,12 +8,6 @@ export class InputEditor extends Editor {
   main = get(Main);
   doc = get(Document);
 
-  onReady(){
-    return this.doc.get(current => {
-      this.text = current.input_jsx;
-    })
-  }
-
   extends(){
     const { main, doc } = this;
 
@@ -34,6 +28,12 @@ export class InputEditor extends Editor {
         doc.stale = true;
       })
     ];
+  }
+
+  onReady(){
+    return this.doc.get(current => {
+      this.text = current.input_jsx;
+    })
   }
 }
 

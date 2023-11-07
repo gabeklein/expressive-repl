@@ -20,24 +20,11 @@ const InputJSX = () => {
 }
 
 export const Interface = () => {
-  const { layout } = Main.get();
-
   <Row>
     <InputJSX />
-    {layout == "compact" ? (
-      <Col>
-        <OutputJS />
-        <Preview />
-      </Col>
-    ) : layout == "fill" ? (
-      <Fragment>
-        <OutputJS />
-        <Preview />
-      </Fragment>
-    ) : layout == "view" ? (
+    <Col>
+      <OutputJS />
       <Preview />
-    ) : (
-      layout == "code" && <OutputJS />
-    )}
+    </Col>
   </Row>
 }
