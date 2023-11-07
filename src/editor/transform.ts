@@ -36,6 +36,20 @@ export function transform(source: string, opts = {}){
   return code;
 }
 
+export function transformPretty(input: string){
+  let css = "";
+  const jsx = transform(input, {
+    output: "jsx",
+    cssModule: false,
+    printStyle: "pretty",
+    extractCss: (text: string) => {
+      css = text;
+    }
+  });
+
+  return { jsx, css };
+}
+
 const statementLineSpacing = (x: string) =>
   x.replace(/^(.+?)\n(export|const|let)/gm, "$1\n\n$2")
 

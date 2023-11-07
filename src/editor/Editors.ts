@@ -24,7 +24,7 @@ export class InputEditor extends Editor {
         doc.build();
       }),
       onUpdate(() => {
-        doc.input_jsx = this.text;
+        doc.input = this.text;
         doc.stale = true;
       })
     ];
@@ -32,7 +32,7 @@ export class InputEditor extends Editor {
 
   onReady(){
     return this.doc.get(current => {
-      this.text = current.input_jsx;
+      this.text = current.input;
     })
   }
 }

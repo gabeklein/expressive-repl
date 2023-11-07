@@ -7,7 +7,7 @@ class Control extends Model {
   doc = get(Document);
   error = "";
   key = get(this, $ => {
-    return simpleHash($.doc.input_jsx);
+    return simpleHash($.doc.input);
   });
 
   onError = (error: Error, info: any) => {
