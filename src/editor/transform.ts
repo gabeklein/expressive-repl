@@ -4,13 +4,20 @@ import parserBabel from 'prettier/parser-babel';
 import Prettier from 'prettier/standalone';
 
 /** Generate preview JSX code from source. */
-export function transform(source: string, opts = {}){
-  let { code } = Babel.transform(source, {
+export function transform(input: string){
+  let css = "";
+
+  let { code } = Babel.transform(input, {
     filename: '/REPL.js',
     presets: [
       [Preset, {
-        ...opts,
-        hot: false
+        hot: false,
+        output: "jsx",
+        cssModule: false,
+        printStyle: "pretty",
+        extractCss: (text: string) => {
+          css = text;
+        }
       }]
     ]
   });
@@ -18,6 +25,13 @@ export function transform(source: string, opts = {}){
   if(!code)  
     throw new Error("Failed to transform source.");
 
+  return {
+    jsx: code,
+    css
+  };
+}
+
+export function prettify(code: string){
   code = Prettier.format(code, {
     // fake parser! returns AST we have
     // parser: () => output.ast,
@@ -34,20 +48,6 @@ export function transform(source: string, opts = {}){
     code = fix(code);
 
   return code;
-}
-
-export function transformPretty(input: string){
-  let css = "";
-  const jsx = transform(input, {
-    output: "jsx",
-    cssModule: false,
-    printStyle: "pretty",
-    extractCss: (text: string) => {
-      css = text;
-    }
-  });
-
-  return { jsx, css };
 }
 
 const statementLineSpacing = (x: string) =>

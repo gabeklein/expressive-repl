@@ -49,7 +49,7 @@ export class OutputView extends Editor {
   
   onReady(){
     return this.doc.get(current => {
-      this.text = current.output_js;
+      this.text = current.output_jsx;
     });
   }
 }

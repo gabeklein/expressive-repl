@@ -5,10 +5,8 @@ import { renderFactory } from './evaluate';
 
 class Control extends Model {
   doc = get(Document);
+  key = get(this, $ => simpleHash($.doc.input));
   error = "";
-  key = get(this, $ => {
-    return simpleHash($.doc.input);
-  });
 
   onError = (error: Error, info: any) => {
     this.error = error.toString();
@@ -16,11 +14,12 @@ class Control extends Model {
   }
 
   component = get(this, $ => {
-    const { output_js } = $.doc;
+    const { output_jsx } = $.doc;
 
     try {
       this.error = "";
-      return renderFactory(output_js);
+      const exports = renderFactory(output_jsx);
+      return Object.values(exports!)[0];
     }
     catch(error){
       this.error = "Error while building preview.";

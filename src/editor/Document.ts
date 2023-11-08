@@ -1,10 +1,12 @@
 import Model, { get } from '@expressive/react';
 
 import { Main } from './Main';
-import { transformPretty } from './transform';
+import { prettify, transform } from './transform';
 
 const DEFAULT_CODE =
 `export const Hi = () => {
+  color: red;
+
   <this>Hello World!</this>
 }`
 
@@ -16,7 +18,7 @@ export class Document extends Model {
 
   input = "";
 
-  output_js = "";
+  output_jsx = "";
   output_css = "";
 
   constructor(){
@@ -28,9 +30,9 @@ export class Document extends Model {
 
   build(){
     try {
-      const { jsx, css } = transformPretty(this.input);
+      const { jsx, css } = transform(this.input);
 
-      this.output_js = jsx;
+      this.output_jsx = prettify(jsx);
       this.output_css = css;
       this.stale = false;
     }
