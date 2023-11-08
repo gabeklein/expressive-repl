@@ -8,7 +8,7 @@ class Control extends Model {
   key = get(this, $ => simpleHash($.doc.input));
   error = "";
 
-  onError = (error: Error, info: any) => {
+  onError = (error: Error) => {
     this.error = error.toString();
     console.error(error);
   }

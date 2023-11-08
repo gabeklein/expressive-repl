@@ -29,5 +29,5 @@ export function renderFactory(source: string){
 
   run(require, module.exports, module);
 
-  return module.exports;
+  return Object.values(module.exports)[0];
 }

@@ -432,17 +432,17 @@
   resolved "https://registry.yarnpkg.com/@expressive/css/-/css-1.6.1.tgz#4c44cdb722f4967dbb1207976eb00d3616feffc0"
   integrity sha512-IDwqImAwOkHTYUO4FPBtVMN66Cz7OJAHNQyy+R09i3pUdR59OURF4JqLoZrkC9kLjqukW8D2SUoN7hYDMkcisA==
 
-"@expressive/mvc@^0.36.0":
-  version "0.36.0"
-  resolved "https://registry.yarnpkg.com/@expressive/mvc/-/mvc-0.36.0.tgz#c9657e6028232905f7d98124afb30598a0114767"
-  integrity sha512-ZllE66bnHZ+wzIwh6zM4rZnIqy5+SD4R14bQsfVxoUuKRxgZPUtuOSII4ucTomlp3uP4XZVdeVLe+kTd3hnpLw==
+"@expressive/mvc@^0.36.2":
+  version "0.36.2"
+  resolved "https://registry.yarnpkg.com/@expressive/mvc/-/mvc-0.36.2.tgz#e6ecf49cbdb2407d7d9a8e7bb60edafbaa56c52f"
+  integrity sha512-WGoV6wb79KHtQjSre5kiHajl5Y8I+cqtZmex5b1+/njnmTpJzlzvEoqGZ6cmC8tMHSfW9vPbEbC41gBlK/O8NA==
 
-"@expressive/react@^0.36.0":
-  version "0.36.0"
-  resolved "https://registry.yarnpkg.com/@expressive/react/-/react-0.36.0.tgz#7f51f0478d693182fd8f427022e55719218f87f4"
-  integrity sha512-mPxPqFnL8ogpksLfYBidXNDkPi2AqceVxysag++E6eBgdKkUaJ6NSyxOupC9Xnsuit7MqwHXpj2oSusZGt0hFQ==
+"@expressive/react@^0.36.2":
+  version "0.36.2"
+  resolved "https://registry.yarnpkg.com/@expressive/react/-/react-0.36.2.tgz#21c126769d3b01703384fa290611eba32edf61f7"
+  integrity sha512-n9XmadFTU02a8Rckkkd5o+L1csUHhXdD6xKPwV4O3R/qh3kC8cJUAz/1AoVxZIXpDdW47NScrhFbhdvdmHS4wQ==
   dependencies:
-    "@expressive/mvc" "^0.36.0"
+    "@expressive/mvc" "^0.36.2"
 
 "@expressive/vite-plugin-jsx@^1.6.1":
   version "1.6.1"
