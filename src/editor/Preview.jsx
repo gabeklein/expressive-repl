@@ -1,12 +1,14 @@
-import React, { Component, Fragment, createElement } from 'react';
-
-import Control from './Control';
-import { Consumer } from '@expressive/react';
 import { Document } from 'editor/Document';
-import { renderFactory } from './evaluate';
+import React, { Component, createElement, Fragment } from 'react';
 
-const Preview = () => {
-  const { key, error, onError } = Control.use();
+export const Preview = () => {
+  const {
+    key,
+    error,
+    onError,
+    Preview,
+    output_css,
+  } = Document.get();
 
   flex: 1;
   flexAlign: center;
@@ -19,21 +21,13 @@ const Preview = () => {
     <Issue>{error}</Issue>
   else
     <Boundary key={key} onError={onError}>
-      <Consumer for={Document}>
-        {({ output_jsx, output_css }) => {
-          const Component = renderFactory(output_jsx);
-
-          if(!Component)
-            return <Waiting />;
-
-          return (
-            <Fragment>
-              <style>{output_css}</style>
-              <Component />
-            </Fragment>
-          );
-        }}
-      </Consumer>
+      {Preview
+        ? <Fragment>
+            <style>{output_css}</style>
+            <Preview />
+          </Fragment>
+        : <Waiting />
+      }
     </Boundary>
 }
 
@@ -63,5 +57,3 @@ class Boundary extends Component {
     return { hasError: true };
   }
 }
-
-export default Preview;

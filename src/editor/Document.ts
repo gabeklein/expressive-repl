@@ -1,7 +1,7 @@
 import Model, { get } from '@expressive/react';
 
 import { Main } from './Main';
-import { prettify, transform } from './transform';
+import { evaluate, hash, prettify, transform } from './transform';
 
 const DEFAULT_CODE =
 `export const Hi = () => {
@@ -12,6 +12,9 @@ const DEFAULT_CODE =
 
 export class Document extends Model {
   main = get(Main);
+  
+  key = get(this, $ => hash($.input));
+  Preview = get(this, $ => evaluate($.output_jsx));
 
   stale = false;
   error = "";
@@ -26,6 +29,11 @@ export class Document extends Model {
       this.input = localStorage.getItem("REPL:file") || DEFAULT_CODE;
       this.build();
     });
+  }
+
+  onError = (error: Error) => {
+    this.error = error.toString();
+    console.error(error);
   }
 
   build(){

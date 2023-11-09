@@ -1,9 +1,8 @@
 import { Col, Row } from 'layout';
-import Preview from 'preview/Preview';
 import { Fragment } from 'react';
 
 import { InputEditor, OutputView } from './Editors';
-import { Main } from './Main';
+import { Preview } from './Preview';
 
 /** @type {React.FC} */
 const OutputJS = () => {

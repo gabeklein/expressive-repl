@@ -1,7 +1,38 @@
 import * as Babel from '@babel/standalone';
 import * as Preset from '@expressive/babel-preset-react';
+import * as CSS from '@expressive/css';
+import * as MVC from '@expressive/react';
 import parserBabel from 'prettier/parser-babel';
 import Prettier from 'prettier/standalone';
+import * as REACT from 'react';
+
+/** Imports shared with sandbox. */
+const SANDBOX_MODULES: Record<string, any> = {
+  "react": REACT,
+  "@expressive/css": CSS,
+  "@expressive/react": MVC
+}
+
+export function evaluate(source: string){
+  if(!source)
+    return;
+
+  const { code } = Babel.transform(source, {
+    filename: '/REPL.js',
+    plugins: [
+      "transform-react-jsx",
+      "transform-modules-commonjs"
+    ]
+  });
+
+  const run = new Function("require", "exports", "module", code!);
+  const require = (name: string) => SANDBOX_MODULES[name];
+  const module = { exports: {} };
+
+  run(require, module.exports, module);
+
+  return Object.values(module.exports)[0];
+}
 
 /** Generate preview JSX code from source. */
 export function transform(input: string){
@@ -29,6 +60,13 @@ export function transform(input: string){
     jsx: code,
     css
   };
+}
+
+export function hash(from: string){
+  let hash = 0;
+  for(let i = 0; i < from.length; i++)
+    hash = ((hash << 5) - hash) + from.charCodeAt(i);
+  return hash;
 }
 
 export function prettify(code: string){
