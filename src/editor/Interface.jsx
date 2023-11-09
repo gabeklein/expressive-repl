@@ -1,4 +1,4 @@
-import { Col, Row } from 'layout';
+import { Col, Row } from 'components/layout';
 import { Fragment } from 'react';
 
 import { InputEditor, OutputView } from './Editors';
