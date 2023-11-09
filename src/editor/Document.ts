@@ -20,7 +20,6 @@ export class Document extends Model {
   error = "";
 
   input = "";
-
   output_jsx = "";
   output_css = "";
 

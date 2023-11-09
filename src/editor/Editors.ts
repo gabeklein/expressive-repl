@@ -5,8 +5,14 @@ import { Document } from './Document';
 import { Main } from './Main';
 
 export class InputEditor extends Editor {
-  main = get(Main);
   doc = get(Document);
+  main = get(Main);
+
+  onReady(){
+    return this.doc.get(current => {
+      this.text = current.input;
+    })
+  }
 
   extends(){
     const { main, doc } = this;
@@ -29,27 +35,21 @@ export class InputEditor extends Editor {
       })
     ];
   }
-
-  onReady(){
-    return this.doc.get(current => {
-      this.text = current.input;
-    })
-  }
 }
 
 export class OutputView extends Editor {
   doc = get(Document);
+  
+  onReady(){
+    return this.doc.get(current => {
+      this.text = current.output_jsx;
+    });
+  }
 
   extends(){
     return [
       jsx,
       readOnly
     ];
-  }
-  
-  onReady(){
-    return this.doc.get(current => {
-      this.text = current.output_jsx;
-    });
   }
 }
