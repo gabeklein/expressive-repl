@@ -1,8 +1,6 @@
 import Model, { get } from '@expressive/react';
 import { Document } from 'editor/Document';
 
-import { renderFactory } from './evaluate';
-
 class Control extends Model {
   doc = get(Document);
   key = get(this, $ => simpleHash($.doc.input));
@@ -12,21 +10,6 @@ class Control extends Model {
     this.error = error.toString();
     console.error(error);
   }
-
-  component = get(this, $ => {
-    const { output_jsx } = $.doc;
-
-    try {
-      this.error = "";
-      const exports = renderFactory(output_jsx);
-      return Object.values(exports!)[0];
-    }
-    catch(error){
-      this.error = "Error while building preview.";
-      console.error(error);
-      return;
-    }
-  })
 }
 
 function simpleHash(from: string){

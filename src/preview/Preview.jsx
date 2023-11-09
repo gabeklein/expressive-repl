@@ -6,11 +6,7 @@ import { Document } from 'editor/Document';
 import { renderFactory } from './evaluate';
 
 const Preview = () => {
-  const {
-    error,
-    key,
-    onError
-  } = Control.use();
+  const { key, error, onError } = Control.use();
 
   flex: 1;
   flexAlign: center;
@@ -41,10 +37,6 @@ const Issue = ({ children }) => {
 }
 
 class Sandbox extends Component {
-  static getDerivedStateFromError(){
-    return { hasError: true };
-  }
-
   componentDidCatch = this.props.onError;
 
   render(){
@@ -69,6 +61,10 @@ class Sandbox extends Component {
       </Consumer>
     )
   };
+
+  static getDerivedStateFromError(){
+    return { hasError: true };
+  }
 }
 
 export default Preview;
