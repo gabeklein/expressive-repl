@@ -18,32 +18,7 @@ const Preview = () => {
   if(error)
     <Issue>{error}</Issue>
   else
-    <Sandbox key={key} onError={onError} />
-}
-
-const Waiting = () => {
-  color: 0xd47878;
-  fontSize: 0.7, em;
-
-  <this>Waiting for exports...</this>
-}
-
-const Issue = ({ children }) => {
-  color: 0xd47878;
-  fontSize: 0.7, em;
-
-  <this>{children}</this>
-
-}
-
-class Sandbox extends Component {
-  componentDidCatch = this.props.onError;
-
-  render(){
-    if(this.state && this.state.hasError)
-      return null;
-
-    return (
+    <Boundary key={key} onError={onError}>
       <Consumer for={Document}>
         {({ output_jsx, output_css }) => {
           const Component = renderFactory(output_jsx);
@@ -59,7 +34,29 @@ class Sandbox extends Component {
           );
         }}
       </Consumer>
-    )
+    </Boundary>
+}
+
+const Waiting = () => {
+  color: 0xd47878;
+  fontSize: 0.7, em;
+
+  <this>Waiting for exports...</this>
+}
+
+const Issue = ({ children }) => {
+  color: 0xd47878;
+  fontSize: 0.7, em;
+
+  <this>{children}</this>
+}
+
+class Boundary extends Component {
+  componentDidCatch = this.props.onError;
+
+  render(){
+    return (this.state || {}).hasError
+      ? null : this.props.children;
   };
 
   static getDerivedStateFromError(){
