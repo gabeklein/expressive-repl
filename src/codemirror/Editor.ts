@@ -38,15 +38,15 @@ export abstract class Editor extends Model {
     const state = EditorState.create({ extensions: this.extends() });
     const view = this.view = new EditorView({ parent, state });
 
-    const d1 = this.onReady();
-    const d2 = this.main.get(({ fontSize }) => {
+    const done1 = this.onReady();
+    const done2 = this.main.get(({ fontSize }) => {
       parent.style.fontSize = fontSize + "px";
       view.requestMeasure();
     });
 
     return () => {
-      d2();
-      d1 && d1();
+      done2();
+      done1 && done1();
       view.destroy();
     }
   }
