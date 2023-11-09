@@ -40,6 +40,7 @@ export class Document extends Model {
     try {
       const { jsx, css } = transform(this.input);
 
+      this.error = "";
       this.output_jsx = prettify(jsx);
       this.output_css = css;
       this.stale = false;
