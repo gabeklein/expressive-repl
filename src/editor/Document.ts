@@ -1,6 +1,6 @@
-import Model, { get } from '@expressive/react';
+import Model from '@expressive/react';
+import React from 'react';
 
-import { Main } from './Main';
 import { evaluate, hash, prettify, transform } from './transform';
 
 const DEFAULT_CODE =
@@ -11,17 +11,15 @@ const DEFAULT_CODE =
 }`
 
 export class Document extends Model {
-  main = get(Main);
-  
-  key = get(this, $ => hash($.input));
-  Preview = get(this, $ => evaluate($.output_jsx));
-
-  stale = false;
-  error = "";
-
   input = "";
   output_jsx = "";
   output_css = "";
+
+  key = 0;
+  Preview: React.FC | undefined;
+
+  stale = false;
+  error = "";
 
   constructor(){
     super(() => {
@@ -37,11 +35,15 @@ export class Document extends Model {
   build(from: string){
     try {
       const { jsx, css } = transform(from);
+      const pretty = prettify(jsx);
+      const Component = evaluate(jsx);
 
-      this.input = from;
       this.error = "";
-      this.output_jsx = prettify(jsx);
+      this.input = from;
+      this.key = hash(from);
       this.output_css = css;
+      this.output_jsx = pretty;
+      this.Preview = Component;
       this.stale = false;
     }
     catch(error){
