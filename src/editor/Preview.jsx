@@ -23,8 +23,8 @@ export const Preview = () => {
     <Issue>Waiting for exports...</Issue>
   else
     <Boundary key={key} onError={onError}>
-      <style>{output_css}</style>
       <Preview />
+      <style>{output_css}</style>
     </Boundary>
 }
 
