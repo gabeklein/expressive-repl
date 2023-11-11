@@ -1,7 +1,7 @@
-import { Row } from 'components/layout';
+import { Col, Row } from 'components/layout';
 import { Fragment } from 'react';
 
-import { InputEditor, OutputView } from './Editors';
+import { InputEditor, OutputJSX } from './Editors';
 import { Preview } from './Preview';
 
 /** @type {React.FC} */
@@ -12,16 +12,18 @@ const InputJSX = () => {
 }
 
 /** @type {React.FC} */
-const OutputJS = () => {
-  const { element } = OutputView.use();
+const ShowJSX = () => {
+  const { element } = OutputJSX.use();
 
   <div ref={element} />
 }
 
 export const Interface = () => {
   <Row>
-    <InputJSX />
-    <OutputJS />
-    <Preview />
+    <Col>
+      <InputJSX />
+      <Preview />
+    </Col>
+    <ShowJSX />
   </Row>
 }
