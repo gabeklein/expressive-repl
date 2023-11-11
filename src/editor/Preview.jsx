@@ -19,23 +19,13 @@ export const Preview = () => {
 
   if(error)
     <Issue>{error}</Issue>
+  else if(!Preview)
+    <Issue>Waiting for exports...</Issue>
   else
     <Boundary key={key} onError={onError}>
-      {Preview
-        ? <Fragment>
-            <style>{output_css}</style>
-            <Preview />
-          </Fragment>
-        : <Waiting />
-      }
+      <style>{output_css}</style>
+      <Preview />
     </Boundary>
-}
-
-const Waiting = () => {
-  color: 0xd47878;
-  fontSize: 0.7, em;
-
-  <this>Waiting for exports...</this>
 }
 
 const Issue = ({ children }) => {
