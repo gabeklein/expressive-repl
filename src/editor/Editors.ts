@@ -37,7 +37,19 @@ export class InputEditor extends Editor {
 }
 
 export class OutputJSX extends Editor {
-  text = get(Document, ({ output_css, output_jsx }) => {
+  doc = get(Document);
+
+  constructor(){
+    super();
+    this.get(this.updateEffect);
+  }
+
+  text = "";
+
+  // TODO: replace with get instruction after fixing it.
+  private updateEffect(){
+    let { output_css, output_jsx } = this.doc;
+
     if(output_css){
       const format = output_css.replace(/^|\t/g, "  ").replace(/\n/g, "\n  ");
 
@@ -45,8 +57,8 @@ export class OutputJSX extends Editor {
       output_jsx += `\n\n<style>\n${format}\n</style>`;
     }
     
-    return output_jsx;
-  });
+    this.text = output_jsx;
+  }
 
   extends(){
     return [
