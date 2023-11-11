@@ -4,7 +4,7 @@ import { javascript } from '@codemirror/lang-javascript';
 import { indentOnInput, syntaxHighlighting } from '@codemirror/language';
 import { searchKeymap } from '@codemirror/search';
 import { Extension } from '@codemirror/state';
-import { EditorView, lineNumbers, drawSelection } from '@codemirror/view';
+import { drawSelection, EditorView, lineNumbers } from '@codemirror/view';
 import { classHighlighter } from '@lezer/highlight';
 
 import { autoCloseTab, autoElementSplit } from './extend';

@@ -25,8 +25,7 @@ export class Document extends Model {
 
   constructor(){
     super(() => {
-      this.input = localStorage.getItem("REPL:file") || DEFAULT_CODE;
-      this.build();
+      this.build(localStorage.getItem("REPL:file") || DEFAULT_CODE);
     });
   }
 
@@ -35,10 +34,11 @@ export class Document extends Model {
     console.error(error);
   }
 
-  build(){
+  build(from: string){
     try {
-      const { jsx, css } = transform(this.input);
+      const { jsx, css } = transform(from);
 
+      this.input = from;
       this.error = "";
       this.output_jsx = prettify(jsx);
       this.output_css = css;

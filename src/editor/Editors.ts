@@ -27,24 +27,26 @@ export class InputEditor extends Editor {
         main.fontSize--;
       }),
       cmd("s", () => {
-        doc.build();
+        doc.build(this.text);
       }),
       onUpdate(() => {
-        doc.input = this.text;
         doc.stale = true;
       })
     ];
   }
 }
 
-export class OutputView extends Editor {
-  doc = get(Document);
-  
-  onReady(){
-    return this.doc.get(current => {
-      this.text = current.output_jsx;
-    });
-  }
+export class OutputJSX extends Editor {
+  text = get(Document, ({ output_css, output_jsx }) => {
+    if(output_css){
+      const format = output_css.replace(/^|\t/g, "  ").replace(/\n/g, "\n  ");
+
+      output_jsx += `\n\n/* ~~~~~~~ CSS ~~~~~~~ */`;
+      output_jsx += `\n\n<style>\n${format}\n</style>`;
+    }
+    
+    return output_jsx;
+  });
 
   extends(){
     return [
