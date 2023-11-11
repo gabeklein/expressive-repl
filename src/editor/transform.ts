@@ -4,7 +4,7 @@ import * as CSS from '@expressive/css';
 import * as MVC from '@expressive/react';
 import parserBabel from 'prettier/parser-babel';
 import Prettier from 'prettier/standalone';
-import * as REACT from 'react';
+import React, * as REACT from 'react';
 
 /** Imports shared with sandbox. */
 const SANDBOX_MODULES: Record<string, any> = {
@@ -13,11 +13,11 @@ const SANDBOX_MODULES: Record<string, any> = {
   "@expressive/react": MVC
 }
 
-export function evaluate(source: string){
-  if(!source)
+export function evaluate(output_jsx: string){
+  if(!output_jsx)
     return;
 
-  const { code } = Babel.transform(source, {
+  const { code } = Babel.transform(output_jsx, {
     filename: '/REPL.js',
     plugins: [
       "transform-react-jsx",
@@ -31,14 +31,14 @@ export function evaluate(source: string){
 
   run(require, module.exports, module);
 
-  return Object.values(module.exports)[0];
+  return Object.values(module.exports)[0] as React.FC;
 }
 
 /** Generate preview JSX code from source. */
-export function transform(input: string){
+export function transform(input_jsx: string){
   let css = "";
 
-  let { code } = Babel.transform(input, {
+  let { code } = Babel.transform(input_jsx, {
     filename: '/REPL.js',
     presets: [
       [Preset, {
@@ -62,9 +62,9 @@ export function transform(input: string){
   };
 }
 
-export function prettify(code: string){
+export function prettify(output_jsx: string){
   try {
-    code = Prettier.format(code, {
+    output_jsx = Prettier.format(output_jsx, {
       // fake parser! returns AST we have
       // parser: () => output.ast,
       parser: "babel",
@@ -78,7 +78,7 @@ export function prettify(code: string){
 
     return Object
       .values(transforms)
-      .reduce((x, fx) => fx(x), code);
+      .reduce((x, fx) => fx(x), output_jsx);
   }
   catch(err){
     throw new Error("Failed to prettify source.");
