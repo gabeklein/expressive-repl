@@ -43,7 +43,6 @@ export function keyBind(...args: KeyBindings[]){
   return keymap.of([].concat(...args as any[]));
 }
 
-
 /** Callback on specified keyboard event. */
 export function onKey<T extends string>(
   key: T, action: (key: T) => boolean | void){
@@ -57,9 +56,7 @@ export function onKey<T extends string>(
 }
 
 /** Callback on specified (Cmd / Control) key event. */
-export function cmd(
-  key: string, action: (key: string) => boolean | void){
-
+export function cmd(key: string, action: (key: string) => boolean | void){
   return [
     onKey(`Meta-${key}`, action),
     onKey(`Ctrl-${key}`, action)
