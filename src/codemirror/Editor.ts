@@ -1,4 +1,4 @@
-import './editor-dark.css';
+import './editor-light.css';
 import './editor.css';
 
 import { EditorState, Extension } from '@codemirror/state';
@@ -6,8 +6,7 @@ import { EditorView } from '@codemirror/view';
 import { get, Model, ref, set } from '@expressive/react';
 import { Main } from 'editor/Main';
 
-export * from './helpers';
-export * from './extends';
+export * from './plugins';
 
 export const CIRCULAR = Symbol("INTERNAL");
 
@@ -28,6 +27,7 @@ export abstract class Editor extends Model {
       parent.style.fontSize = fontSize + "px";
       view.requestMeasure();
     });
+
     const done2 = this.get(({ text }, update) => {
       if(update.has(CIRCULAR))
         return;
