@@ -1,5 +1,5 @@
 import { get } from '@expressive/react';
-import { cmd, Editor, editor, jsx, onUpdate, readOnly } from 'codemirror/Editor';
+import { CIRCULAR, cmd, Editor, editor, jsx, onUpdate, readOnly } from 'codemirror/Editor';
 
 import { Document } from './Document';
 import { Main } from './Main';
@@ -8,9 +8,10 @@ export class InputEditor extends Editor {
   doc = get(Document);
   main = get(Main);
 
-  onReady(){
-    return this.doc.get(current => {
-      this.text = current.input;
+  constructor(){
+    super();
+    this.get($ => {
+      this.text = $.doc.input;
     })
   }
 
@@ -29,27 +30,20 @@ export class InputEditor extends Editor {
       cmd("s", () => {
         doc.build(this.text);
       }),
-      onUpdate(() => {
+      onUpdate((update) => {
+        if(!update.docChanged)
+          return;
+
         doc.stale = true;
+        this.text = update.state.doc.toString();
+        this.set(CIRCULAR);
       })
     ];
   }
 }
 
 export class OutputJSX extends Editor {
-  doc = get(Document);
-
-  constructor(){
-    super();
-    this.get(this.updateEffect);
-  }
-
-  text = "";
-
-  // TODO: replace with get instruction after fixing it.
-  private updateEffect(){
-    let { output_css, output_jsx } = this.doc;
-
+  text = get(Document, ({ output_css, output_jsx }) => {
     if(output_css){
       const format = output_css.replace(/^|\t/g, "  ").replace(/\n/g, "\n  ");
 
@@ -57,8 +51,8 @@ export class OutputJSX extends Editor {
       output_jsx += `\n\n<style>\n${format}\n</style>`;
     }
     
-    this.text = output_jsx;
-  }
+    return output_jsx;
+  })
 
   extends(){
     return [

@@ -11,7 +11,7 @@ export const App = () => {
   gridRows: min, minmax(0, "1fr"), min;
   overflow: hidden;
 
-  <Provider for={Main}>
+  <Provider for={{ Main }}>
     <Header />
     <Interface />
     <Footer />

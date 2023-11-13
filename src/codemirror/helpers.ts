@@ -1,4 +1,4 @@
-import { EditorView, KeyBinding, keymap } from '@codemirror/view';
+import { EditorView, KeyBinding, ViewUpdate, keymap } from '@codemirror/view';
 
 type KeyBindings = KeyBinding | readonly KeyBinding[];
 
@@ -30,9 +30,9 @@ export function cmd(
 }
 
 /** Callback on document update. */
-export function onUpdate(callback: () => void){
+export function onUpdate(callback: (update: ViewUpdate) => void){
   return EditorView.updateListener.of((update) => {
     if(update.docChanged)
-      callback();
+      callback(update);
   })
 }
