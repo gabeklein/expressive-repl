@@ -6,6 +6,7 @@ import { evaluate, hash, prettify, transform } from './transform';
 const DEFAULT_CODE =
 `export const Hi = () => {
   color: red;
+  fontSize: 2.0;
 
   <this>Hello World!</this>
 }`
