@@ -1,6 +1,6 @@
 import { Provider } from '@expressive/react';
 
-import { Footer, Header } from './components/common';
+import { Footer, Header } from './common/window';
 import { Interface } from './editor/Interface';
 import { Main } from './editor/Main';
 

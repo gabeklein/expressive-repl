@@ -1,4 +1,4 @@
-import { Col, Row } from 'components/layout';
+import { Col, Row } from 'common/layout';
 import { Fragment } from 'react';
 
 import { InputEditor, OutputJSX } from './Editors';
