@@ -1,28 +1,63 @@
 import { closeBrackets, closeBracketsKeymap } from '@codemirror/autocomplete';
 import { defaultKeymap, history, historyKeymap, indentWithTab } from '@codemirror/commands';
-import { javascript } from '@codemirror/lang-javascript';
-import { getIndentation, IndentContext, indentOnInput, indentString, syntaxHighlighting } from '@codemirror/language';
+import { cssLanguage } from '@codemirror/lang-css';
+import { javascript, jsxLanguage } from '@codemirror/lang-javascript';
+import {
+  getIndentation,
+  IndentContext,
+  indentOnInput,
+  indentString,
+  LanguageSupport,
+  syntaxHighlighting,
+} from '@codemirror/language';
 import { searchKeymap } from '@codemirror/search';
-import { EditorSelection, EditorState, Extension, Text, Transaction } from '@codemirror/state';
+import { EditorSelection, EditorState, Text, Transaction } from '@codemirror/state';
 import { drawSelection, EditorView, KeyBinding, keymap, lineNumbers, ViewUpdate } from '@codemirror/view';
+import { parseMixed } from '@lezer/common';
 import { classHighlighter } from '@lezer/highlight';
 
 type KeyBindings = KeyBinding | readonly KeyBinding[];
 
+/** JSX including syntax for CSS nested in <style> tags. */
+export function jsxMixed(){
+  return new LanguageSupport(jsxLanguage.configure({
+    wrap: parseMixed((ref, input) => {
+      if(ref.name != "JSXElement")
+        return null;
+    
+      const { from, to } = ref.node.firstChild!;
+
+      if(input.read(from + 1, from + 6) != "style")
+        return null;
+
+      return {
+        parser: cssLanguage.parser,
+        overlay: [{
+          from: to,
+          to: ref.node.lastChild!.from
+        }]
+      };
+    }),
+  }))
+}
+
 /** Base plugins for displaying JSX */
-export const jsx: Extension[] = [
+export const jsx = () => [
+  javascript({ jsx: true })
+]
+
+export const code = () => [
   syntaxHighlighting(classHighlighter),
-  javascript({ jsx: true }),
   lineNumbers()
 ]
 
 /** Set editor to read-only */
-export const readOnly = [
+export const readOnly = () => [
   EditorView.editable.of(false)
 ]
 
 /** Default editor extensions */
-export const editor = [
+export const editor = () => [
   autoCloseTab(),
   autoElementSplit(),
   history(),

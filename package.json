@@ -10,6 +10,7 @@
     "@babel/standalone": "^7.23.2",
     "@codemirror/autocomplete": "^6.10.2",
     "@codemirror/commands": "^6.3.0",
+    "@codemirror/lang-css": "^6.2.1",
     "@codemirror/lang-javascript": "^6.2.1",
     "@codemirror/language": "^6.9.2",
     "@codemirror/search": "^6.5.4",

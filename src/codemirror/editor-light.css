@@ -16,6 +16,10 @@
   color: #444;
 }
 
+.tok-className {
+  color: #555;
+}
+
 .tok-typeName {
   color: #c78800;
 }
