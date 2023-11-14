@@ -15,7 +15,7 @@ declare namespace Main {
 class Main extends Model {
   document = use(Document);
 
-  fontSize = 15;
+  fontSize = 18;
   layout: Main.Layout = "compact";
   options = {
     output: "jsx",
