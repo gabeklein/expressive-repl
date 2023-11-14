@@ -1,5 +1,5 @@
 import { get } from '@expressive/react';
-import { CIRCULAR, cmd, code, Editor, editor, jsx, jsxMixed, onUpdate, readOnly } from 'codemirror/Editor';
+import { CIRCULAR, cmd, code, Editor, editor, javascript, jsxMixed, onUpdate, readOnly } from 'codemirror/Editor';
 
 import { Document } from './Document';
 import { Main } from './Main';
@@ -20,8 +20,8 @@ export class InputEditor extends Editor {
 
     return [
       code(),
-      jsx(),
       editor(),
+      javascript({ jsx: true }),
       cmd("=", () => {
         main.fontSize++;
       }),
@@ -48,7 +48,7 @@ export class OutputJSX extends Editor {
     if(output_css){
       const format = output_css.replace(/^|\t/g, "  ").replace(/\n/g, "\n  ");
 
-      output_jsx += `\n\n/* ~~~~~~~ CSS ~~~~~~~ */`;
+      // output_jsx += `\n\n/* ~~~~~~~ CSS ~~~~~~~ */`;
       output_jsx += `\n\n<style>\n${format}\n</style>`;
     }
     

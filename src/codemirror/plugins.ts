@@ -41,10 +41,7 @@ export function jsxMixed(){
   }))
 }
 
-/** Base plugins for displaying JSX */
-export const jsx = () => [
-  javascript({ jsx: true })
-]
+export { javascript };
 
 export const code = () => [
   syntaxHighlighting(classHighlighter),
