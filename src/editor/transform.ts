@@ -1,10 +1,10 @@
 import * as Babel from '@babel/standalone';
-import * as Preset from '@expressive/babel-preset-react';
+import Preset from '@expressive/babel-preset-react';
 import * as CSS from '@expressive/css';
 import * as MVC from '@expressive/react';
 import parserBabel from 'prettier/parser-babel';
 import Prettier from 'prettier/standalone';
-import React, * as REACT from 'react';
+import * as REACT from 'react';
 
 /** Imports shared with sandbox. */
 const SANDBOX_MODULES: Record<string, any> = {
