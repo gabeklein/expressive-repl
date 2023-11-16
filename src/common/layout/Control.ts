@@ -1,4 +1,4 @@
-import Model, { get, ref } from '@expressive/react';
+import Model, { get, ref, set } from '@expressive/react';
 import React, { ReactNode } from 'react';
 
 const AXIS = ["gridTemplateRows", "gridTemplateColumns"] as const;
@@ -8,23 +8,15 @@ type DragEvent = () => (x: number, y: number) => void;
 export class Layout extends Model {
   static managed = new WeakSet();
 
-  static using(props: any){
-    return this.use($ => {
-      if($.get(null))
-        return;
-
-      $.row = props.row;
-      $.index = props.index;
-      $.separator = props.separator;
-      $.items = flatten(props.children);
-      $.space = $.items.map(() => 1);
-    }, true);
-  }
-
   parent = get(Layout, false);
   output = get(() => this.getOutput);
 
   container = ref(this.applyLayout);
+
+  children = set<ReactNode>(undefined, (value) => {
+    this.items = flatten(value);
+    this.space = this.items.map(() => 1);
+  });
 
   index?: number = 0;
 

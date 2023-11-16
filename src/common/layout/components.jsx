@@ -7,7 +7,7 @@ export const Layout = (props) => {
     is: control,
     output,
     container
-  } = Control.using(props);
+  } = Control.use(props);
 
   grid: {
     forward: className;
