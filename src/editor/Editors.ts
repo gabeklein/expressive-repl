@@ -1,5 +1,5 @@
 import { get } from '@expressive/react';
-import { CIRCULAR, cmd, code, Editor, editor, javascript, jsxMixed, onUpdate, readOnly } from 'codemirror/Editor';
+import { CIRCULAR, command, code, Editor, editor, javascript, jsxMixed, onUpdate, readOnly } from 'codemirror/Editor';
 
 import { Document } from './Document';
 import { Main } from './Main';
@@ -22,13 +22,13 @@ export class InputEditor extends Editor {
       code(),
       editor(),
       javascript({ jsx: true }),
-      cmd("=", () => {
+      command("=", () => {
         main.fontSize++;
       }),
-      cmd("-", () => {
+      command("-", () => {
         main.fontSize--;
       }),
-      cmd("s", () => {
+      command("s", () => {
         doc.build(this.text);
       }),
       onUpdate((update) => {
