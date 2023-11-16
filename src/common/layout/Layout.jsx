@@ -29,6 +29,8 @@ export const Column = (props) => {
   <Layout separator={Handle} {...props} />
 }
 
+export { Column as Col };
+
 const Handle = (props) => {
   const {
     grab,
@@ -71,35 +73,29 @@ const Handle = (props) => {
     radius: round;
     transition: "background 0.1s ease-out";
   }
-
-  corner: {
-    position: absolute;
-    cursor: move;
-    radius: round;
-    size: 9;
-    borderColor: transparent;
-    borderStyle: solid;
-
-    css: hover: {
-      borderColor: 0x9cc3ff;
-    }
-
-    pull: {
-      top: 0;
-    }
-
-    push: {
-      bottom: 0;
-    }
-  }
   
   <this ref={grab}>
     <bar />
     {pull && (
-      <corner pull ref={pull} style={{ left: -width }} />
+      <Corner grab={pull} style={{ left: -width, top: 0 }} />
     )}
     {push && (
-      <corner push ref={push} style={{ right: -width }} />
+      <Corner grab={push} style={{ right: -width, bottom: 0 }} />
     )}
   </this>
+}
+
+const Corner = ({ grab, style }) => {
+  position: absolute;
+  cursor: move;
+  radius: round;
+  size: 9;
+  borderColor: transparent;
+  borderStyle: solid;
+
+  css: hover: {
+    borderColor: 0x9cc3ff;
+  }
+  
+  <this ref={grab} style={style} />
 }
