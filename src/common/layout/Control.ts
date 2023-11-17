@@ -102,8 +102,8 @@ export class Layout extends Model {
 const Spacer: React.FC<{ index: number }> = (props) => {
   return Layout.get(self => {
     const { separator, parent, items } = self;
-    const events = self.watch(props.index);
-    const ref = createRef(events);
+    const move = self.watch(props.index);
+    const grab = resize(move);
 
     let pull: ((value: any) => void) | undefined;
     let push: ((value: any) => void) | undefined;
@@ -112,16 +112,16 @@ const Spacer: React.FC<{ index: number }> = (props) => {
       const key = self.index!;
 
       if(key > 1)
-        pull = createRef(events, parent.watch(key - 1));
+        pull = resize(move, parent.watch(key - 1));
 
       if(key < items.length - 2)
-        push = createRef(events, parent.watch(key + 1));
+        push = resize(move, parent.watch(key + 1));
     }
 
     return React.createElement(separator, {
+      grab,
       pull,
       push,
-      grab: ref,
       vertical: self.row,
       width: self.gap
     });
@@ -144,51 +144,30 @@ function flatten(input: ReactNode): ReactNode[] {
   }, []);
 }
 
-function createRef(...handle: DragEvent[]){
-  let unSet: Function | void;
-
-  return (element: HTMLElement) => {
-    if(typeof unSet == "function")
-      unSet();
-
-    if(!element)
+function resize(...handle: DragEvent[]){
+  return (event: MouseEvent) => {
+    if(event.button !== 0)
       return;
-    
-    const beginResize = on(event => {
-      if(event.button !== 0)
-        return;
-      
-      let previous = event;
 
-      const onDidMove = handle.map(x => x());
-      const resize = on(event => {
-        const dX = event.x - previous.x;
-        const dY = event.y - previous.y;
-        onDidMove.map(cb => cb(dX, dY));
-        previous = event;
-      })
+    event.stopPropagation();
+    event.preventDefault();
 
-      const endResize = on(() => {
-        document.removeEventListener("mousemove", resize);
-        document.removeEventListener("mouseup", endResize);
-      })
+    let previous = event;
 
-      document.addEventListener("mousemove", resize);
-      document.addEventListener("mouseup", endResize);
-    })
-
-    element.addEventListener("mousedown", beginResize);
-
-    unSet = () => {
-      element.removeEventListener("mousedown", beginResize);
+    const move = handle.map(x => x());
+    const resize = (event: MouseEvent) => {
+      const dX = event.x - previous.x || 0;
+      const dY = event.y - previous.y || 0;
+      move.map(cb => cb(dX, dY));
+      previous = event;
     }
-  }
-}
 
-function on(handler: (event: MouseEvent) => void){
-  return (e: MouseEvent) => {
-    e.stopPropagation();
-    e.preventDefault();
-    handler(e);
+    const endResize = () => {
+      document.removeEventListener("mousemove", resize);
+      document.removeEventListener("mouseup", endResize);
+    }
+
+    document.addEventListener("mousemove", resize);
+    document.addEventListener("mouseup", endResize);
   }
 }

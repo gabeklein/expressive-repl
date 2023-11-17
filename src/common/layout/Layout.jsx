@@ -43,6 +43,18 @@ const Handle = (props) => {
   forward: className;
   position: relative;
 
+  bar: {
+    position: absolute;
+    radius: round;
+    transition: "background 0.1s ease-out";
+  }
+
+  css: hover: {
+    bar: {
+      bg: 0x9cc3ff;
+    }
+  }
+
   if(vertical){
     cursor: col-resize;
     bar: {
@@ -61,31 +73,19 @@ const Handle = (props) => {
       left: 10;
     }
   }
-
-  css: hover: {
-    bar: {
-      bg: 0x9cc3ff;
-    }
-  }
-
-  bar: {
-    position: absolute;
-    radius: round;
-    transition: "background 0.1s ease-out";
-  }
   
-  <this ref={grab}>
+  <this onMouseDown={grab}>
     <bar />
     {pull && (
-      <Corner grab={pull} style={{ left: -width, top: 0 }} />
+      <Corner onMouseDown={pull} style={{ left: -width, top: 0 }} />
     )}
     {push && (
-      <Corner grab={push} style={{ right: -width, bottom: 0 }} />
+      <Corner onMouseDown={push} style={{ right: -width, bottom: 0 }} />
     )}
   </this>
 }
 
-const Corner = ({ grab, style }) => {
+const Corner = (props) => {
   position: absolute;
   cursor: move;
   radius: round;
@@ -97,5 +97,5 @@ const Corner = ({ grab, style }) => {
     borderColor: 0x9cc3ff;
   }
   
-  <this ref={grab} style={style} />
+  <this {...props} />
 }
