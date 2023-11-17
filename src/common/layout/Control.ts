@@ -8,10 +8,10 @@ type DragEvent = () => (x: number, y: number) => void;
 export class Layout extends Model {
   static managed = new WeakSet();
 
+  container = ref(this.applyLayout);
+
   parent = get(Layout, false);
   output = get(() => this.getOutput);
-
-  container = ref(this.applyLayout);
 
   children = set<ReactNode>(undefined, (value) => {
     this.items = flatten(value);
@@ -70,60 +70,98 @@ export class Layout extends Model {
     return output;
   }
 
-  public watch(index: number){
-    const { row, gap } = this;
+  public nudge(index: number){
+    const { space, container, row, gap } = this;
 
-    return () => {
-      const { space, container } = this;
+    const rect = container.current!.getBoundingClientRect();
+    const max = rect[row ? "width" : "height"] - ((space.length - 1) * gap);
+    const sum = space.reduce((a, n) => a + n, 0);
 
-      const rect = container.current!.getBoundingClientRect();
-      const max = rect[row ? "width" : "height"];
+    this.space = space.map(x => Math.round(x * max / sum));
 
-      const currentSum = space.reduce((a, n) => a + n, 0);
-      const currentMax = max - ((space.length - 1) * gap);
-
-      this.space = space.map(x => (
-        Math.round(x * currentMax / currentSum)
-      ));
-
-      return (x: number, y: number) => {
-        const diff = this.row ? x : y;
-        const prior = (index - 1) / 2;
-        const after = prior + 1; 
-    
-        this.space[prior] += diff;
-        this.space[after] -= diff;
-        this.set("space");
-      }
+    return (x: number, y: number) => {
+      const diff = row ? x : y;
+      const prior = (index - 1) / 2;
+      const after = prior + 1; 
+  
+      this.space[prior] += diff;
+      this.space[after] -= diff;
+      this.set("space");
     }
   }
-}
 
-const Spacer: React.FC<{ index: number }> = (props) => {
-  return Layout.get(self => {
-    const { separator, parent, items } = self;
-    const move = self.watch(props.index);
-    const grab = resize(move);
+  public resize(between: number){
+    const { parent, items, index = 0 } = this;
+    const move = () => this.nudge(between);
 
     let pull: ((value: any) => void) | undefined;
     let push: ((value: any) => void) | undefined;
 
     if(parent){
-      const key = self.index!;
+      if(index > 1)
+        pull = resize(move, () => parent.nudge(index - 1));
 
-      if(key > 1)
-        pull = resize(move, parent.watch(key - 1));
-
-      if(key < items.length - 1)
-        push = resize(move, parent.watch(key + 1));
+      if(index < items.length - 1)
+        push = resize(move, () => parent.nudge(index + 1));
     }
+
+    return {
+      grab: resize(move),
+      pull,
+      push
+    }
+  }
+}
+
+function resize(...handle: DragEvent[]){
+  return (event: MouseEvent) => {
+    if(event.button !== 0)
+      return;
+
+    event.stopPropagation();
+    event.preventDefault();
+
+    const move = handle.map(x => x());
+
+    onDrag((dX, dY) => {
+      move.map(cb => cb(dX, dY));
+    });
+  }
+}
+
+function onDrag(delta: (x: number, y: number) => void){
+  let previous = {} as { x: number, y: number };
+  
+  function resize(event: MouseEvent){
+    const dX = event.x - previous.x || 0;
+    const dY = event.y - previous.y || 0;
+
+    if(dX || dY)
+      delta(dX, dY);
+
+    previous = event;
+  }
+
+  const endResize = () => {
+    document.removeEventListener("mousemove", resize);
+    document.removeEventListener("mouseup", endResize);
+  }
+
+  document.addEventListener("mousemove", resize);
+  document.addEventListener("mouseup", endResize);
+}
+
+const Spacer: React.FC<{ index: number }> = ({ index }) => {
+  return Layout.get(layout => {
+    const { grab, pull, push } = layout.resize(index);
+    const { separator, row, gap } = layout;
 
     return React.createElement(separator, {
       grab,
       pull,
       push,
-      vertical: self.row,
-      width: self.gap
+      vertical: row,
+      width: gap
     });
   });
 }
@@ -142,32 +180,4 @@ function flatten(input: ReactNode): ReactNode[] {
     flatChildren.push(child);
     return flatChildren;
   }, []);
-}
-
-function resize(...handle: DragEvent[]){
-  return (event: MouseEvent) => {
-    if(event.button !== 0)
-      return;
-
-    event.stopPropagation();
-    event.preventDefault();
-
-    let previous = event;
-
-    const move = handle.map(x => x());
-    const resize = (event: MouseEvent) => {
-      const dX = event.x - previous.x || 0;
-      const dY = event.y - previous.y || 0;
-      move.map(cb => cb(dX, dY));
-      previous = event;
-    }
-
-    const endResize = () => {
-      document.removeEventListener("mousemove", resize);
-      document.removeEventListener("mouseup", endResize);
-    }
-
-    document.addEventListener("mousemove", resize);
-    document.addEventListener("mouseup", endResize);
-  }
 }
