@@ -114,7 +114,7 @@ const Spacer: React.FC<{ index: number }> = (props) => {
       if(key > 1)
         pull = resize(move, parent.watch(key - 1));
 
-      if(key < items.length - 2)
+      if(key < items.length - 1)
         push = resize(move, parent.watch(key + 1));
     }
 

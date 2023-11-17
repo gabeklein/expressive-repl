@@ -92,6 +92,7 @@ const Corner = (props) => {
   size: 9;
   borderColor: transparent;
   borderStyle: solid;
+  zIndex: 10;
 
   css: hover: {
     borderColor: 0x9cc3ff;

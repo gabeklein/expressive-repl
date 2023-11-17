@@ -20,10 +20,10 @@ const ShowJSX = () => {
 
 export const Interface = () => {
   <Row>
-    <ShowJSX />
     <Col>
       <InputJSX />
       <Preview />
     </Col>
+    <ShowJSX />
   </Row>
 }
