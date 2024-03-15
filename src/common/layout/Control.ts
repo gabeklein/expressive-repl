@@ -156,6 +156,9 @@ const Spacer: React.FC<{ index: number }> = ({ index }) => {
     const { grab, pull, push } = layout.resize(index);
     const { separator, row, gap } = layout;
 
+    if(typeof separator == "string")
+      return React.createElement(separator, {});
+
     return React.createElement(separator, {
       grab,
       pull,

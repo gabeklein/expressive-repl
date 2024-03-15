@@ -32,9 +32,9 @@ dependencies:
   '@codemirror/view':
     specifier: ^6.22.0
     version: 6.25.1
-  '@expressive/babel-preset-react':
-    specifier: ^1.6.1
-    version: 1.8.1
+  '@expressive/babel-preset-web':
+    specifier: ^2.1.1
+    version: 2.1.1
   '@expressive/css':
     specifier: ^1.6.1
     version: 1.6.1
@@ -62,8 +62,8 @@ dependencies:
 
 devDependencies:
   '@expressive/vite-plugin-jsx':
-    specifier: ^1.6.1
-    version: 1.8.1(vite@4.5.2)
+    specifier: ^2.1.1
+    version: 2.1.1(vite@4.5.2)
   '@types/babel__standalone':
     specifier: ^7.1.7
     version: 7.1.7
@@ -671,19 +671,12 @@ packages:
     dev: true
     optional: true
 
-  /@expressive/babel-plugin-jsx@1.8.1:
-    resolution: {integrity: sha512-LNGy29j/lQLr7AZD15ThF4o0B1zUXwxarhJNVJDrYseGpJqW0wN+Gg76klPJkl7RHSOszFJVot3TDE8J/v9fWw==}
+  /@expressive/babel-preset-web@2.1.1:
+    resolution: {integrity: sha512-XgKhof8xt3Sh4Gh0eMdrwuw/SGWgCcNBeP4Wi5GpXoZelByet5t6hQJ7RWl0NR2bXVuou6YiWJuHm3KeVqH77w==}
     dependencies:
       '@babel/core': 7.24.0
       '@babel/traverse': 7.24.0
       '@babel/types': 7.22.5
-    transitivePeerDependencies:
-      - supports-color
-
-  /@expressive/babel-preset-react@1.8.1:
-    resolution: {integrity: sha512-d1GyHIQ7/5gAK8RjtBrt0i4MzDvvqqrZkQ4s2ElQRSPyXbLwS0TDuT85Gha1Ag8eg6tZfd2B0bEOn9R2fp/6fA==}
-    dependencies:
-      '@expressive/babel-plugin-jsx': 1.8.1
       chroma-js: 2.4.2
       easing-coordinates: 2.0.2
     transitivePeerDependencies:
@@ -706,14 +699,14 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@expressive/vite-plugin-jsx@1.8.1(vite@4.5.2):
-    resolution: {integrity: sha512-zogvAUYxXX4jmMvDU3VUJD546FUjo+RTPJC/zrpH+f2hrbTAp4103GYGi7yu38Xx7AJmqvi/UAOg5R3ubBw6IQ==}
+  /@expressive/vite-plugin-jsx@2.1.1(vite@4.5.2):
+    resolution: {integrity: sha512-7fxG7i3Tv1TeQZSwGlf1A29sv0Wduzt2DBlTdoGtEDJ6a4egK51Qqyvkl+osXCra7urKAhotZk67hJjclR7mOQ==}
     peerDependencies:
       vite: '>=4.0.0'
     dependencies:
       '@babel/core': 7.24.0
       '@babel/plugin-transform-typescript': 7.23.6(@babel/core@7.24.0)
-      '@expressive/babel-preset-react': 1.8.1
+      '@expressive/babel-preset-web': 2.1.1
       vite: 4.5.2
     transitivePeerDependencies:
       - supports-color

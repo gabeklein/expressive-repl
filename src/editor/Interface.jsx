@@ -1,4 +1,4 @@
-import { Col, Row } from 'common/layout/Layout';
+import { Row } from 'common/layout/Layout';
 import { Fragment } from 'react';
 
 import { InputEditor, OutputJSX } from './Editors';
@@ -20,10 +20,8 @@ const ShowJSX = () => {
 
 export const Interface = () => {
   <Row>
-    <Col>
-      <InputJSX />
-      <Preview />
-    </Col>
+    <InputJSX />
     <ShowJSX />
+    <Preview />
   </Row>
 }

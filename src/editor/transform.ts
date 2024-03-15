@@ -1,6 +1,6 @@
 import * as Babel from '@babel/standalone';
-import Preset from '@expressive/babel-preset-react';
-import * as CSS from '@expressive/css';
+import Preset from '@expressive/babel-preset-web';
+import * as POLYFILL from '@expressive/babel-preset-web/polyfill';
 import * as MVC from '@expressive/react';
 import parserBabel from 'prettier/parser-babel';
 import Prettier from 'prettier/standalone';
@@ -9,7 +9,7 @@ import * as REACT from 'react';
 /** Imports shared with sandbox. */
 const SANDBOX_MODULES: Record<string, any> = {
   "react": REACT,
-  "@expressive/css": CSS,
+  "polyfill": POLYFILL,
   "@expressive/react": MVC
 }
 
@@ -25,7 +25,8 @@ export function evaluate(output_jsx: string){
     ]
   });
 
-  const run = new Function("require", "exports", "module", code!);
+  const prefix = `const React = require("react");\n`;
+  const run = new Function("require", "exports", "module", prefix + code!);
   const require = (name: string) => SANDBOX_MODULES[name];
   const module = { exports: {} };
 
@@ -41,13 +42,10 @@ export function transform(input_jsx: string){
   let { code } = Babel.transform(input_jsx, {
     filename: '/REPL.js',
     presets: [
-      [Preset, {
-        hot: false,
-        output: "jsx",
-        cssModule: false,
-        printStyle: "pretty",
-        extractCss: (text: string) => {
-          css = text;
+      [Preset, <Preset.Options>{
+        polyfill: "polyfill",
+        onStyleSheet(styleSheet){
+          css = styleSheet;
         }
       }]
     ]

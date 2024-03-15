@@ -21,25 +21,23 @@ export const Layout = (props) => {
   </Provider>
 }
 
-export const Row = (props) => {
-  <Layout separator={Handle} {...props} row />
+export const Row = () => {
+  <Layout this separator={Handle} row />
 }
 
-export const Column = (props) => {
-  <Layout separator={Handle} {...props} />
+export const Column = () => {
+  <Layout this separator={Handle} />
 }
 
 export { Column as Col };
 
-const Handle = (props) => {
-  const {
-    grab,
-    pull,
-    push,
-    vertical,
-    width,
-  } = props;
-
+const Handle = ({
+  grab,
+  pull,
+  push,
+  vertical,
+  width,
+}) => {
   forward: className;
   position: relative;
 
@@ -49,14 +47,13 @@ const Handle = (props) => {
     transition: "background 0.1s ease-out";
   }
 
-  css: hover: {
+  if(":hover")
     bar: {
       bg: 0x9cc3ff;
     }
-  }
 
   if(vertical){
-    cursor: col-resize;
+    cursor: "col-resize";
     bar: {
       top: 10;
       bottom: 10;
@@ -65,7 +62,7 @@ const Handle = (props) => {
     }
   }
   else {
-    cursor: row-resize;
+    cursor: "row-resize";
     bar: {
       top: 3;
       bottom: 3;
@@ -85,7 +82,7 @@ const Handle = (props) => {
   </this>
 }
 
-const Corner = (props) => {
+const Corner = () => {
   position: absolute;
   cursor: move;
   radius: round;
@@ -94,9 +91,9 @@ const Corner = (props) => {
   borderStyle: solid;
   zIndex: 10;
 
-  css: hover: {
+  if(":hover"){
     borderColor: 0x9cc3ff;
   }
   
-  <this {...props} />
+  <this />
 }

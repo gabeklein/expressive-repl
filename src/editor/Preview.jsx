@@ -17,22 +17,22 @@ export const Preview = () => {
   position: relative;
   overflow: hidden;
 
-  if(error)
-    <Issue>{error}</Issue>
-  else if(!Preview)
-    <Issue>Waiting for exports...</Issue>
-  else
-    <Boundary key={key} onError={onError}>
-      <Preview />
-      <style>{output_css}</style>
-    </Boundary>
-}
+  issue: {
+    color: 0xd47878;
+  }
 
-const Issue = ({ children }) => {
-  color: 0xd47878;
-  fontSize: 0.7, em;
-
-  <this>{children}</this>
+  <this>
+    {error ? (
+      <issue>{error}</issue>
+    ) : Preview ? (
+      <Boundary key={key} onError={onError}>
+        <Preview />
+        <style>{output_css}</style>
+      </Boundary>
+    ) : (
+      <Issue>Waiting for exports...</Issue>
+    )}
+  </this>
 }
 
 class Boundary extends Component {
