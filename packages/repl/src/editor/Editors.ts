@@ -1,5 +1,5 @@
 import { get } from '@expressive/react';
-import { command, Editor, editor, jsx, cssInJsx, readOnly } from '@website/editor';
+import { command, Editor, editor, jsx, cssInJsx, readOnly } from '@local/codemirror';
 
 import { Document } from './Document';
 import { Main } from './Main';
