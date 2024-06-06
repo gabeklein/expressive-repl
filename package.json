@@ -2,6 +2,6 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "repl": "npm --prefix packages/repl run dev"
+    "dev": "npm --prefix packages/repl run dev"
   }
 }
