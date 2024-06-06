@@ -1,3 +1,5 @@
+import Logo from "./Logo.svg";
+
 export const Header = () => {
   height: 50;
   display: flex;
@@ -11,7 +13,7 @@ export const Header = () => {
   }
   
   <this>
-    <img src="/Logo.svg" />
+    <img src={Logo} />
     Expressive JSX Demo
   </this>
 }
