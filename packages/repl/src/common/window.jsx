@@ -19,11 +19,11 @@ export const Header = () => {
 export const Footer = () => {
   marginB: 5;
   margin: 15, 0, 20;
-  color: 0x888;
+  color: $textDark;
   textAlign: center;
   fontSize: 12;
 
   <this>
-    Gabe Klein - MIT - 2023
+    Gabe Klein - MIT - {new Date().getFullYear()}
   </this>
 }

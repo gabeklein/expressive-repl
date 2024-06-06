@@ -11,7 +11,7 @@ export class Layout extends Model {
   container = ref(this.applyLayout);
 
   parent = get(Layout, false);
-  output = get(() => this.getOutput);
+  output = set(this.getOutput);
 
   children = set<ReactNode>(undefined, (value) => {
     this.items = flatten(value);
@@ -28,16 +28,16 @@ export class Layout extends Model {
   items = [] as ReactNode[];
   space = [] as number[];
 
-  constructor(){
-    super(() => {
+  constructor(...args: Model.Args){
+    super(...args, () => {
       if(this.parent)
         this.separator = this.parent.separator;
     });
   }
   
   public applyLayout(element: HTMLElement){
-    const { gap } = this;
-    const [ x, y ] = this.row ? AXIS : AXIS.slice().reverse();
+    const { gap, row } = this;
+    const [ x, y ] = row ? AXIS : AXIS.slice().reverse();
 
     element.style[x] = `minmax(0, 1fr)`;
 
@@ -151,7 +151,7 @@ function onDrag(delta: (x: number, y: number) => void){
   document.addEventListener("mouseup", endResize);
 }
 
-const Spacer: React.FC<{ index: number }> = ({ index }) => {
+function Spacer({ index }: { index: number }) {
   return Layout.get(layout => {
     const { grab, pull, push } = layout.resize(index);
     const { separator, row, gap } = layout;

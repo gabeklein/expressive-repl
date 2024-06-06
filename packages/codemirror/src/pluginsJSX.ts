@@ -1,33 +1,27 @@
-import { closeBrackets, closeBracketsKeymap } from '@codemirror/autocomplete';
-import { defaultKeymap, history, historyKeymap, indentWithTab } from '@codemirror/commands';
 import { cssLanguage } from '@codemirror/lang-css';
 import { javascript, jsxLanguage } from '@codemirror/lang-javascript';
-import {
-  getIndentation,
-  IndentContext,
-  indentOnInput,
-  indentString,
-  LanguageSupport,
-  syntaxHighlighting,
-} from '@codemirror/language';
-import { searchKeymap } from '@codemirror/search';
+import { getIndentation, IndentContext, indentString, LanguageSupport } from '@codemirror/language';
 import { EditorSelection, EditorState, Text, Transaction } from '@codemirror/state';
-import { drawSelection, EditorView, KeyBinding, keymap, lineNumbers, ViewUpdate } from '@codemirror/view';
+import { EditorView } from '@codemirror/view';
 import { parseMixed } from '@lezer/common';
-import { classHighlighter } from '@lezer/highlight';
 
-type KeyBindings = KeyBinding | readonly KeyBinding[];
+import { keyBind } from './plugins';
 
 /** JSX including syntax for CSS nested in <style> tags. */
-export function jsxMixed(){
+
+export const jsx = () => [
+  javascript({ jsx: true })
+]
+
+export function cssInJsx() {
   return new LanguageSupport(jsxLanguage.configure({
     wrap: parseMixed((ref, input) => {
-      if(ref.name != "JSXElement")
+      if (ref.name != "JSXElement")
         return null;
-    
+
       const { from, to } = ref.node.firstChild!;
 
-      if(input.read(from + 1, from + 6) != "style")
+      if (input.read(from + 1, from + 6) != "style")
         return null;
 
       return {
@@ -38,76 +32,10 @@ export function jsxMixed(){
         }]
       };
     }),
-  }))
+  }));
 }
 
-export { javascript };
-
-export const code = () => [
-  syntaxHighlighting(classHighlighter),
-  lineNumbers()
-]
-
-/** Set editor to read-only */
-export const readOnly = () => [
-  EditorView.editable.of(false)
-]
-
-/** Default editor extensions */
-export const editor = () => [
-  autoCloseTab(),
-  autoElementSplit(),
-  history(),
-  indentOnInput(),
-  closeBrackets(),
-  drawSelection(),
-  keyBind(
-    closeBracketsKeymap,
-    defaultKeymap,
-    searchKeymap,
-    historyKeymap,
-    indentWithTab
-  )
-]
-
-/** Register keymap helper */
-export function keyBind(...args: KeyBindings[]){
-  return keymap.of([].concat(...args as any[]));
-}
-
-/** Callback on specified keyboard event. */
-export function onKey<T extends string>(
-  key: T, action: (key: T) => boolean | void){
-
-  return keyBind({
-    key,
-    run(){
-      return action(key) !== false;
-    }
-  });
-}
-
-/** Callback on specified (Cmd / Control) key event. */
-export function command(
-  key: string, action: (key: string) => boolean | void){
-
-  return [
-    onKey(`Meta-${key}`, action),
-    onKey(`Ctrl-${key}`, action)
-  ]
-}
-
-/** Callback on document update. */
-export function onUpdate(callback: (update: ViewUpdate) => void){
-  return EditorView.updateListener.of((update) => {
-    if(update.docChanged)
-      callback(update);
-  })
-}
-
-/**
- * Input handler will auto-close a JSX tag when '>' is typed.
- */
+/** Input handler will auto-close a JSX tag when '>' is typed. */
 export function autoCloseTab() {
   return EditorView.inputHandler.of((view, from, to, inserted) => {
     const { doc } = view.state;
@@ -132,23 +60,21 @@ export function autoCloseTab() {
   });
 }
 
-type CommandTarget = {
+export type CommandTarget = {
   state: EditorState;
   dispatch: (transaction: Transaction) => void;
 }
 
-/**
- * Key command will line-split and indent, if cursor is between '>' and '<'.
- */
+/** Key command will line-split and indent, if cursor is between '>' and '<'. */
 export function autoElementSplit() {
   return keyBind({
     key: "Enter",
     run(target: CommandTarget) {
       const { state } = target;
 
-      const notBetweenTags = state.selection.ranges.find(range =>
+      const notBetweenTags = state.selection.ranges.find(range => (
         state.sliceDoc(range.from - 1, range.to + 1) !== "><"
-      );
+      ));
 
       if (notBetweenTags)
         return false;

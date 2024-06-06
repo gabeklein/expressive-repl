@@ -10,7 +10,6 @@ export const Layout = (props) => {
   } = Control.use(props);
 
   grid: {
-    forward: className;
     display: grid;
   }
 
@@ -31,14 +30,7 @@ export const Column = () => {
 
 export { Column as Col };
 
-const Handle = ({
-  grab,
-  pull,
-  push,
-  vertical,
-  width,
-}) => {
-  forward: className;
+const Handle = ({ grab, pull, push, vertical, width }) => {
   position: relative;
 
   bar: {
@@ -49,7 +41,7 @@ const Handle = ({
 
   if(":hover")
     bar: {
-      bg: 0x9cc3ff;
+      bg: $accentLight;
     }
 
   if(vertical){
@@ -73,16 +65,12 @@ const Handle = ({
   
   <this onMouseDown={grab}>
     <bar />
-    {pull && (
-      <Corner onMouseDown={pull} style={{ left: -width, top: 0 }} />
-    )}
-    {push && (
-      <Corner onMouseDown={push} style={{ right: -width, bottom: 0 }} />
-    )}
+    <Corner onMouseDown={pull} style={{ left: -width, top: 0 }} />
+    <Corner onMouseDown={push} style={{ right: -width, bottom: 0 }} />
   </this>
 }
 
-const Corner = () => {
+const Corner = (props) => {
   position: absolute;
   cursor: move;
   radius: round;
@@ -91,9 +79,11 @@ const Corner = () => {
   borderStyle: solid;
   zIndex: 10;
 
-  if(":hover"){
-    borderColor: 0x9cc3ff;
-  }
+  if(":hover")
+    borderColor: $accentLight;
+
+  if(!props.onMouseDown)
+    return null;
   
   <this />
 }

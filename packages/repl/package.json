@@ -1,0 +1,33 @@
+{
+  "name": "@expressive/repl",
+  "version": "0.2.5",
+  "private": true,
+  "module": "src/App.jsx",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@babel/standalone": "^7.23.2",
+    "@local/codemirror": "workspace:*",
+    "prettier": "^2.8.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "peerDependencies": {
+    "@expressive/babel-preset": ">=0.2.5",
+    "@expressive/react": ">=0.51.0"
+  },
+  "devDependencies": {
+    "@expressive/babel-preset": "^0.2.5",
+    "@expressive/react": "^0.51.0",
+    "@expressive/vite-plugin": "^0.2.5",
+    "@types/babel__standalone": "^7.1.7",
+    "@types/prettier": "^2.7.3",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@vitejs/plugin-react": "^4.1.1",
+    "vite": "^4.5.0",
+    "vite-tsconfig-paths": "^4.2.1"
+  }
+}

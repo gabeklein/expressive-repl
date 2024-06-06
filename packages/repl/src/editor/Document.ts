@@ -1,30 +1,30 @@
 import Model from '@expressive/react';
-import React from 'react';
 
-import { evaluate, hash, prettify, transform } from './transform';
+import { evaluate, PreviewComponent } from './evaluate';
+import { hash, transform } from './transform';
 
 const DEFAULT_CODE =
 `export const Hi = () => {
-  color: red;
   fontSize: 2.0;
 
-  <this>Hello World!</this>
+  <this>
+    Hello World!
+  </this>
 }`
 
 export class Document extends Model {
   input = "";
-  output_jsx = "";
-  output_css = "";
+  output = "";
+  error = "";
 
   key = 0;
-  Preview: React.FC | undefined;
-
-  stale = false;
-  error = "";
+  Preview?: PreviewComponent = undefined;
 
   constructor(){
     super(() => {
-      this.build(localStorage.getItem("REPL:file") || DEFAULT_CODE);
+      this.build(
+        localStorage.getItem("REPL:file") || DEFAULT_CODE
+      );
     });
   }
 
@@ -36,16 +36,22 @@ export class Document extends Model {
   build(from: string){
     try {
       const { jsx, css } = transform(from);
-      const pretty = prettify(jsx);
-      const Component = evaluate(jsx);
+      const component = evaluate(from);
 
       this.error = "";
       this.input = from;
       this.key = hash(from);
-      this.output_css = css;
-      this.output_jsx = pretty;
-      this.Preview = Component;
-      this.stale = false;
+      this.output = jsx;
+
+      if(css){
+        const format = css
+          .replace(/^|\t/g, "  ")
+          .replace(/\n/g, "\n  ");
+  
+        this.output += `\n\n<style>\n${format}\n</style>`;
+      }
+
+      this.Preview = component;
     }
     catch(error){
       console.error(error);
