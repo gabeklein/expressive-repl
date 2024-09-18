@@ -13,9 +13,10 @@ export * from './plugins';
 export * from './pluginsJSX';
 
 export abstract class Editor extends Model {
+  ref = ref(this.createEditor);
+
   view: EditorView = set();
   state: EditorState = set();
-  ref = ref(this.createEditor);
 
   text = "";
 

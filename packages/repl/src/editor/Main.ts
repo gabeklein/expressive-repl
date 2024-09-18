@@ -17,16 +17,12 @@ class Main extends Model {
   document = use(Document);
 
   editors = has(Editor, editor => {
-    const doc = this.document;
-
-    switch (editor.constructor.name) {
-      case "InputEditor":
-        doc.get(x => { editor.text = x.input })
-        break;
-      case "OutputJSX":
-        doc.get(x => { editor.text = x.output })
-        break;
-    }
+    const type = editor.constructor.name;
+    const key = type === "InputEditor" ? "input" : "output"
+  
+    this.document.get(doc => {
+      editor.text = doc[key];
+    })
   });
 
   fontSize = 15;
