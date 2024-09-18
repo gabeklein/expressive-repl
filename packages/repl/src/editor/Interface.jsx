@@ -4,6 +4,14 @@ import React, { Component, createElement, Fragment } from 'react';
 
 import { InputEditor, OutputJSX } from './Editors';
 
+const Container = ({ parent }) => {
+  border: 0xeee;
+  radius: 10;
+  overflow: hidden;
+
+  <this ref={parent} />
+}
+
 export const Interface = () => {
   <Row>
     <Input />
@@ -12,8 +20,8 @@ export const Interface = () => {
   </Row>
 }
 
-export const Input = InputEditor.as(p => <div ref={p.ref} />)
-export const Output = OutputJSX.as(p => <div ref={p.ref} />)
+const Input = InputEditor.as(Container);
+const Output = OutputJSX.as(Container);
 
 const Preview = () => {
   const {
