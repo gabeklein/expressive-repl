@@ -5,7 +5,7 @@ import React, { Component, createElement, Fragment } from 'react';
 import { InputEditor, OutputJSX } from './Editors';
 
 const Container = ({ parent }) => {
-  border: 0xeee;
+  border: 0x444, 2;
   radius: 10;
   overflow: hidden;
 
