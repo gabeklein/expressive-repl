@@ -21,11 +21,18 @@ export abstract class Editor extends Model {
   parent = ref(this.createEditor);
   readonly = false;
 
-  text = "";
+  get text() {
+    return this.model.getValue();
+  }
+
+  set text(value: string) {
+    if(this.text !== value)
+      this.model.setValue(value);
+  }
 
   abstract onEditor(editor: monaco.IStandaloneCodeEditor): void
 
-  createEditor(parent: HTMLDivElement) {
+  protected createEditor(parent: HTMLDivElement) {
     const model = this.model = monaco.createModel("", "javascript");
     const editor = this.editor = monaco.create(parent, {
       fontFamily: 'Menlo, Monaco, "Courier New", monospace',

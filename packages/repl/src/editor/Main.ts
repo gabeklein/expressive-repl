@@ -1,5 +1,4 @@
-import Model, { has, use } from '@expressive/react';
-import { Editor } from '@local/codemirror';
+import Model, { use } from '@expressive/react';
 
 import { Document } from './Document';
 
@@ -15,15 +14,6 @@ declare namespace Main {
 
 class Main extends Model {
   document = use(Document);
-
-  editors = has(Editor, editor => {
-    const type = editor.constructor.name;
-    const key = type === "InputEditor" ? "input" : "output"
-  
-    this.document.get(doc => {
-      editor.text = doc[key];
-    })
-  });
 
   fontSize = 15;
   layout: Main.Layout = "compact";
