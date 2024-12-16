@@ -35,24 +35,26 @@ export abstract class Editor extends Model {
   protected createEditor(parent: HTMLDivElement) {
     const model = this.model = monaco.createModel("", "javascript");
     const editor = this.editor = monaco.create(parent, {
+      model,
+      theme: "myDarkTheme",
+      language: "javascript",
       fontFamily: 'Menlo, Monaco, "Courier New", monospace',
       automaticLayout: true,
       readOnly: this.readonly,
       renderLineHighlight: "none",
       lineDecorationsWidth: 5,
       lineNumbersMinChars: 3,
-      padding: { top: 15 },
+      padding: {
+        top: 15
+      },
       minimap: {
         enabled: false
       },
-      theme: "myDarkTheme",
       scrollbar: {
         vertical: "hidden",
         verticalSliderSize: 0,
         verticalScrollbarSize: 0
-      },
-      language: "javascript",
-      model
+      }
     });
 
     this.onEditor(editor);
