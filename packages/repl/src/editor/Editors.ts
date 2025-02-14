@@ -6,10 +6,11 @@ import { Document } from './Document';
 const CtrlS = KeyMod.CtrlCmd | KeyCode.KeyS;
 
 export class InputEditor extends Editor {
-  doc = get(Document);
+  doc = get(Document, doc => {
+    this.text = doc.input;
+  });
 
   onEditor(editor: monaco.IStandaloneCodeEditor) {
-    this.doc.get(doc => { this.text = doc.input });
     editor.addCommand(CtrlS, () => {
       this.doc.build(editor.getValue());
       return null;
@@ -18,10 +19,9 @@ export class InputEditor extends Editor {
 }
 
 export class OutputJSX extends Editor {
-  doc = get(Document);
   readonly = true;
 
-  onEditor(editor: monaco.IStandaloneCodeEditor) {
-    this.doc.get(doc => { this.text = doc.output });
-  }
+  doc = get(Document, doc => {
+    this.text = doc.output;
+  });
 }

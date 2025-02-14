@@ -21,11 +21,9 @@ export class Document extends Model {
   Preview?: PreviewComponent = undefined;
 
   constructor(){
-    super(() => {
-      this.build(
-        localStorage.getItem("REPL:file") || DEFAULT_CODE
-      );
-    });
+    super(() => this.build(
+      localStorage.getItem("REPL:file") || DEFAULT_CODE
+    ));
   }
 
   onError = (error: Error) => {

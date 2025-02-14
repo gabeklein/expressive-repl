@@ -16,7 +16,7 @@ monaco.defineTheme('myDarkTheme', {
 });
 
 export abstract class Editor extends Model {
-  editor = set<monaco.IStandaloneCodeEditor>();
+  editor = set(undefined, this.onEditor);
   model = set<monaco.ITextModel>();
   parent = ref(this.createEditor);
   readonly = false;
@@ -30,7 +30,7 @@ export abstract class Editor extends Model {
       this.model.setValue(value);
   }
 
-  abstract onEditor(editor: monaco.IStandaloneCodeEditor): void
+  protected onEditor?(editor: monaco.IStandaloneCodeEditor): void
 
   protected createEditor(parent: HTMLDivElement) {
     const model = this.model = monaco.createModel("", "javascript");
@@ -56,8 +56,6 @@ export abstract class Editor extends Model {
         verticalScrollbarSize: 0
       }
     });
-
-    this.onEditor(editor);
 
     return () => {
       editor.dispose();
