@@ -2,12 +2,6 @@ import Model, { use } from '@expressive/react';
 
 import { Document } from './Document';
 
-declare global {
-  interface Window {
-    editor: Main;
-  }
-}
-
 declare namespace Main {
   type Layout = "compact" | "fill" | "code" | "view";
 }
