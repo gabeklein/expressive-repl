@@ -8,6 +8,7 @@
     "build": "vite build"
   },
   "dependencies": {
+    "@expressive/react": "^0.54.3",
     "@babel/standalone": "^7.23.2",
     "@local/codemirror": "workspace:*",
     "@local/monaco": "workspace:*",
@@ -15,13 +16,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
-  "peerDependencies": {
-    "@expressive/babel-preset": ">=0.2.5",
-    "@expressive/react": ">=0.54.3"
-  },
   "devDependencies": {
     "@expressive/babel-preset": "^0.2.5",
-    "@expressive/react": "^0.54.3",
     "@expressive/vite-plugin": "^0.2.5",
     "@types/babel__standalone": "^7.1.7",
     "@types/prettier": "^2.7.3",

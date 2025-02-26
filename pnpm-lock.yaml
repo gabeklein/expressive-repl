@@ -64,6 +64,9 @@ importers:
       '@babel/standalone':
         specifier: ^7.23.2
         version: 7.26.8
+      '@expressive/react':
+        specifier: ^0.54.3
+        version: 0.54.3(react@18.3.1)
       '@local/codemirror':
         specifier: workspace:*
         version: link:../codemirror
@@ -83,9 +86,6 @@ importers:
       '@expressive/babel-preset':
         specifier: ^0.2.5
         version: 0.2.7
-      '@expressive/react':
-        specifier: ^0.54.3
-        version: 0.54.3(react@18.3.1)
       '@expressive/vite-plugin':
         specifier: ^0.2.5
         version: 0.2.7(vite@5.4.14)
@@ -735,6 +735,7 @@ packages:
 
   /@expressive/mvc@0.54.1:
     resolution: {integrity: sha512-StY6MPy3IWnhw5zofIN8mrMkQ4/TVgUNjkogZuA9+kRC4sKqLG9xXp9LsCd4M0MEObOpxkU4HeIVb9xFuU6udw==}
+    dev: false
 
   /@expressive/react@0.54.3(react@18.3.1):
     resolution: {integrity: sha512-WU9QLIMNTdhXxw8FOJE7YQ2Juuxw/fKZ+RXUkw1mwuCx6HA0ILBppK2Z/5M87+7U2/8eeCT4h5qhRloOZGZFXw==}
@@ -746,6 +747,7 @@ packages:
     dependencies:
       '@expressive/mvc': 0.54.1
       react: 18.3.1
+    dev: false
 
   /@expressive/vite-plugin@0.2.7(vite@5.4.14):
     resolution: {integrity: sha512-oVl3LtfGj9VxrUzTOb5Qt7ebMkUdN+eoij6xa6tYsen5fwjjV8IY2QKiu43La22J4nL446rq07Cb+acaYQDpkA==}
@@ -1214,6 +1216,7 @@ packages:
     hasBin: true
     dependencies:
       js-tokens: 4.0.0
+    dev: false
 
   /lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
@@ -1277,6 +1280,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
+    dev: false
 
   /rollup@4.34.6:
     resolution: {integrity: sha512-wc2cBWqJgkU3Iz5oztRkQbfVkbxoz5EhnCGOrnJvnLnQ7O0WhQUYyv18qQI79O8L7DdHrrlJNeCHd4VGpnaXKQ==}
