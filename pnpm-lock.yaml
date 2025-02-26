@@ -53,8 +53,8 @@ importers:
   packages/monaco:
     dependencies:
       '@expressive/react':
-        specifier: ^0.53.3
-        version: 0.53.3(react@18.3.1)
+        specifier: ^0.54.3
+        version: 0.54.3(react@18.3.1)
       monaco-editor:
         specifier: ^0.52.2
         version: 0.52.2
@@ -84,8 +84,8 @@ importers:
         specifier: ^0.2.5
         version: 0.2.7
       '@expressive/react':
-        specifier: ^0.53.3
-        version: 0.53.3(react@18.3.1)
+        specifier: ^0.54.3
+        version: 0.54.3(react@18.3.1)
       '@expressive/vite-plugin':
         specifier: ^0.2.5
         version: 0.2.7(vite@5.4.14)
@@ -730,18 +730,18 @@ packages:
     resolution: {integrity: sha512-S2Z7wR3HIdaOdJc34lGtp4Akn7shlNeSgAic3rykZHxkhYXCwNpu4sAHNW+SeGvx2U6XgtIgaRLMtwihp+U9Rg==}
     dev: false
 
-  /@expressive/mvc@0.53.3:
-    resolution: {integrity: sha512-mu1jeoUKDVH8VuE986yT6a8ZmYNhF2ka+TrimhQ+K74BBGVYv4SmS0W/XwMMPZwDkG55JkxUXMTMojWYO84Rsg==}
+  /@expressive/mvc@0.54.1:
+    resolution: {integrity: sha512-StY6MPy3IWnhw5zofIN8mrMkQ4/TVgUNjkogZuA9+kRC4sKqLG9xXp9LsCd4M0MEObOpxkU4HeIVb9xFuU6udw==}
 
-  /@expressive/react@0.53.3(react@18.3.1):
-    resolution: {integrity: sha512-kvjveoTPYnVJw/OxjJpHYZ1xw+y1uPOxCoZgynmxTljpJyXbqpG2MiLOJesZkcZtPzPQCeMjVk4t2iz1wuoTwQ==}
+  /@expressive/react@0.54.3(react@18.3.1):
+    resolution: {integrity: sha512-WU9QLIMNTdhXxw8FOJE7YQ2Juuxw/fKZ+RXUkw1mwuCx6HA0ILBppK2Z/5M87+7U2/8eeCT4h5qhRloOZGZFXw==}
     peerDependencies:
       react: '>=16.8.0 <19.0.0'
     peerDependenciesMeta:
       react:
         optional: true
     dependencies:
-      '@expressive/mvc': 0.53.3
+      '@expressive/mvc': 0.54.1
       react: 18.3.1
 
   /@expressive/vite-plugin@0.2.7(vite@5.4.14):

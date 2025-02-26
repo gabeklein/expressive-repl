@@ -5,7 +5,7 @@
   "main": "./index.ts",
   "type": "module",
   "dependencies": {
-    "@expressive/react": "^0.53.3",
+    "@expressive/react": "^0.54.3",
     "monaco-editor": "^0.52.2"
   }
 }

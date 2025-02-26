@@ -17,11 +17,11 @@
   },
   "peerDependencies": {
     "@expressive/babel-preset": ">=0.2.5",
-    "@expressive/react": ">=0.53.3"
+    "@expressive/react": ">=0.54.3"
   },
   "devDependencies": {
     "@expressive/babel-preset": "^0.2.5",
-    "@expressive/react": "^0.53.3",
+    "@expressive/react": "^0.54.3",
     "@expressive/vite-plugin": "^0.2.5",
     "@types/babel__standalone": "^7.1.7",
     "@types/prettier": "^2.7.3",
